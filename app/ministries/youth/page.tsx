@@ -157,12 +157,12 @@ export default function YouthMinistryPage() {
         <div className="bg-primary-50 border-l-4 border-primary-600 rounded-r-xl p-6">
           <h3 className="text-xl font-bold text-neutral-900 mb-2">New to Youth Group?</h3>
           <p className="text-neutral-700 mb-4">
-            We'd love to meet you! Feel free to show up any Wednesday night, or contact us ahead
+            We&apos;d love to meet you! Feel free to show up any Wednesday night, or contact us ahead
             of time so we can welcome you personally. Everyone is welcome—no matter where you are
             in your faith journey.
           </p>
           <p className="text-sm text-neutral-600 italic">
-            "Don't let anyone look down on you because you are young, but set an example for the
+            "Don&apos;t let anyone look down on you because you are young, but set an example for the
             believers in speech, in conduct, in love, in faith and in purity." - 1 Timothy 4:12
           </p>
         </div>

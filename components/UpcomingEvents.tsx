@@ -48,7 +48,7 @@ const events: Event[] = [
   },
   {
     id: 4,
-    title: 'Women\'s Bible Study: Esther',
+    title: 'Women&apos;s Bible Study: Esther',
     date: '2024-02-15',
     time: '7:00 PM - 8:30 PM',
     location: 'Church Fellowship Hall',

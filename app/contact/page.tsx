@@ -59,7 +59,7 @@ export default function ContactPage() {
               Contact Us
             </h1>
             <p className="text-xl md:text-2xl text-primary-50 leading-relaxed">
-              We'd love to hear from you! Reach out with questions, prayer requests, or just to say hello.
+              We&apos;d love to hear from you! Reach out with questions, prayer requests, or just to say hello.
             </p>
           </div>
         </div>
@@ -287,7 +287,7 @@ export default function ContactPage() {
                       Message Sent Successfully!
                     </h3>
                     <p className="text-neutral-600">
-                      Thank you for reaching out. We'll get back to you as soon as possible.
+                      Thank you for reaching out. We&apos;ll get back to you as soon as possible.
                     </p>
                   </div>
                 )}

@@ -35,8 +35,8 @@ const menuItems: MenuItem[] = [
       { name: 'College/Young Adults', href: '/ministries/young-adults' },
       { name: 'Adults', href: '/ministries/adults' },
       { name: 'Seniors', href: '/ministries/seniors' },
-      { name: "Women's Ministry", href: '/ministries/women' },
-      { name: "Men's Ministry", href: '/ministries/men' },
+      { name: "Women&apos;s Ministry", href: '/ministries/women' },
+      { name: "Men&apos;s Ministry", href: '/ministries/men' },
     ],
   },
   {
