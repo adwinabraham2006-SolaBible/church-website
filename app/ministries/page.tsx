@@ -48,7 +48,7 @@ const ministries = [
     image: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?q=80&w=800',
   },
   {
-    title: "Women's Ministry",
+    title: "Women&apos;s Ministry",
     description: 'Connecting women to grow in faith and friendship',
     ageGroup: 'All Ages',
     icon: Users,
@@ -57,7 +57,7 @@ const ministries = [
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800',
   },
   {
-    title: "Men's Ministry",
+    title: "Men&apos;s Ministry",
     description: 'Equipping men to lead with integrity and purpose',
     ageGroup: 'All Ages',
     icon: Briefcase,
@@ -146,8 +146,8 @@ export default function MinistriesPage() {
               Get Involved
             </h2>
             <p className="text-lg text-neutral-600 mb-8 leading-relaxed">
-              Whether you're new to Faith Community or have been part of our family for years,
-              there's a place for you to connect and grow. Our ministries are designed to help you
+              Whether you&apos;re new to Faith Community or have been part of our family for years,
+              there&apos;s a place for you to connect and grow. Our ministries are designed to help you
               deepen your faith, build meaningful relationships, and use your gifts to serve others.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

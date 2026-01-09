@@ -40,7 +40,7 @@ const sermons: Sermon[] = [
     speaker: 'Pastor John Smith',
     scripture: 'John 1:14-18',
     series: 'The Gospel of John',
-    description: "Understanding the fullness of God's grace revealed in Jesus Christ.",
+    description: "Understanding the fullness of God&apos;s grace revealed in Jesus Christ.",
     thumbnailUrl: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?q=80&w=800',
   },
 ];

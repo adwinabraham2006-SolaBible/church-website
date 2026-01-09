@@ -3,13 +3,13 @@ import MinistryTemplate from '@/components/MinistryTemplate';
 export default function ChildrenMinistryPage() {
   return (
     <MinistryTemplate
-      title="Children's Ministry"
+      title="Children&apos;s Ministry"
       subtitle="Nurturing young hearts to love and follow Jesus"
-      description="Our Children's Ministry provides a safe, fun, and engaging environment where kids can learn about God's love through age-appropriate lessons, worship, crafts, and activities. We partner with parents to lay a strong spiritual foundation in the lives of children from birth through 5th grade."
+      description="Our Children&apos;s Ministry provides a safe, fun, and engaging environment where kids can learn about God&apos;s love through age-appropriate lessons, worship, crafts, and activities. We partner with parents to lay a strong spiritual foundation in the lives of children from birth through 5th grade."
       heroImage="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=2070"
       ageGroup="Birth - 5th Grade"
       meetingTime="Sundays during 9:00 AM & 11:00 AM services"
-      location="Children's Wing, Rooms 101-105"
+      location="Children&apos;s Wing, Rooms 101-105"
       contactPerson={{
         name: 'Sarah Mitchell',
         email: 'children@faithcommunity.org',
@@ -22,7 +22,7 @@ export default function ChildrenMinistryPage() {
       resources={[
         {
           title: 'Parent Handbook',
-          description: 'Information about our children\'s ministry policies and procedures',
+          description: 'Information about our children&apos;s ministry policies and procedures',
           downloadUrl: '#',
         },
         {
@@ -82,7 +82,7 @@ export default function ChildrenMinistryPage() {
             <p className="text-sm text-secondary-700 mb-3">3 - 5 years (Pre-K)</p>
             <p className="text-neutral-700">
               Bible stories, songs, and activities designed to introduce young children
-              to God's love in fun and engaging ways.
+              to God&apos;s love in fun and engaging ways.
             </p>
           </div>
 
@@ -90,7 +90,7 @@ export default function ChildrenMinistryPage() {
             <h3 className="text-xl font-bold text-accent-900 mb-2">Elementary</h3>
             <p className="text-sm text-accent-700 mb-3">Kindergarten - 2nd Grade</p>
             <p className="text-neutral-700">
-              Interactive lessons that help children understand God's Word and how to
+              Interactive lessons that help children understand God&apos;s Word and how to
               apply it to their daily lives.
             </p>
           </div>
