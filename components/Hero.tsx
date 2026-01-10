@@ -19,10 +19,10 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 container-custom text-center text-white">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 font-serif">
-          Welcome Home
+          Welcome
         </h1>
         <p className="text-xl md:text-2xl lg:text-3xl mb-8 md:mb-12 text-neutral-100 max-w-3xl mx-auto">
-          A community of faith, hope, and love in the heart of our city
+          A High View of God, A High View of Scripture
         </p>
 
         {/* Service Times */}
