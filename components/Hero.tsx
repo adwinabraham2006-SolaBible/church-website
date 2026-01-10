@@ -54,12 +54,12 @@ export default function Hero() {
             <div className="flex items-center justify-center text-neutral-700">
               <MapPin className="w-5 h-5 text-primary-600 mr-2 flex-shrink-0" />
               <Link
-                href="https://maps.google.com/?q=123+Faith+Avenue,+Cityville,+ST+12345"
+                href="https://maps.google.com/?q=219+King+Circle,+Temple,+TX+76501"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary-600 transition-colors text-lg"
               >
-                123 Faith Avenue, Cityville, ST 12345
+                219 King Circle, Temple, TX 76501
               </Link>
             </div>
           </div>

@@ -84,13 +84,13 @@ export default function Footer() {
               <div className="flex items-start">
                 <MapPin className="w-5 h-5 mr-2 text-primary-600 flex-shrink-0 mt-0.5" />
                 <Link
-                  href="https://maps.google.com/?q=123+Faith+Avenue,+Cityville,+ST+12345"
+                  href="https://maps.google.com/?q=219+King+Circle,+Temple,+TX+76501"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary-400 transition-colors"
                 >
-                  123 Faith Avenue<br />
-                  Cityville, ST 12345
+                  219 King Circle<br />
+                  Temple, TX 76501
                 </Link>
               </div>
               <div className="flex items-center">
