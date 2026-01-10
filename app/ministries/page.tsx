@@ -48,7 +48,7 @@ const ministries = [
     image: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?q=80&w=800',
   },
   {
-    title: "Women&apos;s Ministry",
+    title: "Women's Ministry",
     description: 'Connecting women to grow in faith and friendship',
     ageGroup: 'All Ages',
     icon: Users,
@@ -57,7 +57,7 @@ const ministries = [
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800',
   },
   {
-    title: "Men&apos;s Ministry",
+    title: "Men's Ministry",
     description: 'Equipping men to lead with integrity and purpose',
     ageGroup: 'All Ages',
     icon: Briefcase,
