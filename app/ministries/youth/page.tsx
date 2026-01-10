@@ -162,8 +162,8 @@ export default function YouthMinistryPage() {
             in your faith journey.
           </p>
           <p className="text-sm text-neutral-600 italic">
-            "Don&apos;t let anyone look down on you because you are young, but set an example for the
-            believers in speech, in conduct, in love, in faith and in purity." - 1 Timothy 4:12
+            &ldquo;Don&apos;t let anyone look down on you because you are young, but set an example for the
+            believers in speech, in conduct, in love, in faith and in purity.&rdquo; - 1 Timothy 4:12
           </p>
         </div>
       </div>
