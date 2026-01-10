@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Youtube } from 'lucide-react';
 
 export default function Footer() {
@@ -10,11 +11,15 @@ export default function Footer() {
           {/* Church Info */}
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold">FC</span>
-              </div>
+              <Image
+                src="/logo.png"
+                alt="Sola Bible Church Logo"
+                width={40}
+                height={40}
+                className="w-10 h-10"
+              />
               <div className="text-white font-bold text-lg">
-                Faith Community
+                Sola Bible Church
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-4">
@@ -147,7 +152,7 @@ export default function Footer() {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-neutral-400">
             <div className="mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} Faith Community Church. All rights reserved.
+              &copy; {new Date().getFullYear()} Sola Bible Church. All rights reserved.
             </div>
             <div className="flex space-x-6">
               <Link href="/privacy" className="hover:text-primary-400 transition-colors">

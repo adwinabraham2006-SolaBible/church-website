@@ -18,9 +18,9 @@ const merriweather = Merriweather({
 });
 
 export const metadata: Metadata = {
-  title: "Faith Community Church - Growing Together in Faith",
+  title: "Sola Bible Church - Growing Together in Faith",
   description: "A welcoming community of believers committed to knowing Christ and making Him known through worship, fellowship, and service.",
-  keywords: "church, faith, community, worship, bible study, ministries",
+  keywords: "church, faith, community, worship, bible study, ministries, sola bible church",
 };
 
 export default function RootLayout({

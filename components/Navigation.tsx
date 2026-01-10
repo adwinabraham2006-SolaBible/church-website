@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
 interface SubMenuItem {
@@ -75,11 +76,15 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-20">
           {/* Logo and Church Name */}
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">FC</span>
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Sola Bible Church Logo"
+              width={48}
+              height={48}
+              className="w-12 h-12"
+            />
             <div className="hidden sm:block">
-              <div className="text-xl font-bold text-neutral-900">Faith Community Church</div>
+              <div className="text-xl font-bold text-neutral-900">Sola Bible Church</div>
               <div className="text-xs text-neutral-600">Growing Together in Faith</div>
             </div>
           </Link>

@@ -146,7 +146,7 @@ export default function MinistriesPage() {
               Get Involved
             </h2>
             <p className="text-lg text-neutral-600 mb-8 leading-relaxed">
-              Whether you&apos;re new to Faith Community or have been part of our family for years,
+              Whether you&apos;re new to Sola Bible Church or have been part of our family for years,
               there&apos;s a place for you to connect and grow. Our ministries are designed to help you
               deepen your faith, build meaningful relationships, and use your gifts to serve others.
             </p>
