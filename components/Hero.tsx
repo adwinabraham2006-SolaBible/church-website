@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { MapPin, Clock, Play } from 'lucide-react';
+import { MapPin, Clock } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -65,25 +65,14 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        {/* CTA Button */}
+        <div className="flex justify-center">
           <Link
             href="/about/visit"
             className="btn-primary text-lg px-8 py-4"
           >
             Plan Your Visit
           </Link>
-
-          {/* Future Watch Live Button - Styled but not active */}
-          <button
-            className="flex items-center gap-2 bg-white/20 backdrop-blur-sm border-2 border-white text-white font-semibold py-4 px-8 rounded-lg transition-all duration-200 hover:bg-white/30 cursor-not-allowed opacity-75"
-            disabled
-            title="Live streaming coming soon"
-          >
-            <Play className="w-5 h-5" />
-            <span className="text-lg">Watch Live</span>
-            <span className="text-xs ml-2">(Coming Soon)</span>
-          </button>
         </div>
       </div>
     </section>
