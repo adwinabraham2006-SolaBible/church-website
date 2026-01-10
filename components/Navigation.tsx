@@ -85,7 +85,7 @@ export default function Navigation() {
             />
             <div className="hidden sm:block">
               <div className="text-xl font-bold text-neutral-900">Sola Bible Church</div>
-              <div className="text-xs text-neutral-600">Growing Together in Faith</div>
+              <div className="text-xs text-neutral-600">Committed to the Scripture. Devoted to Christ. Equipping the Saints. For the Glory of God</div>
             </div>
           </Link>
 
