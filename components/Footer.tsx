@@ -67,12 +67,8 @@ export default function Footer() {
             <div className="space-y-3 text-sm">
               <div>
                 <div className="text-white font-semibold">Sunday Morning</div>
-                <div>9:00 AM - Traditional Service</div>
-                <div>11:00 AM - Contemporary Service</div>
-              </div>
-              <div>
-                <div className="text-white font-semibold">Wednesday Evening</div>
-                <div>7:00 PM - Bible Study & Prayer</div>
+                <div>9:00 AM - Old Testament Survey</div>
+                <div>10:45 AM - Morning Service</div>
               </div>
             </div>
           </div>

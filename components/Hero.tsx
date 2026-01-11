@@ -31,21 +31,16 @@ export default function Hero() {
             <Clock className="w-6 h-6 text-primary-600 mr-2" />
             <h2 className="text-2xl md:text-3xl font-bold">Service Times</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-4 md:gap-6 text-center">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6 text-center max-w-2xl mx-auto">
             <div className="p-4 bg-primary-50 rounded-lg">
               <div className="text-lg font-semibold text-primary-900">Sunday Morning</div>
               <div className="text-3xl font-bold text-primary-600 my-2">9:00 AM</div>
-              <div className="text-sm text-neutral-600">Traditional Service</div>
+              <div className="text-sm text-neutral-600">Old Testament Survey</div>
             </div>
             <div className="p-4 bg-primary-50 rounded-lg">
               <div className="text-lg font-semibold text-primary-900">Sunday Morning</div>
-              <div className="text-3xl font-bold text-primary-600 my-2">11:00 AM</div>
-              <div className="text-sm text-neutral-600">Contemporary Service</div>
-            </div>
-            <div className="p-4 bg-primary-50 rounded-lg">
-              <div className="text-lg font-semibold text-primary-900">Wednesday Evening</div>
-              <div className="text-3xl font-bold text-primary-600 my-2">7:00 PM</div>
-              <div className="text-sm text-neutral-600">Bible Study & Prayer</div>
+              <div className="text-3xl font-bold text-primary-600 my-2">10:45 AM</div>
+              <div className="text-sm text-neutral-600">Morning Service</div>
             </div>
           </div>
 
