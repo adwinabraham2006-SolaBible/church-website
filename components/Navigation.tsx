@@ -23,8 +23,7 @@ const menuItems: MenuItem[] = [
     submenu: [
       { name: 'What We Believe', href: '/about/beliefs' },
       { name: 'Leadership & Staff', href: '/about/leadership' },
-      { name: 'Our History', href: '/about/history' },
-      { name: 'Visit Us', href: '/about/visit' },
+      { name: 'The Gospel', href: '/about/history' },
     ],
   },
   {
