@@ -33,9 +33,8 @@ const menuItems: MenuItem[] = [
     submenu: [
       { name: 'Children', href: '/ministries/children' },
       { name: 'Youth', href: '/ministries/youth' },
-      { name: 'College/Young Adults', href: '/ministries/young-adults' },
       { name: 'Adults', href: '/ministries/adults' },
-      { name: 'Seniors', href: '/ministries/seniors' },
+      { name: 'Legacy Fellowship', href: '/ministries/seniors' },
       { name: "Women's Ministry", href: '/ministries/women' },
       { name: "Men's Ministry", href: '/ministries/men' },
     ],
