@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Youtube } from 'lucide-react';
+import { MapPin, Mail, Clock, Facebook, Instagram, Youtube } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -89,15 +89,9 @@ export default function Footer() {
                 </Link>
               </div>
               <div className="flex items-center">
-                <Phone className="w-5 h-5 mr-2 text-primary-600 flex-shrink-0" />
-                <a href="tel:+15551234567" className="hover:text-primary-400 transition-colors">
-                  (555) 123-4567
-                </a>
-              </div>
-              <div className="flex items-center">
                 <Mail className="w-5 h-5 mr-2 text-primary-600 flex-shrink-0" />
-                <a href="mailto:info@faithcommunity.org" className="hover:text-primary-400 transition-colors">
-                  info@faithcommunity.org
+                <a href="mailto:solabiblechurch@gmail.com" className="hover:text-primary-400 transition-colors">
+                  solabiblechurch@gmail.com
                 </a>
               </div>
             </div>
@@ -107,7 +101,6 @@ export default function Footer() {
               <div className="text-white font-semibold text-sm mb-2">Office Hours</div>
               <div className="text-sm space-y-1">
                 <div>Tuesday - Friday: 9:00 AM - 5:00 PM</div>
-                <div>Saturday - Monday: Closed</div>
               </div>
             </div>
           </div>
