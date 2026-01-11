@@ -28,7 +28,7 @@ export default function Footer() {
             {/* Social Media */}
             <div className="flex space-x-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/profile.php?id=100090717940786"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-neutral-800 hover:bg-primary-600 p-2 rounded-full transition-colors"
@@ -46,7 +46,7 @@ export default function Footer() {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://youtube.com"
+                href="https://www.youtube.com/channel/UCqSrWEB-GDyQQzW8ed7lVlw"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-neutral-800 hover:bg-primary-600 p-2 rounded-full transition-colors"
