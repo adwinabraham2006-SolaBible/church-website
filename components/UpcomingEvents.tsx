@@ -77,9 +77,6 @@ export default function UpcomingEvents() {
           <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4 font-serif">
             Upcoming Events
           </h2>
-          <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-            Connect, grow, and serve together through our community events and programs
-          </p>
         </div>
 
         {/* Events Grid */}
