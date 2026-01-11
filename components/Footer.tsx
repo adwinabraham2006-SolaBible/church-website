@@ -37,7 +37,7 @@ export default function Footer() {
                 <Facebook className="w-5 h-5" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/solabiblechurch/?hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-neutral-800 hover:bg-primary-600 p-2 rounded-full transition-colors"
