@@ -23,8 +23,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-4">
-              A community of believers committed to knowing Christ and making Him known through
-              worship, fellowship, and service.
+              Ephesians 3:20-21- Now to Him who is able to do far more abundantly beyond all that we ask or understand, according to the power that works within us, to Him be the glory in the church and in Christ Jesus to all generations forever and ever. Amen.
             </p>
             {/* Social Media */}
             <div className="flex space-x-4">
