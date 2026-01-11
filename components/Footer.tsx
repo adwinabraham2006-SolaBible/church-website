@@ -118,7 +118,7 @@ export default function Footer() {
             <h3 className="text-white font-bold text-lg mb-4">Quick Links</h3>
             <nav className="space-y-2 text-sm">
               <Link href="/about/visit" className="block hover:text-primary-400 transition-colors">
-                Plan Your Visit
+                Distinctives
               </Link>
               <Link href="/about/beliefs" className="block hover:text-primary-400 transition-colors">
                 What We Believe

@@ -66,7 +66,7 @@ export default function Hero() {
             href="/about/visit"
             className="btn-primary text-lg px-8 py-4"
           >
-            Plan Your Visit
+            Distinctives
           </Link>
         </div>
       </div>

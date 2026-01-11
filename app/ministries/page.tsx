@@ -155,7 +155,7 @@ export default function MinistriesPage() {
                 Contact Us
               </Link>
               <Link href="/about/visit" className="btn-outline">
-                Plan Your Visit
+                Distinctives
               </Link>
             </div>
           </div>
