@@ -1,51 +1,69 @@
 import Link from 'next/link';
 import { Play, BookOpen, User, Calendar } from 'lucide-react';
+import { getLatestSermons } from '@/lib/sanity.queries';
+import { urlFor } from '@/lib/sanity.image';
+import type { Sermon } from '@/types/sanity';
 
-interface Sermon {
-  id: number;
-  title: string;
-  date: string;
-  speaker: string;
-  scripture: string;
-  series: string;
-  description: string;
-  thumbnailUrl: string;
-}
-
-const sermons: Sermon[] = [
+// Fallback data for when Sanity has no content yet
+const fallbackSermons = [
   {
-    id: 1,
+    _id: '1',
     title: 'Walking in Faith Through Uncertainty',
+    slug: { current: 'walking-in-faith' },
     date: '2024-01-14',
     speaker: 'Pastor John Smith',
     scripture: 'Hebrews 11:1-6',
     series: 'Faith That Moves Mountains',
     description: 'Discovering how to trust God when we cannot see the path ahead.',
+    thumbnail: null,
     thumbnailUrl: 'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=800',
   },
   {
-    id: 2,
+    _id: '2',
     title: 'The Power of Community',
+    slug: { current: 'power-of-community' },
     date: '2024-01-07',
     speaker: 'Pastor Sarah Johnson',
     scripture: 'Acts 2:42-47',
     series: 'One Another',
     description: 'How the early church modeled authentic Christian community.',
+    thumbnail: null,
     thumbnailUrl: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=800',
   },
   {
-    id: 3,
+    _id: '3',
     title: 'Grace Upon Grace',
+    slug: { current: 'grace-upon-grace' },
     date: '2023-12-31',
     speaker: 'Pastor John Smith',
     scripture: 'John 1:14-18',
     series: 'The Gospel of John',
-    description: "Understanding the fullness of God&apos;s grace revealed in Jesus Christ.",
+    description: "Understanding the fullness of God's grace revealed in Jesus Christ.",
+    thumbnail: null,
     thumbnailUrl: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?q=80&w=800',
   },
 ];
 
-export default function LatestSermons() {
+function getImageUrl(sermon: Sermon | typeof fallbackSermons[0]): string {
+  if ('thumbnailUrl' in sermon && sermon.thumbnailUrl) {
+    return sermon.thumbnailUrl;
+  }
+  if (sermon.thumbnail) {
+    return urlFor(sermon.thumbnail).width(800).height(600).url();
+  }
+  return 'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=800';
+}
+
+export default async function LatestSermons() {
+  let sermons: (Sermon | typeof fallbackSermons[0])[];
+
+  try {
+    const sanitySermons = await getLatestSermons(3);
+    sermons = sanitySermons.length > 0 ? sanitySermons : fallbackSermons;
+  } catch {
+    sermons = fallbackSermons;
+  }
+
   return (
     <section className="section-padding bg-white">
       <div className="container-custom">
@@ -60,18 +78,18 @@ export default function LatestSermons() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {sermons.map((sermon) => (
             <div
-              key={sermon.id}
+              key={sermon._id}
               className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group"
             >
               {/* Thumbnail */}
               <div className="relative h-48 overflow-hidden bg-neutral-200">
                 <div
                   className="absolute inset-0 bg-cover bg-center transform group-hover:scale-110 transition-transform duration-500"
-                  style={{ backgroundImage: `url('${sermon.thumbnailUrl}')` }}
+                  style={{ backgroundImage: `url('${getImageUrl(sermon)}')` }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 to-transparent"></div>
                 </div>
-                {/* Placeholder Play Button - For Future Media Player */}
+                {/* Play Button */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button
                     className="bg-primary-600 hover:bg-primary-700 text-white rounded-full p-4 shadow-lg transform hover:scale-110 transition-transform cursor-not-allowed"
@@ -119,9 +137,8 @@ export default function LatestSermons() {
                   {sermon.description}
                 </p>
 
-                {/* Future: This will link to sermon detail page with media player */}
                 <Link
-                  href={`/resources/sermons/${sermon.id}`}
+                  href={`/resources/sermons/${sermon.slug.current}`}
                   className="text-primary-600 hover:text-primary-700 font-semibold text-sm flex items-center group/link"
                 >
                   View Details

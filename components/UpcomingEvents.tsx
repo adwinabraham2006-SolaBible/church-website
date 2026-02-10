@@ -1,24 +1,12 @@
-'use client';
+import { getUpcomingEvents } from '@/lib/sanity.queries';
+import UpcomingEventsClient from './UpcomingEventsClient';
 
-import { useState } from 'react';
-import { Calendar, MapPin, Clock } from 'lucide-react';
-import EventRegistrationModal from './EventRegistrationModal';
-
-interface Event {
-  id: number;
-  title: string;
-  date: string;
-  time: string;
-  location: string;
-  description: string;
-  imageUrl: string;
-  category: string;
-}
-
-const events: Event[] = [
+// Fallback data for when Sanity has no content yet
+const fallbackEvents = [
   {
-    id: 1,
+    _id: '1',
     title: 'Community Outreach Day',
+    slug: { current: 'community-outreach-day' },
     date: '2024-02-10',
     time: '9:00 AM - 3:00 PM',
     location: 'City Community Center',
@@ -27,8 +15,9 @@ const events: Event[] = [
     category: 'Outreach',
   },
   {
-    id: 2,
+    _id: '2',
     title: 'Marriage Enrichment Weekend',
+    slug: { current: 'marriage-enrichment-weekend' },
     date: '2024-02-17',
     time: 'Friday 7:00 PM - Sunday 12:00 PM',
     location: 'Mountain Retreat Center',
@@ -37,8 +26,9 @@ const events: Event[] = [
     category: 'Marriage',
   },
   {
-    id: 3,
+    _id: '3',
     title: 'Youth Winter Camp',
+    slug: { current: 'youth-winter-camp' },
     date: '2024-02-23',
     time: 'Friday 5:00 PM - Sunday 2:00 PM',
     location: 'Camp Pine Ridge',
@@ -47,8 +37,9 @@ const events: Event[] = [
     category: 'Youth',
   },
   {
-    id: 4,
-    title: 'Women&apos;s Bible Study: Esther',
+    _id: '4',
+    title: "Women's Bible Study: Esther",
+    slug: { current: 'womens-bible-study-esther' },
     date: '2024-02-15',
     time: '7:00 PM - 8:30 PM',
     location: 'Church Fellowship Hall',
@@ -58,116 +49,15 @@ const events: Event[] = [
   },
 ];
 
-export default function UpcomingEvents() {
-  const [selectedEvent, setSelectedEvent] = useState<{ id: number; title: string } | null>(null);
+export default async function UpcomingEvents() {
+  let events;
 
-  const handleRegister = (eventId: number, eventTitle: string) => {
-    setSelectedEvent({ id: eventId, title: eventTitle });
-  };
+  try {
+    const sanityEvents = await getUpcomingEvents(4);
+    events = sanityEvents.length > 0 ? sanityEvents : fallbackEvents;
+  } catch {
+    events = fallbackEvents;
+  }
 
-  const closeModal = () => {
-    setSelectedEvent(null);
-  };
-
-  return (
-    <section className="section-padding bg-neutral-100">
-      <div className="container-custom">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4 font-serif">
-            Upcoming Events
-          </h2>
-        </div>
-
-        {/* Events Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {events.map((event) => (
-            <div
-              key={event.id}
-              className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
-            >
-              {/* Event Image */}
-              <div className="relative h-56 overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transform hover:scale-105 transition-transform duration-500"
-                  style={{ backgroundImage: `url('${event.imageUrl}')` }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 to-transparent"></div>
-                </div>
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="bg-primary-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                    {event.category}
-                  </span>
-                </div>
-              </div>
-
-              {/* Event Details */}
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-neutral-900 mb-3">
-                  {event.title}
-                </h3>
-
-                {/* Meta Information */}
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-start text-neutral-600">
-                    <Calendar className="w-5 h-5 mr-3 text-primary-600 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <div className="font-semibold">
-                        {new Date(event.date).toLocaleDateString('en-US', {
-                          weekday: 'long',
-                          month: 'long',
-                          day: 'numeric',
-                          year: 'numeric',
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-start text-neutral-600">
-                    <Clock className="w-5 h-5 mr-3 text-primary-600 flex-shrink-0 mt-0.5" />
-                    <span>{event.time}</span>
-                  </div>
-                  <div className="flex items-start text-neutral-600">
-                    <MapPin className="w-5 h-5 mr-3 text-primary-600 flex-shrink-0 mt-0.5" />
-                    <span>{event.location}</span>
-                  </div>
-                </div>
-
-                <p className="text-neutral-600 mb-6 leading-relaxed">
-                  {event.description}
-                </p>
-
-                <button
-                  onClick={() => handleRegister(event.id, event.title)}
-                  className="w-full btn-primary"
-                >
-                  Register Now
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* View All Events Link */}
-        <div className="text-center">
-          <a
-            href="/events"
-            className="btn-outline inline-block"
-          >
-            View Full Calendar
-          </a>
-        </div>
-      </div>
-
-      {/* Event Registration Modal */}
-      {selectedEvent && (
-        <EventRegistrationModal
-          isOpen={!!selectedEvent}
-          onClose={closeModal}
-          eventTitle={selectedEvent.title}
-          eventId={selectedEvent.id}
-        />
-      )}
-    </section>
-  );
+  return <UpcomingEventsClient events={events} />;
 }
