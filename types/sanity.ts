@@ -1,4 +1,11 @@
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+// Sanity image type
+interface SanityImage {
+  _type: 'image';
+  asset: {
+    _ref: string;
+    _type: 'reference';
+  };
+}
 
 export interface Sermon {
   _id: string;
@@ -10,7 +17,7 @@ export interface Sermon {
   speaker: string;
   youtubeUrl?: string;
   sermonSlidesUrl?: string;
-  thumbnail: SanityImageSource;
+  thumbnail: SanityImage;
   scripture: string;
   series: string;
   description: string;
@@ -26,6 +33,6 @@ export interface Event {
   time: string;
   location: string;
   description: string;
-  featuredImage: SanityImageSource;
+  featuredImage: SanityImage;
   category: string;
 }
