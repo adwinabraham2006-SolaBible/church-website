@@ -21,7 +21,7 @@ export default function ServiceTimes() {
             </div>
             <div className="p-4 bg-primary-50 rounded-lg">
               <div className="text-lg font-semibold text-primary-900">Sunday Morning</div>
-              <div className="text-3xl font-bold text-primary-600 my-2">10:45 AM</div>
+              <div className="text-3xl font-bold text-primary-600 my-2">10:30 AM</div>
               <div className="text-sm text-neutral-600">Morning Service</div>
             </div>
           </div>
