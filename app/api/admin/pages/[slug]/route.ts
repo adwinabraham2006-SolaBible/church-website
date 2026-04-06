@@ -35,15 +35,18 @@ export async function PUT(
   const { slug } = await params;
   const body = await request.json();
 
+  // Use upsert to insert or update
   const { data, error } = await supabaseAdmin
     .from('pages')
-    .update({
+    .upsert({
+      slug,
       title: body.title,
       content: body.content,
       image_url: body.image_url,
       updated_at: new Date().toISOString(),
+    }, {
+      onConflict: 'slug',
     })
-    .eq('slug', slug)
     .select()
     .single();
 
