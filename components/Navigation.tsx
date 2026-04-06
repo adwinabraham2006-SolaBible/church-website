@@ -23,7 +23,7 @@ const menuItems: MenuItem[] = [
     submenu: [
       { name: 'What We Believe', href: '/about/beliefs' },
       { name: 'Leadership & Staff', href: '/about/leadership' },
-      { name: 'The Gospel', href: '/about/history' },
+      { name: 'The Gospel', href: '/about/gospel' },
     ],
   },
   {
@@ -118,7 +118,7 @@ export default function Navigation() {
                 ) : (
                   <Link
                     href={item.href}
-                    className="px-4 py-2 text-neutral-700 hover:text-primary-600 font-medium transition-colors"
+                    className="flex items-center px-4 py-2 text-neutral-700 hover:text-primary-600 font-medium transition-colors"
                   >
                     {item.name}
                   </Link>

@@ -1,63 +1,46 @@
-import { getUpcomingEvents } from '@/lib/sanity.queries';
+import { supabase } from '@/lib/supabase';
+import type { Event } from '@/lib/types';
 import UpcomingEventsClient from './UpcomingEventsClient';
 
-// Fallback data for when Sanity has no content yet
-const fallbackEvents = [
-  {
-    _id: '1',
-    title: 'Community Outreach Day',
-    slug: { current: 'community-outreach-day' },
-    date: '2024-02-10',
-    time: '9:00 AM - 3:00 PM',
-    location: 'City Community Center',
-    description: 'Join us as we serve our community through practical acts of love and service. Activities include food distribution, home repairs, and community cleanup.',
-    imageUrl: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=800',
-    category: 'Outreach',
-  },
-  {
-    _id: '2',
-    title: 'Marriage Enrichment Weekend',
-    slug: { current: 'marriage-enrichment-weekend' },
-    date: '2024-02-17',
-    time: 'Friday 7:00 PM - Sunday 12:00 PM',
-    location: 'Mountain Retreat Center',
-    description: 'A transformative weekend designed to strengthen marriages through biblical teaching, practical workshops, and quality time together.',
-    imageUrl: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=800',
-    category: 'Marriage',
-  },
-  {
-    _id: '3',
-    title: 'Youth Winter Camp',
-    slug: { current: 'youth-winter-camp' },
-    date: '2024-02-23',
-    time: 'Friday 5:00 PM - Sunday 2:00 PM',
-    location: 'Camp Pine Ridge',
-    description: 'An unforgettable weekend of worship, teaching, games, and fellowship for students grades 6-12. Theme: "Unshakeable Faith"',
-    imageUrl: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=800',
-    category: 'Youth',
-  },
-  {
-    _id: '4',
-    title: "Women's Bible Study: Esther",
-    slug: { current: 'womens-bible-study-esther' },
-    date: '2024-02-15',
-    time: '7:00 PM - 8:30 PM',
-    location: 'Church Fellowship Hall',
-    description: 'Join us for an 8-week study on the book of Esther. Discover how God works through ordinary people in extraordinary circumstances.',
-    imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800',
-    category: 'Bible Study',
-  },
-];
-
 export default async function UpcomingEvents() {
-  let events;
+  const today = new Date().toISOString().split('T')[0];
 
-  try {
-    const sanityEvents = await getUpcomingEvents(4);
-    events = sanityEvents.length > 0 ? sanityEvents : fallbackEvents;
-  } catch {
-    events = fallbackEvents;
+  const { data: events } = await supabase
+    .from('events')
+    .select('*')
+    .gte('date', today)
+    .order('date', { ascending: true })
+    .limit(4);
+
+  // Transform events to match the client component's expected format
+  const transformedEvents = (events || []).map((event: Event) => ({
+    _id: event.id,
+    title: event.title,
+    slug: { current: event.id },
+    date: event.date,
+    time: event.time,
+    location: event.location,
+    description: event.description,
+    imageUrl: event.image_url || 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=800',
+    category: 'Event',
+  }));
+
+  if (transformedEvents.length === 0) {
+    return (
+      <section className="section-padding bg-neutral-100">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4 font-serif">
+              Upcoming Events
+            </h2>
+          </div>
+          <div className="text-center text-neutral-600 py-12">
+            <p>No upcoming events at this time. Check back soon!</p>
+          </div>
+        </div>
+      </section>
+    );
   }
 
-  return <UpcomingEventsClient events={events} />;
+  return <UpcomingEventsClient events={transformedEvents} />;
 }

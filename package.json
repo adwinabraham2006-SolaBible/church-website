@@ -11,6 +11,12 @@
   "dependencies": {
     "@sanity/client": "^7.14.1",
     "@sanity/image-url": "^2.0.3",
+    "@supabase/supabase-js": "^2.101.1",
+    "@tiptap/extension-image": "^3.22.1",
+    "@tiptap/extension-link": "^3.22.1",
+    "@tiptap/pm": "^3.22.1",
+    "@tiptap/react": "^3.22.1",
+    "@tiptap/starter-kit": "^3.22.1",
     "lucide-react": "^0.460.0",
     "next": "14.2.18",
     "next-sanity": "^9.12.3",
