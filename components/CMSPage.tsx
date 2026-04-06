@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from 'next/cache';
 import { supabase } from '@/lib/supabase';
 import type { Page } from '@/lib/types';
 
@@ -14,6 +15,9 @@ export default async function CMSPage({
   fallbackContent,
   heroImage,
 }: CMSPageProps) {
+  // Prevent caching - always fetch fresh data
+  noStore();
+
   const { data: page } = await supabase
     .from('pages')
     .select('*')
