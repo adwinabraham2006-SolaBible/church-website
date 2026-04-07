@@ -1,5 +1,5 @@
 import { unstable_noStore as noStore } from 'next/cache';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin, supabase } from '@/lib/supabase';
 import type { Page } from '@/lib/types';
 
 interface CMSPageProps {
@@ -18,11 +18,19 @@ export default async function CMSPage({
   // Prevent caching - always fetch fresh data
   noStore();
 
-  const { data: page } = await supabase
+  // Use admin client on server if available, otherwise fall back to anon client
+  const client = supabaseAdmin || supabase;
+
+  const { data: page, error } = await client
     .from('pages')
     .select('*')
     .eq('slug', slug)
     .single();
+
+  // Log errors in development
+  if (error && process.env.NODE_ENV === 'development') {
+    console.error('CMSPage fetch error:', error);
+  }
 
   const pageData = page as Page | null;
   const title = pageData?.title || fallbackTitle;
