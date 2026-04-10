@@ -7,6 +7,7 @@ export default function NewSeriesPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,12 +29,13 @@ export default function NewSeriesPage() {
     });
 
     if (response.ok) {
-      router.push('/admin/series');
+      setSuccess(true);
+      setTimeout(() => router.push('/admin/series'), 1500);
     } else {
       const result = await response.json();
       setError(result.error || 'Failed to create series');
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -90,6 +92,12 @@ export default function NewSeriesPage() {
           {error && (
             <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-green-50 text-green-700 px-4 py-3 rounded-lg text-sm">
+              Series created successfully! Redirecting...
             </div>
           )}
 

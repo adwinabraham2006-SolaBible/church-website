@@ -13,6 +13,7 @@ export default function EditAnnouncementPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
@@ -75,12 +76,13 @@ export default function EditAnnouncementPage() {
     });
 
     if (response.ok) {
-      router.push('/admin/announcements');
+      setSuccess(true);
+      setTimeout(() => router.push('/admin/announcements'), 1500);
     } else {
       const result = await response.json();
       setError(result.error || 'Failed to update announcement');
+      setSaving(false);
     }
-    setSaving(false);
   };
 
   if (loading) {
@@ -167,6 +169,12 @@ export default function EditAnnouncementPage() {
           {error && (
             <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-green-50 text-green-700 px-4 py-3 rounded-lg text-sm">
+              Announcement saved successfully! Redirecting...
             </div>
           )}
 

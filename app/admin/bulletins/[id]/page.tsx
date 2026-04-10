@@ -13,6 +13,7 @@ export default function EditBulletinPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
@@ -73,12 +74,13 @@ export default function EditBulletinPage() {
     });
 
     if (response.ok) {
-      router.push('/admin/bulletins');
+      setSuccess(true);
+      setTimeout(() => router.push('/admin/bulletins'), 1500);
     } else {
       const result = await response.json();
       setError(result.error || 'Failed to update bulletin');
+      setSaving(false);
     }
-    setSaving(false);
   };
 
   if (loading) {
@@ -144,6 +146,12 @@ export default function EditBulletinPage() {
           {error && (
             <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-green-50 text-green-700 px-4 py-3 rounded-lg text-sm">
+              Bulletin saved successfully! Redirecting...
             </div>
           )}
 

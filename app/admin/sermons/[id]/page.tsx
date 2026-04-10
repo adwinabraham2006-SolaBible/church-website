@@ -15,6 +15,7 @@ export default function EditSermonPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [uploading, setUploading] = useState<string | null>(null);
   const [fileUrls, setFileUrls] = useState<{
     slides_url?: string;
@@ -97,12 +98,13 @@ export default function EditSermonPage() {
     });
 
     if (response.ok) {
-      router.push('/admin/sermons');
+      setSuccess(true);
+      setTimeout(() => router.push('/admin/sermons'), 1500);
     } else {
       const result = await response.json();
       setError(result.error || 'Failed to update sermon');
+      setSaving(false);
     }
-    setSaving(false);
   };
 
   if (loading) {
@@ -278,6 +280,12 @@ export default function EditSermonPage() {
           {error && (
             <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-green-50 text-green-700 px-4 py-3 rounded-lg text-sm">
+              Sermon saved successfully! Redirecting...
             </div>
           )}
 

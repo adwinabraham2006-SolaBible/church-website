@@ -7,6 +7,7 @@ export default function NewStaffPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
 
@@ -55,12 +56,13 @@ export default function NewStaffPage() {
     });
 
     if (response.ok) {
-      router.push('/admin/staff');
+      setSuccess(true);
+      setTimeout(() => router.push('/admin/staff'), 1500);
     } else {
       const result = await response.json();
       setError(result.error || 'Failed to create staff member');
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -138,6 +140,12 @@ export default function NewStaffPage() {
           {error && (
             <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-green-50 text-green-700 px-4 py-3 rounded-lg text-sm">
+              Staff member created successfully! Redirecting...
             </div>
           )}
 

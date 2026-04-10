@@ -7,6 +7,7 @@ export default function NewBookPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
@@ -57,12 +58,13 @@ export default function NewBookPage() {
     });
 
     if (response.ok) {
-      router.push('/admin/books');
+      setSuccess(true);
+      setTimeout(() => router.push('/admin/books'), 1500);
     } else {
       const result = await response.json();
       setError(result.error || 'Failed to create book');
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -165,6 +167,12 @@ export default function NewBookPage() {
           {error && (
             <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-green-50 text-green-700 px-4 py-3 rounded-lg text-sm">
+              Book created successfully! Redirecting...
             </div>
           )}
 
