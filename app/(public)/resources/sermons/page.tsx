@@ -1,14 +1,20 @@
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { unstable_noStore as noStore } from 'next/cache';
+import { supabaseAdmin, supabase } from '@/lib/supabase';
 import type { Sermon, SermonSeries } from '@/lib/types';
 import { Play, Video, FileText, BookOpen, User, Calendar } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
 
 interface SermonWithSeries extends Sermon {
   sermon_series?: SermonSeries | null;
 }
 
 export default async function SermonsPage() {
-  const { data: sermons } = await supabase
+  noStore();
+
+  const client = supabaseAdmin || supabase;
+  const { data: sermons } = await client
     .from('sermons')
     .select('*, sermon_series(*)')
     .order('date', { ascending: false });

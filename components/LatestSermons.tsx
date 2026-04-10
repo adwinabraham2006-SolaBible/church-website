@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Play, BookOpen, User, Calendar } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { unstable_noStore as noStore } from 'next/cache';
+import { supabaseAdmin, supabase } from '@/lib/supabase';
 import type { Sermon, SermonSeries } from '@/lib/types';
 
 interface SermonWithSeries extends Sermon {
@@ -8,7 +9,10 @@ interface SermonWithSeries extends Sermon {
 }
 
 export default async function LatestSermons() {
-  const { data: sermons } = await supabase
+  noStore();
+
+  const client = supabaseAdmin || supabase;
+  const { data: sermons } = await client
     .from('sermons')
     .select('*, sermon_series(*)')
     .order('date', { ascending: false })

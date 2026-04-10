@@ -1,9 +1,15 @@
-import { supabase } from '@/lib/supabase';
+import { unstable_noStore as noStore } from 'next/cache';
+import { supabaseAdmin, supabase } from '@/lib/supabase';
 import type { Bulletin } from '@/lib/types';
 import { FileText, Download, Calendar, Archive } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default async function BulletinPage() {
-  const { data: bulletins } = await supabase
+  noStore();
+
+  const client = supabaseAdmin || supabase;
+  const { data: bulletins } = await client
     .from('bulletins')
     .select('*')
     .eq('published', true)

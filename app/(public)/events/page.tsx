@@ -1,11 +1,17 @@
-import { supabase } from '@/lib/supabase';
+import { unstable_noStore as noStore } from 'next/cache';
+import { supabaseAdmin, supabase } from '@/lib/supabase';
 import type { Event } from '@/lib/types';
 import EventsPageClient from '@/components/EventsPageClient';
 
-export default async function EventsPage() {
-  const today = new Date().toISOString().split('T')[0];
+export const dynamic = 'force-dynamic';
 
-  const { data: events } = await supabase
+export default async function EventsPage() {
+  noStore();
+
+  const today = new Date().toISOString().split('T')[0];
+  const client = supabaseAdmin || supabase;
+
+  const { data: events } = await client
     .from('events')
     .select('*')
     .gte('date', today)

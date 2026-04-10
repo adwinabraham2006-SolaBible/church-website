@@ -1,11 +1,15 @@
-import { supabase } from '@/lib/supabase';
+import { unstable_noStore as noStore } from 'next/cache';
+import { supabaseAdmin, supabase } from '@/lib/supabase';
 import type { Event } from '@/lib/types';
 import UpcomingEventsClient from './UpcomingEventsClient';
 
 export default async function UpcomingEvents() {
-  const today = new Date().toISOString().split('T')[0];
+  noStore();
 
-  const { data: events } = await supabase
+  const today = new Date().toISOString().split('T')[0];
+  const client = supabaseAdmin || supabase;
+
+  const { data: events } = await client
     .from('events')
     .select('*')
     .gte('date', today)

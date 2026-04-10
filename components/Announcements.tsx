@@ -1,9 +1,13 @@
-import { supabase } from '@/lib/supabase';
+import { unstable_noStore as noStore } from 'next/cache';
+import { supabaseAdmin, supabase } from '@/lib/supabase';
 import type { Announcement } from '@/lib/types';
 import { Megaphone, Calendar } from 'lucide-react';
 
 export default async function Announcements() {
-  const { data: announcements } = await supabase
+  noStore();
+
+  const client = supabaseAdmin || supabase;
+  const { data: announcements } = await client
     .from('announcements')
     .select('*')
     .eq('published', true)

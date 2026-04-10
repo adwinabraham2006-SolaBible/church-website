@@ -1,8 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
+import { unstable_noStore as noStore } from 'next/cache';
+import { supabaseAdmin, supabase } from '@/lib/supabase';
 import type { Sermon, SermonSeries } from '@/lib/types';
 import { Play, Video, FileText, BookOpen, User, Calendar, ArrowLeft } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
 
 interface SermonWithSeries extends Sermon {
   sermon_series?: SermonSeries | null;
@@ -13,7 +16,10 @@ interface Props {
 }
 
 export default async function SermonDetailPage({ params }: Props) {
-  const { data: sermon } = await supabase
+  noStore();
+
+  const client = supabaseAdmin || supabase;
+  const { data: sermon } = await client
     .from('sermons')
     .select('*, sermon_series(*)')
     .eq('id', params.id)
