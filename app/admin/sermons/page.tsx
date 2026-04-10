@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
 import type { Sermon, SermonSeries } from '@/lib/types';
 
 type SermonWithSeries = Sermon & { sermon_series: SermonSeries | null };
@@ -13,15 +12,12 @@ export default function SermonsListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchSermons = async () => {
-    const { data, error } = await supabase
-      .from('sermons')
-      .select('*, sermon_series(*)')
-      .order('date', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching sermons:', error);
-    } else {
+    const response = await fetch('/api/admin/sermons');
+    if (response.ok) {
+      const data = await response.json();
       setSermons(data || []);
+    } else {
+      console.error('Error fetching sermons');
     }
     setLoading(false);
   };

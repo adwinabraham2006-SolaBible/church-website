@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
 import type { Announcement } from '@/lib/types';
 
 export default function AnnouncementsListPage() {
@@ -11,15 +10,12 @@ export default function AnnouncementsListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchAnnouncements = async () => {
-    const { data, error } = await supabase
-      .from('announcements')
-      .select('*')
-      .order('date', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching announcements:', error);
-    } else {
+    const response = await fetch('/api/admin/announcements');
+    if (response.ok) {
+      const data = await response.json();
       setAnnouncements(data || []);
+    } else {
+      console.error('Error fetching announcements');
     }
     setLoading(false);
   };

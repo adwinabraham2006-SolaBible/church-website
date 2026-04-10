@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
 import type { Event } from '@/lib/types';
 
 export default function EventsListPage() {
@@ -11,15 +10,12 @@ export default function EventsListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchEvents = async () => {
-    const { data, error } = await supabase
-      .from('events')
-      .select('*')
-      .order('date', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching events:', error);
-    } else {
+    const response = await fetch('/api/admin/events');
+    if (response.ok) {
+      const data = await response.json();
       setEvents(data || []);
+    } else {
+      console.error('Error fetching events');
     }
     setLoading(false);
   };

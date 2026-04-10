@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
 import type { Book } from '@/lib/types';
 
 export default function BooksListPage() {
@@ -11,15 +10,12 @@ export default function BooksListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchBooks = async () => {
-    const { data, error } = await supabase
-      .from('books')
-      .select('*')
-      .order('title');
-
-    if (error) {
-      console.error('Error fetching books:', error);
-    } else {
+    const response = await fetch('/api/admin/books');
+    if (response.ok) {
+      const data = await response.json();
       setBooks(data || []);
+    } else {
+      console.error('Error fetching books');
     }
     setLoading(false);
   };

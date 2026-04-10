@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
 import type { Bulletin } from '@/lib/types';
 
 export default function BulletinsListPage() {
@@ -11,15 +10,12 @@ export default function BulletinsListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchBulletins = async () => {
-    const { data, error } = await supabase
-      .from('bulletins')
-      .select('*')
-      .order('week_of', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching bulletins:', error);
-    } else {
+    const response = await fetch('/api/admin/bulletins');
+    if (response.ok) {
+      const data = await response.json();
       setBulletins(data || []);
+    } else {
+      console.error('Error fetching bulletins');
     }
     setLoading(false);
   };

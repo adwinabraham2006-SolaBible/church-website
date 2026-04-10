@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
 import type { Staff } from '@/lib/types';
 
 export default function StaffListPage() {
@@ -11,15 +10,12 @@ export default function StaffListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchStaff = async () => {
-    const { data, error } = await supabase
-      .from('staff')
-      .select('*')
-      .order('display_order');
-
-    if (error) {
-      console.error('Error fetching staff:', error);
-    } else {
+    const response = await fetch('/api/admin/staff');
+    if (response.ok) {
+      const data = await response.json();
       setStaff(data || []);
+    } else {
+      console.error('Error fetching staff');
     }
     setLoading(false);
   };
