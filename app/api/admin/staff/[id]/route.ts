@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
-import type { Database } from '@/lib/types';
-
-type StaffUpdate = Database['public']['Tables']['staff']['Update'];
 
 export async function GET(
   request: NextRequest,
@@ -38,7 +35,7 @@ export async function PUT(
   const { id } = await params;
 
   try {
-    const body: StaffUpdate = await request.json();
+    const body = await request.json();
     const { data, error } = await supabaseAdmin
       .from('staff')
       .update(body)

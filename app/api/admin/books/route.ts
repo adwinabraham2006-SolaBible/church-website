@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
-import type { Database } from '@/lib/types';
-
-type BookInsert = Database['public']['Tables']['books']['Insert'];
 
 export async function POST(request: NextRequest) {
   if (!supabaseAdmin) {
@@ -10,7 +7,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const body: BookInsert = await request.json();
+    const body = await request.json();
     const { data, error } = await supabaseAdmin
       .from('books')
       .insert(body)
