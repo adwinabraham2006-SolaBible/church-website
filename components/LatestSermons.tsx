@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Play, BookOpen, User, Calendar } from 'lucide-react';
+import { BookOpen, User, Calendar } from 'lucide-react';
 import { unstable_noStore as noStore } from 'next/cache';
 import { supabaseAdmin, supabase } from '@/lib/supabase';
 import type { Sermon, SermonSeries } from '@/lib/types';
@@ -52,34 +52,14 @@ export default async function LatestSermons() {
               key={sermon.id}
               className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group"
             >
-              {/* Thumbnail */}
-              <div className="relative h-48 overflow-hidden bg-neutral-200">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transform group-hover:scale-110 transition-transform duration-500"
-                  style={{ backgroundImage: `url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=800')` }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 to-transparent"></div>
-                </div>
-                {/* Play Button */}
-                {sermon.audio_url && (
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="bg-primary-600 hover:bg-primary-700 text-white rounded-full p-4 shadow-lg transform hover:scale-110 transition-transform">
-                      <Play className="w-8 h-8" fill="currentColor" />
-                    </div>
-                  </div>
-                )}
-                {/* Series Badge */}
-                {sermon.sermon_series && (
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-primary-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                      {sermon.sermon_series.name}
-                    </span>
-                  </div>
-                )}
-              </div>
-
               {/* Content */}
               <div className="p-6">
+                {/* Series Badge */}
+                {sermon.sermon_series && (
+                  <span className="inline-block bg-primary-100 text-primary-700 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+                    {sermon.sermon_series.name}
+                  </span>
+                )}
                 <h3 className="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors">
                   {sermon.title}
                 </h3>
