@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
 import type { SermonSeries } from '@/lib/types';
 
 export default function NewSermonPage() {
@@ -19,11 +18,15 @@ export default function NewSermonPage() {
 
   useEffect(() => {
     const fetchSeries = async () => {
-      const { data } = await supabase
-        .from('sermon_series')
-        .select('*')
-        .order('name');
-      setSeries(data || []);
+      try {
+        const res = await fetch('/api/admin/series');
+        if (res.ok) {
+          const data = await res.json();
+          setSeries(data || []);
+        }
+      } catch {
+        // series dropdown stays empty, not a blocking error
+      }
     };
     fetchSeries();
   }, []);
@@ -36,20 +39,25 @@ export default function NewSermonPage() {
     if (!file) return;
 
     setUploading(field);
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('bucket', 'sermons');
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('bucket', 'sermons');
 
-    const response = await fetch('/api/admin/upload', {
-      method: 'POST',
-      body: formData,
-    });
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      });
 
-    if (response.ok) {
-      const { url } = await response.json();
-      setFileUrls((prev) => ({ ...prev, [field]: url }));
-    } else {
-      alert('Upload failed');
+      if (response.ok) {
+        const { url } = await response.json();
+        setFileUrls((prev) => ({ ...prev, [field]: url }));
+      } else {
+        const result = await response.json().catch(() => ({}));
+        setError(result.error || 'Upload failed');
+      }
+    } catch {
+      setError('Upload failed — check your connection and try again');
     }
     setUploading(null);
   };
@@ -73,18 +81,23 @@ export default function NewSermonPage() {
       notes_url: fileUrls.notes_url || null,
     };
 
-    const response = await fetch('/api/admin/sermons', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetch('/api/admin/sermons', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
 
-    if (response.ok) {
-      setSuccess(true);
-      setTimeout(() => router.push('/admin/sermons'), 1500);
-    } else {
-      const result = await response.json();
-      setError(result.error || 'Failed to create sermon');
+      if (response.ok) {
+        setSuccess(true);
+        setTimeout(() => router.push('/admin/sermons'), 1500);
+      } else {
+        const result = await response.json().catch(() => ({}));
+        setError(result.error || 'Failed to create sermon');
+        setLoading(false);
+      }
+    } catch {
+      setError('Failed to create sermon — check your connection and try again');
       setLoading(false);
     }
   };

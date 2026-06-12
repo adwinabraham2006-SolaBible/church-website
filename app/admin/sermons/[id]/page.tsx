@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
 import type { Sermon, SermonSeries } from '@/lib/types';
 
 export default function EditSermonPage() {
@@ -24,23 +23,30 @@ export default function EditSermonPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [sermonRes, seriesRes] = await Promise.all([
-        fetch(`/api/admin/sermons/${id}`),
-        supabase.from('sermon_series').select('*').order('name'),
-      ]);
+      try {
+        const [sermonRes, seriesRes] = await Promise.all([
+          fetch(`/api/admin/sermons/${id}`),
+          fetch('/api/admin/series'),
+        ]);
 
-      if (sermonRes.ok) {
-        const data = await sermonRes.json();
-        setSermon(data);
-        setFileUrls({
-          slides_url: data.slides_url || undefined,
-          notes_url: data.notes_url || undefined,
-        });
-      } else {
-        setError('Sermon not found');
+        if (sermonRes.ok) {
+          const data = await sermonRes.json();
+          setSermon(data);
+          setFileUrls({
+            slides_url: data.slides_url || undefined,
+            notes_url: data.notes_url || undefined,
+          });
+        } else {
+          setError('Sermon not found');
+        }
+
+        if (seriesRes.ok) {
+          const seriesData = await seriesRes.json();
+          setSeries(seriesData || []);
+        }
+      } catch {
+        setError('Failed to load sermon data');
       }
-
-      setSeries(seriesRes.data || []);
       setLoading(false);
     };
     fetchData();
@@ -54,20 +60,25 @@ export default function EditSermonPage() {
     if (!file) return;
 
     setUploading(field);
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('bucket', 'sermons');
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('bucket', 'sermons');
 
-    const response = await fetch('/api/admin/upload', {
-      method: 'POST',
-      body: formData,
-    });
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      });
 
-    if (response.ok) {
-      const { url } = await response.json();
-      setFileUrls((prev) => ({ ...prev, [field]: url }));
-    } else {
-      alert('Upload failed');
+      if (response.ok) {
+        const { url } = await response.json();
+        setFileUrls((prev) => ({ ...prev, [field]: url }));
+      } else {
+        const result = await response.json().catch(() => ({}));
+        setError(result.error || 'Upload failed');
+      }
+    } catch {
+      setError('Upload failed — check your connection and try again');
     }
     setUploading(null);
   };
@@ -91,18 +102,23 @@ export default function EditSermonPage() {
       notes_url: fileUrls.notes_url || null,
     };
 
-    const response = await fetch(`/api/admin/sermons/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetch(`/api/admin/sermons/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
 
-    if (response.ok) {
-      setSuccess(true);
-      setTimeout(() => router.push('/admin/sermons'), 1500);
-    } else {
-      const result = await response.json();
-      setError(result.error || 'Failed to update sermon');
+      if (response.ok) {
+        setSuccess(true);
+        setTimeout(() => router.push('/admin/sermons'), 1500);
+      } else {
+        const result = await response.json().catch(() => ({}));
+        setError(result.error || 'Failed to update sermon');
+        setSaving(false);
+      }
+    } catch {
+      setError('Failed to save — check your connection and try again');
       setSaving(false);
     }
   };
