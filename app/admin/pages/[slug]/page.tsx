@@ -28,6 +28,21 @@ export default function EditPagePage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  const DEFAULT_TITLES: Record<string, string> = {
+    beliefs: 'Our Beliefs',
+    leadership: 'Leadership',
+    history: 'Our History',
+    children: "Children's Ministry",
+    youth: 'Youth Ministry',
+    adults: 'Adults Ministry',
+    seniors: 'Seniors Ministry',
+    women: "Women's Ministry",
+    men: "Men's Ministry",
+    volunteer: 'Volunteer',
+    missions: 'Missions',
+    contact: 'Contact',
+  };
+
   useEffect(() => {
     const fetchPage = async () => {
       const response = await fetch(`/api/admin/pages/${slug}`);
@@ -38,7 +53,9 @@ export default function EditPagePage() {
         setContent(data.content || '');
         setImageUrl(data.image_url || '');
       } else {
-        setError('Page not found');
+        // Page doesn't exist yet — show empty editor so user can create it
+        setTitle(DEFAULT_TITLES[slug] || slug);
+        setContent('');
       }
       setLoading(false);
     };
@@ -109,10 +126,6 @@ export default function EditPagePage() {
     return <div className="text-gray-600">Loading...</div>;
   }
 
-  if (!page) {
-    return <div className="text-red-600">{error || 'Page not found'}</div>;
-  }
-
   return (
     <div className="max-w-4xl">
       <div className="flex items-center justify-between mb-6">
@@ -136,7 +149,9 @@ export default function EditPagePage() {
         </a>
       </div>
 
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Edit Page: {page.title}</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">
+        {page ? `Edit Page: ${page.title}` : `Create Page: ${title}`}
+      </h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Title */}
