@@ -20,7 +20,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   if (!supabaseAdmin) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+    return NextResponse.json({ error: 'Database not configured — SUPABASE_SERVICE_ROLE_KEY may be missing' }, { status: 500 });
   }
 
   try {
@@ -32,11 +32,13 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      console.error('Supabase insert error:', error);
+      return NextResponse.json({ error: `Database error: ${error.message}` }, { status: 400 });
     }
 
     return NextResponse.json(data);
-  } catch {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+  } catch (err) {
+    console.error('Sermon POST error:', err);
+    return NextResponse.json({ error: `Server error: ${err instanceof Error ? err.message : 'Unknown error'}` }, { status: 500 });
   }
 }
