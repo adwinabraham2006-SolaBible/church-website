@@ -29,7 +29,8 @@ export default function NewBulletinPage() {
       const { url } = await response.json();
       setPdfUrl(url);
     } else {
-      alert('Upload failed');
+      const result = await response.json().catch(() => ({}));
+      setError(result.error || 'Upload failed');
     }
     setUploading(false);
   };

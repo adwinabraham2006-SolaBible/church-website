@@ -29,7 +29,8 @@ export default function NewStaffPage() {
       const { url } = await response.json();
       setPhotoUrl(url);
     } else {
-      alert('Upload failed');
+      const result = await response.json().catch(() => ({}));
+      setError(result.error || 'Upload failed');
     }
     setUploading(false);
   };

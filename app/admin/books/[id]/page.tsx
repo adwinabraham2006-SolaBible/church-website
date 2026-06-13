@@ -50,7 +50,8 @@ export default function EditBookPage() {
       const { url } = await response.json();
       setImageUrl(url);
     } else {
-      alert('Upload failed');
+      const result = await response.json().catch(() => ({}));
+      setError(result.error || 'Upload failed');
     }
     setUploading(false);
   };
