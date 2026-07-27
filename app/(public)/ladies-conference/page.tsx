@@ -107,11 +107,6 @@ const DEFAULT_FAQ: FaqItem[] = [
   { id: '6', question: 'Who is this conference for?', answer: "Every woman is welcome — whether you've walked with Christ for decades or are still exploring faith. Come as you are.", display_order: 5 },
 ];
 
-const FRUITS = [
-  'Love', 'Joy', 'Peace', 'Patience',
-  'Kindness', 'Goodness', 'Faithfulness', 'Gentleness', 'Self-Control',
-];
-
 // ── Data fetch ─────────────────────────────────────────────────────────────
 
 async function getConferenceData() {
@@ -293,19 +288,7 @@ export default async function LadiesConferencePage() {
           line-height: 1.75;
           color: #4A4A38;
         }
-        .fruit-tag {
-          font-family: var(--font-merriweather), Georgia, serif;
-          font-style: italic;
-          color: rgba(255,255,255,0.9);
-          font-size: 0.95rem;
-          padding: 0.3rem 0.1rem;
-        }
-        .fruit-dot {
-          color: #7A5018;
-          font-style: normal;
-          padding: 0 0.6rem;
-          opacity: 0.7;
-        }
+
       `}</style>
 
       <main>
@@ -336,18 +319,6 @@ export default async function LadiesConferencePage() {
             </div>
           </div>
         </section>
-
-        {/* ── FRUITS STRIP ── */}
-        <div style={{ background: '#283010', padding: '1rem 0', overflowX: 'auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 0, maxWidth: '900px', margin: '0 auto', padding: '0 1rem' }}>
-            {FRUITS.map((fruit, i) => (
-              <span key={fruit} className="fruit-tag">
-                {fruit}
-                {i < FRUITS.length - 1 && <span className="fruit-dot">·</span>}
-              </span>
-            ))}
-          </div>
-        </div>
 
         {/* ── SPEAKERS ── */}
         <section id="speakers" className="py-20 md:py-28 px-6" style={{ background: '#ffffff' }}>
@@ -421,7 +392,6 @@ export default async function LadiesConferencePage() {
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-14">
               <p className="conf-eyebrow mb-4">Details &amp; FAQ</p>
-              <h2 className="conf-section-heading text-3xl md:text-4xl mb-4">Everything You Need to Know</h2>
               <div className="conf-gold-rule"></div>
             </div>
 
