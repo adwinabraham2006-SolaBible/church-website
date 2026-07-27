@@ -13,6 +13,7 @@ const navItems = [
   { href: '/admin/bulletins', label: 'Bulletins' },
   { href: '/admin/staff', label: 'Staff' },
   { href: '/admin/books', label: 'Bookstore' },
+  { href: '/admin/conference', label: 'Conference' },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

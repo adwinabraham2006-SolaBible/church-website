@@ -1,45 +1,110 @@
+export const dynamic = 'force-dynamic';
 import type { Metadata } from 'next';
+import { unstable_noStore as noStore } from 'next/cache';
+import { supabaseAdmin } from '@/lib/supabase';
 
-export const metadata: Metadata = {
-  title: 'Open Hearts in a Closed World — Ladies Conference 2026 · Sola Bible Church',
-  description:
-    "December 5, 2026 · A free women's conference at Sola Bible Church, Temple, TX, rooted in the Fruits of the Spirit. Join us for a day of teaching, worship, and fellowship.",
+// ── Types ──────────────────────────────────────────────────────────────────
+
+interface ConferenceDetails {
+  name: string;
+  tagline: string;
+  date: string;
+  location: string;
+  address: string;
+  cost: string;
+  description: string;
+  scripture: string;
+  scripture_ref: string;
+  register_url: string;
+}
+
+interface Speaker {
+  id: string;
+  name: string;
+  title: string;
+  bio: string;
+  photo_url: string;
+  display_order: number;
+}
+
+interface ScheduleItem {
+  id: string;
+  time: string;
+  label: string;
+  note: string;
+  display_order: number;
+}
+
+interface FaqItem {
+  id: string;
+  question: string;
+  answer: string;
+  display_order: number;
+}
+
+// ── Defaults (shown before admin has populated the DB) ─────────────────────
+
+const DEFAULT_DETAILS: ConferenceDetails = {
+  name: 'Open Hearts in a Closed World',
+  tagline: "Women's Conference",
+  date: 'December 5, 2026',
+  location: 'Sola Bible Church, Temple, TX',
+  address: '219 King Circle, Temple, TX 76501',
+  cost: 'Free',
+  description: '',
+  scripture:
+    'But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, self-control; against such things there is no law.',
+  scripture_ref: 'Galatians 5:22–23',
+  register_url: '#register',
 };
 
-const REGISTER_URL = '#register';
-
-const SPEAKERS = [
+const DEFAULT_SPEAKERS: Speaker[] = [
   {
-    initials: 'BB',
+    id: '1',
     name: 'Brooke Bartz',
     title: 'Founder · Open Hearts in a Closed World',
+    photo_url: '',
     bio: "Brooke Bartz is the founder of Open Hearts in a Closed World Ministry and this conference. As a pastor's wife at Sola Bible Church, author, and women's Bible teacher, she is passionate about spurring women to live as a light in the darkness — engaging the world around them with truth, grace, and open hearts.",
+    display_order: 0,
   },
   {
-    initials: 'SH',
+    id: '2',
     name: 'Susan Heck',
     title: 'Founder · With the Master Ministries',
+    photo_url: '',
     bio: "Susan Heck is the founder of With the Master Ministries and a beloved Bible teacher, author, and ACBC-certified biblical counselor with over 40 years in women's ministry. Known for her expository teaching and deep biblical conviction, Susan has memorized the entire New Testament.",
+    display_order: 1,
   },
   {
-    initials: 'PA',
+    id: '3',
     name: 'Penny Amack',
     title: "Women's Bible Teacher & Conference Speaker",
+    photo_url: '',
     bio: "Penny Amack is a women's Bible teacher and conference speaker with a heart for helping women go deeper in God's Word. Full bio coming soon.",
+    display_order: 2,
   },
 ];
 
-const SCHEDULE = [
-  { time: '8:30 AM', label: 'Doors Open', note: 'Registration & fellowship' },
-  { time: '9:00 AM', label: 'Welcome & Worship', note: '' },
-  { time: '9:30 AM', label: 'Session One', note: 'Speaker TBD' },
-  { time: '10:45 AM', label: 'Break', note: '' },
-  { time: '11:00 AM', label: 'Session Two', note: 'Speaker TBD' },
-  { time: '12:15 PM', label: 'Lunch', note: 'Provided' },
-  { time: '1:30 PM', label: 'Session Three', note: 'Speaker TBD' },
-  { time: '2:45 PM', label: 'Break', note: '' },
-  { time: '3:00 PM', label: 'Worship & Closing Prayer', note: '' },
-  { time: '3:30 PM', label: 'Dismissal', note: '' },
+const DEFAULT_SCHEDULE: ScheduleItem[] = [
+  { id: '1', time: '8:30 AM', label: 'Doors Open', note: 'Registration & fellowship', display_order: 0 },
+  { id: '2', time: '9:00 AM', label: 'Welcome & Worship', note: '', display_order: 1 },
+  { id: '3', time: '9:30 AM', label: 'Session One', note: 'Speaker TBD', display_order: 2 },
+  { id: '4', time: '10:45 AM', label: 'Break', note: '', display_order: 3 },
+  { id: '5', time: '11:00 AM', label: 'Session Two', note: 'Speaker TBD', display_order: 4 },
+  { id: '6', time: '12:15 PM', label: 'Lunch', note: 'Provided', display_order: 5 },
+  { id: '7', time: '1:30 PM', label: 'Session Three', note: 'Speaker TBD', display_order: 6 },
+  { id: '8', time: '2:45 PM', label: 'Break', note: '', display_order: 7 },
+  { id: '9', time: '3:00 PM', label: 'Worship & Closing Prayer', note: '', display_order: 8 },
+  { id: '10', time: '3:30 PM', label: 'Dismissal', note: '', display_order: 9 },
+];
+
+const DEFAULT_FAQ: FaqItem[] = [
+  { id: '1', question: 'What should I bring?', answer: 'Your Bible, a notebook and pen, and an open heart. Bring a friend — this event is free and open to all women.', display_order: 0 },
+  { id: '2', question: 'Is there a cost to attend?', answer: "No. This conference is completely free of charge. We want nothing to stand between you and a day in God's Word.", display_order: 1 },
+  { id: '3', question: 'Is childcare available?', answer: 'Childcare details are coming soon. Check back closer to the event date or contact the church for more information.', display_order: 2 },
+  { id: '4', question: 'Where do I park?', answer: 'Free parking is available on-site at Sola Bible Church, 219 King Circle, Temple, TX 76501.', display_order: 3 },
+  { id: '5', question: 'Will lunch be provided?', answer: 'Yes — lunch is included at no cost. Dietary accommodation details will be shared closer to the event.', display_order: 4 },
+  { id: '6', question: 'Who is this conference for?', answer: "Every woman is welcome — whether you've walked with Christ for decades or are still exploring faith. Come as you are.", display_order: 5 },
 ];
 
 const FRUITS = [
@@ -47,34 +112,51 @@ const FRUITS = [
   'Kindness', 'Goodness', 'Faithfulness', 'Gentleness', 'Self-Control',
 ];
 
-const FAQ = [
-  {
-    q: 'What should I bring?',
-    a: 'Your Bible, a notebook and pen, and an open heart. Bring a friend — this event is free and open to all women.',
-  },
-  {
-    q: 'Is there a cost to attend?',
-    a: "No. This conference is completely free of charge. We want nothing to stand between you and a day in God's Word.",
-  },
-  {
-    q: 'Is childcare available?',
-    a: 'Childcare details are coming soon. Check back closer to the event date or contact the church for more information.',
-  },
-  {
-    q: 'Where do I park?',
-    a: 'Free parking is available on-site at Sola Bible Church, 219 King Circle, Temple, TX 76501.',
-  },
-  {
-    q: 'Will lunch be provided?',
-    a: 'Yes — lunch is included at no cost. Dietary accommodation details will be shared closer to the event.',
-  },
-  {
-    q: 'Who is this conference for?',
-    a: "Every woman is welcome — whether you've walked with Christ for decades or are still exploring faith. Come as you are.",
-  },
-];
+// ── Data fetch ─────────────────────────────────────────────────────────────
 
-export default function LadiesConferencePage() {
+async function getConferenceData() {
+  noStore();
+  if (!supabaseAdmin) return null;
+  try {
+    const [detailsRes, speakersRes, scheduleRes, faqRes] = await Promise.all([
+      supabaseAdmin.from('conference_details').select('*').limit(1).maybeSingle(),
+      supabaseAdmin.from('conference_speakers').select('*').order('display_order'),
+      supabaseAdmin.from('conference_schedule').select('*').order('display_order'),
+      supabaseAdmin.from('conference_faq').select('*').order('display_order'),
+    ]);
+    return {
+      details: detailsRes.data as ConferenceDetails | null,
+      speakers: (speakersRes.data as Speaker[]) || [],
+      schedule: (scheduleRes.data as ScheduleItem[]) || [],
+      faq: (faqRes.data as FaqItem[]) || [],
+    };
+  } catch {
+    return null;
+  }
+}
+
+// ── Metadata ───────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = {
+  title: 'Open Hearts in a Closed World — Ladies Conference 2026 · Sola Bible Church',
+  description:
+    "December 5, 2026 · A free women's conference at Sola Bible Church, Temple, TX, rooted in the Fruits of the Spirit. Join us for a day of teaching, worship, and fellowship.",
+};
+
+// ── Page ───────────────────────────────────────────────────────────────────
+
+export default async function LadiesConferencePage() {
+  const db = await getConferenceData();
+
+  const details: ConferenceDetails = (db?.details && db.details.name)
+    ? db.details
+    : DEFAULT_DETAILS;
+  const speakers: Speaker[] = db?.speakers.length ? db.speakers : DEFAULT_SPEAKERS;
+  const schedule: ScheduleItem[] = db?.schedule.length ? db.schedule : DEFAULT_SCHEDULE;
+  const faq: FaqItem[] = db?.faq.length ? db.faq : DEFAULT_FAQ;
+
+  const registerUrl = details.register_url || '#register';
+
   return (
     <>
       <style>{`
@@ -170,6 +252,15 @@ export default function LadiesConferencePage() {
           margin-bottom: 1.25rem;
           flex-shrink: 0;
         }
+        .conf-speaker-photo {
+          width: 88px;
+          height: 88px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid #C4923A;
+          margin-bottom: 1.25rem;
+          flex-shrink: 0;
+        }
         .conf-timeline-item {
           display: grid;
           grid-template-columns: 90px 1fr;
@@ -221,30 +312,24 @@ export default function LadiesConferencePage() {
 
         {/* ── HERO ── */}
         <section className="conf-hero min-h-screen flex flex-col items-center justify-center text-center px-6 py-24">
-          {/* Botanical SVG pattern */}
           <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <pattern id="botanical" x="0" y="0" width="420" height="420" patternUnits="userSpaceOnUse">
-                  {/* Main branch — bottom left rising */}
                   <path d="M25 410 Q70 310 115 210 Q150 130 185 60" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" fill="none"/>
-                  {/* Leaves along main branch */}
                   <ellipse cx="72" cy="300" rx="8" ry="28" fill="rgba(255,255,255,0.055)" transform="rotate(-52 72 300)"/>
                   <ellipse cx="108" cy="240" rx="7" ry="24" fill="rgba(255,255,255,0.045)" transform="rotate(-60 108 240)"/>
                   <ellipse cx="140" cy="178" rx="9" ry="28" fill="rgba(255,255,255,0.06)" transform="rotate(18 140 178)"/>
                   <ellipse cx="168" cy="118" rx="6" ry="20" fill="rgba(255,255,255,0.04)" transform="rotate(-28 168 118)"/>
                   <ellipse cx="184" cy="65" rx="5" ry="17" fill="rgba(255,255,255,0.04)" transform="rotate(-10 184 65)"/>
-                  {/* Gold berries */}
                   <circle cx="118" cy="212" r="3" fill="rgba(196,146,58,0.38)"/>
                   <circle cx="185" cy="63" r="2.5" fill="rgba(196,146,58,0.3)"/>
                   <circle cx="70" cy="302" r="2" fill="rgba(196,146,58,0.28)"/>
-                  {/* Secondary branch — top right */}
                   <path d="M360 0 Q330 60 300 130 Q275 185 265 230" stroke="rgba(255,255,255,0.05)" strokeWidth="1.2" fill="none"/>
                   <ellipse cx="330" cy="55" rx="6" ry="22" fill="rgba(255,255,255,0.04)" transform="rotate(30 330 55)"/>
                   <ellipse cx="312" cy="105" rx="7" ry="22" fill="rgba(255,255,255,0.045)" transform="rotate(-20 312 105)"/>
                   <ellipse cx="280" cy="160" rx="6" ry="20" fill="rgba(255,255,255,0.04)" transform="rotate(40 280 160)"/>
                   <circle cx="310" cy="107" r="2" fill="rgba(196,146,58,0.25)"/>
-                  {/* Bottom right frond */}
                   <path d="M400 420 Q380 375 355 330" stroke="rgba(255,255,255,0.04)" strokeWidth="1" fill="none"/>
                   <ellipse cx="372" cy="375" rx="5" ry="18" fill="rgba(255,255,255,0.035)" transform="rotate(-35 372 375)"/>
                   <ellipse cx="358" cy="335" rx="6" ry="18" fill="rgba(255,255,255,0.04)" transform="rotate(15 358 335)"/>
@@ -254,35 +339,33 @@ export default function LadiesConferencePage() {
             </svg>
           </div>
 
-          {/* Content */}
           <div className="relative z-10 max-w-3xl mx-auto">
             <p className="conf-eyebrow mb-6">Sola Bible Church · Temple, TX</p>
-
             <div className="conf-gold-rule mb-8" style={{ margin: '0 auto 2rem' }}></div>
-
             <h1 className="conf-title-main text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 tracking-tight">
-              Open Hearts
+              {details.name.includes(' in ') ? details.name.split(' in ')[0] : details.name}
             </h1>
-            <p className="conf-title-sub text-2xl sm:text-3xl md:text-4xl mb-10">
-              in a Closed World
+            {details.name.includes(' in ') && (
+              <p className="conf-title-sub text-2xl sm:text-3xl md:text-4xl mb-10">
+                in {details.name.split(' in ').slice(1).join(' in ')}
+              </p>
+            )}
+            <p className="font-sans text-sm uppercase tracking-widest text-white/60 mb-2">
+              {details.tagline}
             </p>
-
-            <p className="font-sans text-sm uppercase tracking-widest text-white/60 mb-2">Women&rsquo;s Conference</p>
             <p className="font-serif italic text-white/80 text-xl mb-10">
-              December 5, 2026 &nbsp;·&nbsp; Sola Bible Church
+              {details.date} &nbsp;·&nbsp; {details.location}
             </p>
-
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a href={REGISTER_URL} className="conf-btn">
-                Register Now &mdash; It&rsquo;s Free
+              <a href={registerUrl} className="conf-btn">
+                Register Now &mdash; {details.cost === 'Free' ? "It's Free" : details.cost}
               </a>
               <a href="#about" className="conf-btn-outline">
                 Learn More
               </a>
             </div>
-
             <p className="mt-10 font-sans text-white/40 text-xs uppercase tracking-widest">
-              Rooted in the Fruits of the Spirit &nbsp;·&nbsp; Galatians 5:22–23
+              Rooted in the Fruits of the Spirit &nbsp;·&nbsp; {details.scripture_ref}
             </p>
           </div>
         </section>
@@ -308,35 +391,43 @@ export default function LadiesConferencePage() {
             </h2>
             <div className="conf-gold-rule mb-10"></div>
 
-            <p className="scripture-quote text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-              &ldquo;But the fruit of the Spirit is love, joy, peace, patience, kindness,
-              goodness, faithfulness, gentleness, self-control; against such things
-              there is no law.&rdquo;
-              <span className="block mt-3 text-sm not-italic font-semibold" style={{ color: '#C4923A', letterSpacing: '0.06em' }}>
-                — GALATIANS 5:22–23
-              </span>
-            </p>
+            {details.scripture && (
+              <p className="scripture-quote text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+                &ldquo;{details.scripture}&rdquo;
+                <span className="block mt-3 text-sm not-italic font-semibold" style={{ color: '#C4923A', letterSpacing: '0.06em' }}>
+                  — {details.scripture_ref.toUpperCase()}
+                </span>
+              </p>
+            )}
 
             <div className="font-sans text-base md:text-lg leading-relaxed space-y-5" style={{ color: '#4A4A38' }}>
-              <p>
-                We live in a world that is increasingly turning inward — guarded, divided, and afraid.
-                Yet the women of God are called to something radically different: to bear fruit that the
-                world cannot produce on its own. Love when love is costly. Joy when circumstances are
-                heavy. Kindness when hardness feels safer.
-              </p>
-              <p>
-                <em>Open Hearts in a Closed World</em> is a one-day conference for women who want to
-                go deeper in Scripture and live more faithfully in the world around them. Through
-                expository teaching, worship, and fellowship, we&rsquo;ll explore what it looks like to bear
-                the Fruits of the Spirit in daily life — and why those fruits matter now more than ever.
-              </p>
-              <p>
-                Come expectant. Come as you are. Come ready to be rooted in God&rsquo;s Word.
-              </p>
+              {details.description ? (
+                details.description.split('\n\n').filter(Boolean).map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))
+              ) : (
+                <>
+                  <p>
+                    We live in a world that is increasingly turning inward — guarded, divided, and afraid.
+                    Yet the women of God are called to something radically different: to bear fruit that the
+                    world cannot produce on its own. Love when love is costly. Joy when circumstances are
+                    heavy. Kindness when hardness feels safer.
+                  </p>
+                  <p>
+                    <em>Open Hearts in a Closed World</em> is a one-day conference for women who want to
+                    go deeper in Scripture and live more faithfully in the world around them. Through
+                    expository teaching, worship, and fellowship, we&rsquo;ll explore what it looks like to bear
+                    the Fruits of the Spirit in daily life — and why those fruits matter now more than ever.
+                  </p>
+                  <p>
+                    Come expectant. Come as you are. Come ready to be rooted in God&rsquo;s Word.
+                  </p>
+                </>
+              )}
             </div>
 
             <div className="mt-12">
-              <a href={REGISTER_URL} className="conf-btn">Register — Free Admission</a>
+              <a href={registerUrl} className="conf-btn">Register &mdash; {details.cost === 'Free' ? 'Free Admission' : details.cost}</a>
             </div>
           </div>
         </section>
@@ -351,9 +442,18 @@ export default function LadiesConferencePage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {SPEAKERS.map((speaker) => (
-                <div key={speaker.name} className="conf-speaker-card flex flex-col">
-                  <div className="conf-speaker-avatar">{speaker.initials}</div>
+              {speakers.map((speaker) => (
+                <div key={speaker.id} className="conf-speaker-card flex flex-col">
+                  {speaker.photo_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={speaker.photo_url}
+                      alt={speaker.name}
+                      className="conf-speaker-photo"
+                    />
+                  ) : (
+                    <div className="conf-speaker-avatar">{speaker.name.charAt(0)}{speaker.name.split(' ')[1]?.charAt(0)}</div>
+                  )}
                   <h3 className="font-serif font-bold text-xl mb-1" style={{ color: '#3A4522' }}>
                     {speaker.name}
                   </h3>
@@ -374,7 +474,7 @@ export default function LadiesConferencePage() {
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-14">
               <p className="conf-eyebrow mb-4">Day-of Schedule</p>
-              <h2 className="conf-section-heading text-3xl md:text-4xl mb-2">December 5, 2026</h2>
+              <h2 className="conf-section-heading text-3xl md:text-4xl mb-2">{details.date}</h2>
               <p className="font-sans text-sm italic" style={{ color: '#7A7A60' }}>
                 All times subject to change — final schedule sent before the event
               </p>
@@ -382,8 +482,8 @@ export default function LadiesConferencePage() {
             </div>
 
             <div style={{ borderLeft: '3px solid #5C6B35', paddingLeft: '1.5rem' }}>
-              {SCHEDULE.map((item) => (
-                <div key={item.time} className="conf-timeline-item">
+              {schedule.map((item) => (
+                <div key={item.id} className="conf-timeline-item">
                   <span className="conf-time">{item.time}</span>
                   <div>
                     <span className="font-serif font-semibold text-base" style={{ color: '#3A4522' }}>
@@ -401,23 +501,23 @@ export default function LadiesConferencePage() {
           </div>
         </section>
 
-        {/* ── DETAILS / FAQ ── */}
+        {/* ── FAQ ── */}
         <section id="details" className="py-20 md:py-28 px-6" style={{ background: '#ffffff' }}>
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-14">
-              <p className="conf-eyebrow mb-4">Details & FAQ</p>
+              <p className="conf-eyebrow mb-4">Details &amp; FAQ</p>
               <h2 className="conf-section-heading text-3xl md:text-4xl mb-4">Everything You Need to Know</h2>
               <div className="conf-gold-rule"></div>
             </div>
 
             <div>
-              {FAQ.map((item) => (
-                <div key={item.q} className="conf-faq-item">
+              {faq.map((item) => (
+                <div key={item.id} className="conf-faq-item">
                   <h3 className="font-serif font-bold text-base mb-2" style={{ color: '#3A4522' }}>
-                    {item.q}
+                    {item.question}
                   </h3>
                   <p className="font-sans text-sm leading-relaxed" style={{ color: '#5C5A4A' }}>
-                    {item.a}
+                    {item.answer}
                   </p>
                 </div>
               ))}
@@ -426,8 +526,8 @@ export default function LadiesConferencePage() {
             <div className="mt-12 p-8 text-center" style={{ background: '#EEF1E3', borderLeft: '4px solid #C4923A' }}>
               <p className="font-sans text-sm" style={{ color: '#4A4A38' }}>
                 <strong>Location</strong><br />
-                Sola Bible Church<br />
-                219 King Circle, Temple, TX 76501
+                {details.location}<br />
+                {details.address}
               </p>
               <p className="font-sans text-sm mt-4" style={{ color: '#4A4A38' }}>
                 Questions? Email us at{' '}
@@ -448,15 +548,15 @@ export default function LadiesConferencePage() {
                 <ellipse cx="85%" cy="50%" rx="35" ry="100" fill="rgba(255,255,255,0.06)" transform="rotate(20 0 0)"/>
               </svg>
             </div>
-            <p className="conf-eyebrow mb-6">December 5, 2026 · Temple, TX · Free</p>
+            <p className="conf-eyebrow mb-6">{details.date} · {details.location.split(',')[1]?.trim() || 'Temple, TX'} · {details.cost}</p>
             <h2 className="font-serif font-black italic text-white text-4xl md:text-5xl mb-4" style={{ lineHeight: 1.1 }}>
               Join Us
             </h2>
             <p className="font-serif italic font-light text-white/70 text-xl mb-10">
-              Open Hearts in a Closed World
+              {details.name}
             </p>
-            <a href={REGISTER_URL} className="conf-btn" style={{ fontSize: '1rem', padding: '1rem 2.8rem' }}>
-              Reserve Your Spot &mdash; It&rsquo;s Free
+            <a href={registerUrl} className="conf-btn" style={{ fontSize: '1rem', padding: '1rem 2.8rem' }}>
+              Reserve Your Spot &mdash; {details.cost === 'Free' ? "It's Free" : details.cost}
             </a>
             <p className="mt-8 font-sans text-white/40 text-xs uppercase tracking-widest">
               Hosted by Open Hearts in a Closed World Ministry · Sola Bible Church
