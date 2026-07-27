@@ -8,6 +8,7 @@ const KNOWN_PAGES = [
   { slug: 'beliefs', title: 'Our Beliefs', category: 'About', publicUrl: '/about/beliefs' },
   { slug: 'leadership', title: 'Leadership', category: 'About', publicUrl: '/about/leadership' },
   { slug: 'history', title: 'Our History', category: 'About', publicUrl: '/about/history' },
+  { slug: 'ministries', title: 'Ministries', category: 'Ministry', publicUrl: '/ministries' },
   { slug: 'children', title: "Children's Ministry", category: 'Ministry', publicUrl: '/ministries/children' },
   { slug: 'youth', title: 'Youth Ministry', category: 'Ministry', publicUrl: '/ministries/youth' },
   { slug: 'adults', title: 'Adults Ministry', category: 'Ministry', publicUrl: '/ministries/adults' },
