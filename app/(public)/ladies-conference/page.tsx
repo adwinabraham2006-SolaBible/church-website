@@ -314,7 +314,10 @@ export default async function LadiesConferencePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a href="#speakers" className="conf-btn-outline">
-                Meet the Speakers
+                Conference Speakers
+              </a>
+              <a href={registerUrl} className="conf-btn" target="_blank" rel="noopener noreferrer">
+                Register
               </a>
             </div>
           </div>
