@@ -354,8 +354,6 @@ export default async function LadiesConferencePage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-14">
               <p className="conf-eyebrow mb-4">Meet the Speakers</p>
-              <h2 className="conf-section-heading text-3xl md:text-4xl mb-4">Women Who Know the Word</h2>
-              <div className="conf-gold-rule"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
