@@ -23,7 +23,7 @@ interface Props {
   events: EventWithImageUrl[];
 }
 
-const categories = ['All', 'Worship', 'Outreach', 'Youth', 'Bible Study', 'Fellowship', 'Marriage', 'Music'];
+const categories = ['All', 'Outreach', 'Youth', 'Adults', 'Spanish Ministry'];
 
 function getImageUrl(event: EventWithImageUrl): string {
   if (event.imageUrl) {
