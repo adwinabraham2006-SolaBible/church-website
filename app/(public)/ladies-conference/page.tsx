@@ -161,7 +161,7 @@ export default async function LadiesConferencePage() {
     <>
       <style>{`
         .conf-hero {
-          background-color: #3A4522;
+          background-color: #1E2710;
           position: relative;
           overflow: hidden;
         }
@@ -171,7 +171,7 @@ export default async function LadiesConferencePage() {
           font-weight: 600;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: #C4923A;
+          color: #7A5018;
         }
         .conf-title-main {
           font-family: var(--font-merriweather), Georgia, serif;
@@ -189,17 +189,17 @@ export default async function LadiesConferencePage() {
         .conf-section-heading {
           font-family: var(--font-merriweather), Georgia, serif;
           font-weight: 700;
-          color: #3A4522;
+          color: #1E2710;
         }
         .conf-gold-rule {
           width: 48px;
           height: 2px;
-          background: #C4923A;
+          background: #7A5018;
           margin: 0 auto;
         }
         .conf-btn {
           display: inline-block;
-          background: #C4923A;
+          background: #7A5018;
           color: #ffffff;
           font-family: var(--font-inter), system-ui, sans-serif;
           font-weight: 600;
@@ -211,13 +211,13 @@ export default async function LadiesConferencePage() {
           transition: background 0.2s, transform 0.15s;
         }
         .conf-btn:hover {
-          background: #a87830;
+          background: #5C3C10;
           transform: translateY(-1px);
         }
         .conf-btn-outline {
           display: inline-block;
-          border: 2px solid #C4923A;
-          color: #C4923A;
+          border: 2px solid #7A5018;
+          color: #7A5018;
           font-family: var(--font-inter), system-ui, sans-serif;
           font-weight: 600;
           font-size: 0.9rem;
@@ -228,7 +228,7 @@ export default async function LadiesConferencePage() {
           transition: background 0.2s, color 0.2s;
         }
         .conf-btn-outline:hover {
-          background: #C4923A;
+          background: #7A5018;
           color: #ffffff;
         }
         .conf-speaker-card {
@@ -241,14 +241,14 @@ export default async function LadiesConferencePage() {
           height: 88px;
           border-radius: 50%;
           background: #EEF1E3;
-          border: 2px solid #C4923A;
+          border: 2px solid #7A5018;
           display: flex;
           align-items: center;
           justify-content: center;
           font-family: var(--font-merriweather), Georgia, serif;
           font-weight: 700;
           font-size: 1.4rem;
-          color: #5C6B35;
+          color: #384220;
           margin-bottom: 1.25rem;
           flex-shrink: 0;
         }
@@ -257,7 +257,7 @@ export default async function LadiesConferencePage() {
           height: 88px;
           border-radius: 50%;
           object-fit: cover;
-          border: 2px solid #C4923A;
+          border: 2px solid #7A5018;
           margin-bottom: 1.25rem;
           flex-shrink: 0;
         }
@@ -275,7 +275,7 @@ export default async function LadiesConferencePage() {
           font-family: var(--font-inter), system-ui, sans-serif;
           font-size: 0.78rem;
           font-weight: 600;
-          color: #C4923A;
+          color: #7A5018;
           letter-spacing: 0.04em;
           padding-top: 2px;
         }
@@ -301,7 +301,7 @@ export default async function LadiesConferencePage() {
           padding: 0.3rem 0.1rem;
         }
         .fruit-dot {
-          color: #C4923A;
+          color: #7A5018;
           font-style: normal;
           padding: 0 0.6rem;
           opacity: 0.7;
@@ -312,34 +312,7 @@ export default async function LadiesConferencePage() {
 
         {/* ── HERO ── */}
         <section className="conf-hero min-h-screen flex flex-col items-center justify-center text-center px-6 py-24">
-          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="botanical" x="0" y="0" width="420" height="420" patternUnits="userSpaceOnUse">
-                  <path d="M25 410 Q70 310 115 210 Q150 130 185 60" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" fill="none"/>
-                  <ellipse cx="72" cy="300" rx="8" ry="28" fill="rgba(255,255,255,0.055)" transform="rotate(-52 72 300)"/>
-                  <ellipse cx="108" cy="240" rx="7" ry="24" fill="rgba(255,255,255,0.045)" transform="rotate(-60 108 240)"/>
-                  <ellipse cx="140" cy="178" rx="9" ry="28" fill="rgba(255,255,255,0.06)" transform="rotate(18 140 178)"/>
-                  <ellipse cx="168" cy="118" rx="6" ry="20" fill="rgba(255,255,255,0.04)" transform="rotate(-28 168 118)"/>
-                  <ellipse cx="184" cy="65" rx="5" ry="17" fill="rgba(255,255,255,0.04)" transform="rotate(-10 184 65)"/>
-                  <circle cx="118" cy="212" r="3" fill="rgba(196,146,58,0.38)"/>
-                  <circle cx="185" cy="63" r="2.5" fill="rgba(196,146,58,0.3)"/>
-                  <circle cx="70" cy="302" r="2" fill="rgba(196,146,58,0.28)"/>
-                  <path d="M360 0 Q330 60 300 130 Q275 185 265 230" stroke="rgba(255,255,255,0.05)" strokeWidth="1.2" fill="none"/>
-                  <ellipse cx="330" cy="55" rx="6" ry="22" fill="rgba(255,255,255,0.04)" transform="rotate(30 330 55)"/>
-                  <ellipse cx="312" cy="105" rx="7" ry="22" fill="rgba(255,255,255,0.045)" transform="rotate(-20 312 105)"/>
-                  <ellipse cx="280" cy="160" rx="6" ry="20" fill="rgba(255,255,255,0.04)" transform="rotate(40 280 160)"/>
-                  <circle cx="310" cy="107" r="2" fill="rgba(196,146,58,0.25)"/>
-                  <path d="M400 420 Q380 375 355 330" stroke="rgba(255,255,255,0.04)" strokeWidth="1" fill="none"/>
-                  <ellipse cx="372" cy="375" rx="5" ry="18" fill="rgba(255,255,255,0.035)" transform="rotate(-35 372 375)"/>
-                  <ellipse cx="358" cy="335" rx="6" ry="18" fill="rgba(255,255,255,0.04)" transform="rotate(15 358 335)"/>
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#botanical)"/>
-            </svg>
-          </div>
-
-          <div className="relative z-10 max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             <p className="conf-eyebrow mb-6">Sola Bible Church · Temple, TX</p>
             <div className="conf-gold-rule mb-8" style={{ margin: '0 auto 2rem' }}></div>
             <h1 className="conf-title-main text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 tracking-tight">
@@ -360,8 +333,8 @@ export default async function LadiesConferencePage() {
               <a href={registerUrl} className="conf-btn">
                 Register Now &mdash; {details.cost === 'Free' ? "It's Free" : details.cost}
               </a>
-              <a href="#about" className="conf-btn-outline">
-                Learn More
+              <a href="#speakers" className="conf-btn-outline">
+                Meet the Speakers
               </a>
             </div>
             <p className="mt-10 font-sans text-white/40 text-xs uppercase tracking-widest">
@@ -371,7 +344,7 @@ export default async function LadiesConferencePage() {
         </section>
 
         {/* ── FRUITS STRIP ── */}
-        <div style={{ background: '#4E5A2E', padding: '1rem 0', overflowX: 'auto' }}>
+        <div style={{ background: '#283010', padding: '1rem 0', overflowX: 'auto' }}>
           <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 0, maxWidth: '900px', margin: '0 auto', padding: '0 1rem' }}>
             {FRUITS.map((fruit, i) => (
               <span key={fruit} className="fruit-tag">
@@ -381,56 +354,6 @@ export default async function LadiesConferencePage() {
             ))}
           </div>
         </div>
-
-        {/* ── ABOUT ── */}
-        <section id="about" style={{ background: '#F5F0E8' }} className="py-20 md:py-28 px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="conf-eyebrow mb-4">About the Conference</p>
-            <h2 className="conf-section-heading text-3xl md:text-4xl mb-6 max-w-xl mx-auto">
-              A Heart Wide Open for a World Closing In
-            </h2>
-            <div className="conf-gold-rule mb-10"></div>
-
-            {details.scripture && (
-              <p className="scripture-quote text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-                &ldquo;{details.scripture}&rdquo;
-                <span className="block mt-3 text-sm not-italic font-semibold" style={{ color: '#C4923A', letterSpacing: '0.06em' }}>
-                  — {details.scripture_ref.toUpperCase()}
-                </span>
-              </p>
-            )}
-
-            <div className="font-sans text-base md:text-lg leading-relaxed space-y-5" style={{ color: '#4A4A38' }}>
-              {details.description ? (
-                details.description.split('\n\n').filter(Boolean).map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))
-              ) : (
-                <>
-                  <p>
-                    We live in a world that is increasingly turning inward — guarded, divided, and afraid.
-                    Yet the women of God are called to something radically different: to bear fruit that the
-                    world cannot produce on its own. Love when love is costly. Joy when circumstances are
-                    heavy. Kindness when hardness feels safer.
-                  </p>
-                  <p>
-                    <em>Open Hearts in a Closed World</em> is a one-day conference for women who want to
-                    go deeper in Scripture and live more faithfully in the world around them. Through
-                    expository teaching, worship, and fellowship, we&rsquo;ll explore what it looks like to bear
-                    the Fruits of the Spirit in daily life — and why those fruits matter now more than ever.
-                  </p>
-                  <p>
-                    Come expectant. Come as you are. Come ready to be rooted in God&rsquo;s Word.
-                  </p>
-                </>
-              )}
-            </div>
-
-            <div className="mt-12">
-              <a href={registerUrl} className="conf-btn">Register &mdash; {details.cost === 'Free' ? 'Free Admission' : details.cost}</a>
-            </div>
-          </div>
-        </section>
 
         {/* ── SPEAKERS ── */}
         <section id="speakers" className="py-20 md:py-28 px-6" style={{ background: '#ffffff' }}>
@@ -454,10 +377,10 @@ export default async function LadiesConferencePage() {
                   ) : (
                     <div className="conf-speaker-avatar">{speaker.name.charAt(0)}{speaker.name.split(' ')[1]?.charAt(0)}</div>
                   )}
-                  <h3 className="font-serif font-bold text-xl mb-1" style={{ color: '#3A4522' }}>
+                  <h3 className="font-serif font-bold text-xl mb-1" style={{ color: '#1E2710' }}>
                     {speaker.name}
                   </h3>
-                  <p className="font-sans text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#C4923A' }}>
+                  <p className="font-sans text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#7A5018' }}>
                     {speaker.title}
                   </p>
                   <p className="font-sans text-sm leading-relaxed" style={{ color: '#5C5A4A' }}>
@@ -481,12 +404,12 @@ export default async function LadiesConferencePage() {
               <div className="conf-gold-rule mt-6"></div>
             </div>
 
-            <div style={{ borderLeft: '3px solid #5C6B35', paddingLeft: '1.5rem' }}>
+            <div style={{ borderLeft: '3px solid #384220', paddingLeft: '1.5rem' }}>
               {schedule.map((item) => (
                 <div key={item.id} className="conf-timeline-item">
                   <span className="conf-time">{item.time}</span>
                   <div>
-                    <span className="font-serif font-semibold text-base" style={{ color: '#3A4522' }}>
+                    <span className="font-serif font-semibold text-base" style={{ color: '#1E2710' }}>
                       {item.label}
                     </span>
                     {item.note && (
@@ -513,7 +436,7 @@ export default async function LadiesConferencePage() {
             <div>
               {faq.map((item) => (
                 <div key={item.id} className="conf-faq-item">
-                  <h3 className="font-serif font-bold text-base mb-2" style={{ color: '#3A4522' }}>
+                  <h3 className="font-serif font-bold text-base mb-2" style={{ color: '#1E2710' }}>
                     {item.question}
                   </h3>
                   <p className="font-sans text-sm leading-relaxed" style={{ color: '#5C5A4A' }}>
@@ -523,7 +446,7 @@ export default async function LadiesConferencePage() {
               ))}
             </div>
 
-            <div className="mt-12 p-8 text-center" style={{ background: '#EEF1E3', borderLeft: '4px solid #C4923A' }}>
+            <div className="mt-12 p-8 text-center" style={{ background: '#EEF1E3', borderLeft: '4px solid #7A5018' }}>
               <p className="font-sans text-sm" style={{ color: '#4A4A38' }}>
                 <strong>Location</strong><br />
                 {details.location}<br />
@@ -531,7 +454,7 @@ export default async function LadiesConferencePage() {
               </p>
               <p className="font-sans text-sm mt-4" style={{ color: '#4A4A38' }}>
                 Questions? Email us at{' '}
-                <a href="mailto:solabiblechurch@gmail.com" style={{ color: '#C4923A' }}>
+                <a href="mailto:solabiblechurch@gmail.com" style={{ color: '#7A5018' }}>
                   solabiblechurch@gmail.com
                 </a>
               </p>
@@ -540,7 +463,7 @@ export default async function LadiesConferencePage() {
         </section>
 
         {/* ── FOOTER CTA ── */}
-        <section className="py-24 px-6 text-center" style={{ background: '#3A4522' }}>
+        <section className="py-24 px-6 text-center" style={{ background: '#1E2710' }}>
           <div className="relative max-w-2xl mx-auto">
             <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
               <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" opacity="0.15">
