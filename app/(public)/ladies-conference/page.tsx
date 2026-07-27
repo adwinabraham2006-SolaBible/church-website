@@ -454,30 +454,6 @@ export default async function LadiesConferencePage() {
           </div>
         </section>
 
-        {/* ── FOOTER CTA ── */}
-        <section className="py-24 px-6 text-center" style={{ background: '#1E2710' }}>
-          <div className="relative max-w-2xl mx-auto">
-            <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
-              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" opacity="0.15">
-                <ellipse cx="15%" cy="50%" rx="40" ry="120" fill="rgba(255,255,255,0.08)" transform="rotate(-25 0 0)"/>
-                <ellipse cx="85%" cy="50%" rx="35" ry="100" fill="rgba(255,255,255,0.06)" transform="rotate(20 0 0)"/>
-              </svg>
-            </div>
-            <p className="conf-eyebrow mb-6">{details.date} · {details.location.split(',')[1]?.trim() || 'Temple, TX'} · {details.cost}</p>
-            <h2 className="font-serif font-black italic text-white text-4xl md:text-5xl mb-4" style={{ lineHeight: 1.1 }}>
-              Join Us
-            </h2>
-            <p className="font-serif italic font-light text-white/70 text-xl mb-10">
-              {details.name}
-            </p>
-            <a href={registerUrl} className="conf-btn" style={{ fontSize: '1rem', padding: '1rem 2.8rem' }}>
-              Reserve Your Spot &mdash; {details.cost === 'Free' ? "It's Free" : details.cost}
-            </a>
-            <p className="mt-8 font-sans text-white/40 text-xs uppercase tracking-widest">
-              Hosted by Open Hearts in a Closed World Ministry · Sola Bible Church
-            </p>
-          </div>
-        </section>
 
       </main>
     </>
