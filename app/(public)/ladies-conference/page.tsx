@@ -330,16 +330,10 @@ export default async function LadiesConferencePage() {
               {details.date} &nbsp;·&nbsp; {details.location}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a href={registerUrl} className="conf-btn">
-                Register Now &mdash; {details.cost === 'Free' ? "It's Free" : details.cost}
-              </a>
               <a href="#speakers" className="conf-btn-outline">
                 Meet the Speakers
               </a>
             </div>
-            <p className="mt-10 font-sans text-white/40 text-xs uppercase tracking-widest">
-              Rooted in the Fruits of the Spirit &nbsp;·&nbsp; {details.scripture_ref}
-            </p>
           </div>
         </section>
 
