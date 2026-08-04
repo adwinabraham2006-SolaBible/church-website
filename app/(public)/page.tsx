@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Hero from '@/components/Hero';
 import QuickLinks from '@/components/QuickLinks';
 import ServiceTimes from '@/components/ServiceTimes';
