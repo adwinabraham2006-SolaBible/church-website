@@ -19,6 +19,7 @@ export default async function SermonDetailPage({ params }: Props) {
   noStore();
 
   const client = supabaseAdmin || supabase;
+  if (!client) return null;
   const { data: sermon } = await client
     .from('sermons')
     .select('*, sermon_series(*)')

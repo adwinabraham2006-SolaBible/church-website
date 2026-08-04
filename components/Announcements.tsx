@@ -7,6 +7,7 @@ export default async function Announcements() {
   noStore();
 
   const client = supabaseAdmin || supabase;
+  if (!client) return null;
   const { data: announcements } = await client
     .from('announcements')
     .select('*')

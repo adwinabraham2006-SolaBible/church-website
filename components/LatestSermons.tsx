@@ -12,6 +12,7 @@ export default async function LatestSermons() {
   noStore();
 
   const client = supabaseAdmin || supabase;
+  if (!client) return null;
   const { data: sermons } = await client
     .from('sermons')
     .select('*, sermon_series(*)')

@@ -10,6 +10,7 @@ export default async function EventsPage() {
 
   const today = new Date().toISOString().split('T')[0];
   const client = supabaseAdmin || supabase;
+  if (!client) return null;
 
   const { data: events } = await client
     .from('events')

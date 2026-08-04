@@ -9,6 +9,7 @@ export default async function BulletinPage() {
   noStore();
 
   const client = supabaseAdmin || supabase;
+  if (!client) return null;
   const { data: bulletins } = await client
     .from('bulletins')
     .select('*')
