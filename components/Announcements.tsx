@@ -15,14 +15,9 @@ export default async function Announcements() {
     .order('created_at', { ascending: false })
     .limit(3);
 
-  if (!announcements || announcements.length === 0) {
-    return null; // Don't render section if no announcements
-  }
-
   return (
     <section className="section-padding bg-secondary-50">
       <div className="container-custom">
-        {/* Section Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary-100 rounded-full mb-4">
             <Megaphone className="w-8 h-8 text-secondary-600" />
@@ -32,7 +27,9 @@ export default async function Announcements() {
           </h2>
         </div>
 
-        {/* Announcements Grid */}
+        {!announcements || announcements.length === 0 ? (
+          <p className="text-center text-neutral-500 py-8">No announcements at this time.</p>
+        ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {(announcements as Announcement[]).map((announcement) => (
             <div
@@ -69,6 +66,7 @@ export default async function Announcements() {
             </div>
           ))}
         </div>
+        )}
       </div>
     </section>
   );
