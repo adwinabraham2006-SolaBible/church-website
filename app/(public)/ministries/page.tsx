@@ -3,12 +3,12 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 const MINISTRIES = [
-  { title: "Children's Ministry", href: '/ministries/children', description: 'Birth – 5th Grade' },
-  { title: 'Youth Ministry', href: '/ministries/youth', description: '6th – 12th Grade' },
-  { title: 'Adults Ministry', href: '/ministries/adults', description: 'Small groups & Bible studies' },
-  { title: 'Seniors Ministry', href: '/ministries/seniors', description: '65+ years' },
-  { title: "Women's Ministry", href: '/ministries/women', description: 'All ages' },
-  { title: "Men's Ministry", href: '/ministries/men', description: 'All ages' },
+  { title: "Children's Ministry", href: '/ministries/children' },
+  { title: 'Youth Ministry', href: '/ministries/youth' },
+  { title: 'Adults Ministry', href: '/ministries/adults' },
+  { title: 'Legacy Fellowship', href: '/ministries/seniors' },
+  { title: "Women's Ministry", href: '/ministries/women' },
+  { title: "Men's Ministry", href: '/ministries/men' },
 ];
 
 export default function MinistriesPage() {
@@ -33,11 +33,10 @@ export default function MinistriesPage() {
                 href={ministry.href}
                 className="group block bg-white border border-neutral-200 rounded-xl p-8 hover:border-primary-400 hover:shadow-md transition-all duration-200"
               >
-                <h2 className="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors font-serif">
+                <h2 className="text-xl font-bold text-neutral-900 mb-4 group-hover:text-primary-600 transition-colors font-serif">
                   {ministry.title}
                 </h2>
-                <p className="text-sm text-neutral-500">{ministry.description}</p>
-                <span className="mt-4 inline-block text-primary-600 text-sm font-semibold">
+                <span className="inline-block text-primary-600 text-sm font-semibold">
                   Learn more →
                 </span>
               </Link>
