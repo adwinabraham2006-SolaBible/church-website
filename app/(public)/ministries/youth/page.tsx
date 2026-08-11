@@ -7,7 +7,6 @@ export default async function YouthMinistryPage() {
     <CMSPage
       slug="youth"
       fallbackTitle="Youth Ministry"
-      heroImage="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2070"
     />
   );
 }
