@@ -1,4 +1,4 @@
-import { Heart, Shield } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import PushPayEmbed from '@/components/PushPayEmbed';
 
 export default function GivePage() {
@@ -8,15 +8,13 @@ export default function GivePage() {
       <section className="relative bg-gradient-to-br from-primary-700 via-primary-600 to-primary-500 text-white py-20 md:py-28">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
-            <Heart className="w-16 h-16 mx-auto mb-6 opacity-90" />
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif">
               Give
             </h1>
             <p className="text-xl md:text-2xl text-primary-50 leading-relaxed">
-              &quot;Each of you should give what you have decided in your heart to give, not reluctantly
-              or under compulsion, for God loves a cheerful giver.&quot;
+              We fully trust the Lord in His gracious provision. You may give here on our site, scan
+              the QR code on the bulletin, or via the giving box at our welcome center.
             </p>
-            <p className="text-lg text-primary-100 mt-4">— 2 Corinthians 9:7</p>
           </div>
         </div>
       </section>
