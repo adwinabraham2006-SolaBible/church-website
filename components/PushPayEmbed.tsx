@@ -1,10 +1,14 @@
 'use client';
 import { useEffect } from 'react';
 
+interface PushPayWindow extends Window {
+  pushpayEmbeddedFallbackDone?: boolean;
+  pushpayEmbeddedConfig?: { handle: string; wgc: string };
+}
+
 export default function PushPayEmbed() {
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const win = window as any;
+    const win = window as PushPayWindow;
     if (win.pushpayEmbeddedFallbackDone) return;
 
     win.pushpayEmbeddedConfig = {
