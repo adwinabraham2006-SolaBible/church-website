@@ -1,12 +1,50 @@
-import CMSPage from '@/components/CMSPage';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
-export default async function MinistriesPage() {
+const MINISTRIES = [
+  { title: "Children's Ministry", href: '/ministries/children', description: 'Birth – 5th Grade' },
+  { title: 'Youth Ministry', href: '/ministries/youth', description: '6th – 12th Grade' },
+  { title: 'Adults Ministry', href: '/ministries/adults', description: 'Small groups & Bible studies' },
+  { title: 'Seniors Ministry', href: '/ministries/seniors', description: '65+ years' },
+  { title: "Women's Ministry", href: '/ministries/women', description: 'All ages' },
+  { title: "Men's Ministry", href: '/ministries/men', description: 'All ages' },
+];
+
+export default function MinistriesPage() {
   return (
-    <CMSPage
-      slug="ministries"
-      fallbackTitle="Ministries"
-    />
+    <main>
+      <section className="relative bg-gradient-to-br from-primary-700 via-primary-600 to-primary-500 text-white py-20 md:py-28">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 font-serif">
+              Ministries
+            </h1>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {MINISTRIES.map((ministry) => (
+              <Link
+                key={ministry.href}
+                href={ministry.href}
+                className="group block bg-white border border-neutral-200 rounded-xl p-8 hover:border-primary-400 hover:shadow-md transition-all duration-200"
+              >
+                <h2 className="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors font-serif">
+                  {ministry.title}
+                </h2>
+                <p className="text-sm text-neutral-500">{ministry.description}</p>
+                <span className="mt-4 inline-block text-primary-600 text-sm font-semibold">
+                  Learn more →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
