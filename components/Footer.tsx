@@ -67,7 +67,7 @@ export default function Footer() {
               <div>
                 <div className="text-white font-semibold">Sunday Morning</div>
                 <div>9:00 AM - Old Testament Survey</div>
-                <div>10:45 AM - Morning Service</div>
+                <div>10:30 AM - Morning Service</div>
               </div>
             </div>
           </div>
