@@ -19,15 +19,20 @@ export default function EditStaffPage() {
 
   useEffect(() => {
     const fetchStaff = async () => {
-      const response = await fetch(`/api/admin/staff/${id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setStaff(data);
-        setPhotoUrl(data.photo_url);
-      } else {
-        setError('Staff member not found');
+      try {
+        const response = await fetch(`/api/admin/staff/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setStaff(data);
+          setPhotoUrl(data.photo_url);
+        } else {
+          setError('Staff member not found');
+        }
+      } catch {
+        setError('Failed to load. Please try again.');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchStaff();
   }, [id]);

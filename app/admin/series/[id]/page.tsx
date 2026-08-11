@@ -17,14 +17,19 @@ export default function EditSeriesPage() {
 
   useEffect(() => {
     const fetchSeries = async () => {
-      const response = await fetch(`/api/admin/series/${id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setSeries(data);
-      } else {
-        setError('Series not found');
+      try {
+        const response = await fetch(`/api/admin/series/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setSeries(data);
+        } else {
+          setError('Series not found');
+        }
+      } catch {
+        setError('Failed to load. Please try again.');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchSeries();
   }, [id]);

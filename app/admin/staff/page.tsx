@@ -10,14 +10,19 @@ export default function StaffListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchStaff = async () => {
-    const response = await fetch('/api/admin/staff');
-    if (response.ok) {
-      const data = await response.json();
-      setStaff(data || []);
-    } else {
-      console.error('Error fetching staff');
+    try {
+      const response = await fetch('/api/admin/staff');
+      if (response.ok) {
+        const data = await response.json();
+        setStaff(data || []);
+      } else {
+        console.error('Error fetching staff');
+      }
+    } catch {
+      
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

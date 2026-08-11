@@ -12,14 +12,19 @@ export default function SermonsListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchSermons = async () => {
-    const response = await fetch('/api/admin/sermons');
-    if (response.ok) {
-      const data = await response.json();
-      setSermons(data || []);
-    } else {
-      console.error('Error fetching sermons');
+    try {
+      const response = await fetch('/api/admin/sermons');
+      if (response.ok) {
+        const data = await response.json();
+        setSermons(data || []);
+      } else {
+        console.error('Error fetching sermons');
+      }
+    } catch {
+      
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

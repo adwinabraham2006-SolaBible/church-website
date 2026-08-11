@@ -10,14 +10,19 @@ export default function BulletinsListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchBulletins = async () => {
-    const response = await fetch('/api/admin/bulletins');
-    if (response.ok) {
-      const data = await response.json();
-      setBulletins(data || []);
-    } else {
-      console.error('Error fetching bulletins');
+    try {
+      const response = await fetch('/api/admin/bulletins');
+      if (response.ok) {
+        const data = await response.json();
+        setBulletins(data || []);
+      } else {
+        console.error('Error fetching bulletins');
+      }
+    } catch {
+      
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

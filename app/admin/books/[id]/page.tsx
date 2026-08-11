@@ -19,15 +19,20 @@ export default function EditBookPage() {
 
   useEffect(() => {
     const fetchBook = async () => {
-      const response = await fetch(`/api/admin/books/${id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setBook(data);
-        setImageUrl(data.image_url);
-      } else {
-        setError('Book not found');
+      try {
+        const response = await fetch(`/api/admin/books/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setBook(data);
+          setImageUrl(data.image_url);
+        } else {
+          setError('Book not found');
+        }
+      } catch {
+        setError('Failed to load. Please try again.');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchBook();
   }, [id]);

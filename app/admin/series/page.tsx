@@ -10,14 +10,19 @@ export default function SeriesListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchSeries = async () => {
-    const response = await fetch('/api/admin/series');
-    if (response.ok) {
-      const data = await response.json();
-      setSeries(data || []);
-    } else {
-      console.error('Error fetching series');
+    try {
+      const response = await fetch('/api/admin/series');
+      if (response.ok) {
+        const data = await response.json();
+        setSeries(data || []);
+      } else {
+        console.error('Error fetching series');
+      }
+    } catch {
+      
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

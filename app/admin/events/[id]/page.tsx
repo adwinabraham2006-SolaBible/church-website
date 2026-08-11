@@ -19,15 +19,20 @@ export default function EditEventPage() {
 
   useEffect(() => {
     const fetchEvent = async () => {
-      const response = await fetch(`/api/admin/events/${id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setEvent(data);
-        setImageUrl(data.image_url);
-      } else {
-        setError('Event not found');
+      try {
+        const response = await fetch(`/api/admin/events/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setEvent(data);
+          setImageUrl(data.image_url);
+        } else {
+          setError('Event not found');
+        }
+      } catch {
+        setError('Failed to load. Please try again.');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchEvent();
   }, [id]);

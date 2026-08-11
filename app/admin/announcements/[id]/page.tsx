@@ -19,15 +19,20 @@ export default function EditAnnouncementPage() {
 
   useEffect(() => {
     const fetchAnnouncement = async () => {
-      const response = await fetch(`/api/admin/announcements/${id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setAnnouncement(data);
-        setImageUrl(data.image_url);
-      } else {
-        setError('Announcement not found');
+      try {
+        const response = await fetch(`/api/admin/announcements/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setAnnouncement(data);
+          setImageUrl(data.image_url);
+        } else {
+          setError('Announcement not found');
+        }
+      } catch {
+        setError('Failed to load. Please try again.');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchAnnouncement();
   }, [id]);

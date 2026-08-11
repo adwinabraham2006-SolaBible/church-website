@@ -45,19 +45,24 @@ export default function EditPagePage() {
 
   useEffect(() => {
     const fetchPage = async () => {
-      const response = await fetch(`/api/admin/pages/${slug}`);
-      if (response.ok) {
-        const data = await response.json();
-        setPage(data);
-        setTitle(data.title);
-        setContent(data.content || '');
-        setImageUrl(data.image_url || '');
-      } else {
-        // Page doesn't exist yet — show empty editor so user can create it
-        setTitle(DEFAULT_TITLES[slug] || slug);
-        setContent('');
+      try {
+        const response = await fetch(`/api/admin/pages/${slug}`);
+        if (response.ok) {
+          const data = await response.json();
+          setPage(data);
+          setTitle(data.title);
+          setContent(data.content || '');
+          setImageUrl(data.image_url || '');
+        } else {
+          // Page doesn't exist yet — show empty editor so user can create it
+          setTitle(DEFAULT_TITLES[slug] || slug);
+          setContent('');
+        }
+      } catch {
+        setError('Failed to load. Please try again.');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchPage();
   }, [slug]);

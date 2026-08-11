@@ -10,14 +10,19 @@ export default function BooksListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchBooks = async () => {
-    const response = await fetch('/api/admin/books');
-    if (response.ok) {
-      const data = await response.json();
-      setBooks(data || []);
-    } else {
-      console.error('Error fetching books');
+    try {
+      const response = await fetch('/api/admin/books');
+      if (response.ok) {
+        const data = await response.json();
+        setBooks(data || []);
+      } else {
+        console.error('Error fetching books');
+      }
+    } catch {
+      
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

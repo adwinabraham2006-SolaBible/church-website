@@ -26,6 +26,9 @@ export default function VolunteerAdminPage() {
     ]).then(([content, fileData]) => {
       setDescription(content.description || '');
       setFiles(Array.isArray(fileData) ? fileData : []);
+    }).catch(() => {
+      setError('Failed to load. Check your connection and refresh.');
+    }).finally(() => {
       setLoading(false);
     });
   }, []);

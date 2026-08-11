@@ -26,12 +26,17 @@ export default function PagesListPage() {
 
   useEffect(() => {
     const fetchPages = async () => {
-      const response = await fetch('/api/admin/pages');
-      if (response.ok) {
-        const data = await response.json();
-        setSavedPages(data);
+      try {
+        const response = await fetch('/api/admin/pages');
+        if (response.ok) {
+          const data = await response.json();
+          setSavedPages(data);
+        }
+      } catch {
+        // silently fail — table shows no content but doesn't get stuck
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchPages();
   }, []);

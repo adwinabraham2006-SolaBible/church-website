@@ -10,14 +10,19 @@ export default function AnnouncementsListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchAnnouncements = async () => {
-    const response = await fetch('/api/admin/announcements');
-    if (response.ok) {
-      const data = await response.json();
-      setAnnouncements(data || []);
-    } else {
-      console.error('Error fetching announcements');
+    try {
+      const response = await fetch('/api/admin/announcements');
+      if (response.ok) {
+        const data = await response.json();
+        setAnnouncements(data || []);
+      } else {
+        console.error('Error fetching announcements');
+      }
+    } catch {
+      
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

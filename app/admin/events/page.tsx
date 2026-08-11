@@ -10,14 +10,19 @@ export default function EventsListPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchEvents = async () => {
-    const response = await fetch('/api/admin/events');
-    if (response.ok) {
-      const data = await response.json();
-      setEvents(data || []);
-    } else {
-      console.error('Error fetching events');
+    try {
+      const response = await fetch('/api/admin/events');
+      if (response.ok) {
+        const data = await response.json();
+        setEvents(data || []);
+      } else {
+        console.error('Error fetching events');
+      }
+    } catch {
+      
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

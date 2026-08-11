@@ -19,15 +19,20 @@ export default function EditBulletinPage() {
 
   useEffect(() => {
     const fetchBulletin = async () => {
-      const response = await fetch(`/api/admin/bulletins/${id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setBulletin(data);
-        setPdfUrl(data.pdf_url);
-      } else {
-        setError('Bulletin not found');
+      try {
+        const response = await fetch(`/api/admin/bulletins/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setBulletin(data);
+          setPdfUrl(data.pdf_url);
+        } else {
+          setError('Bulletin not found');
+        }
+      } catch {
+        setError('Failed to load. Please try again.');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchBulletin();
   }, [id]);
