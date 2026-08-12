@@ -118,8 +118,8 @@ export default function PrayerPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold font-serif mb-4">Prayer Request</h1>
             <p className="text-lg text-primary-100 max-w-xl mx-auto">
-              We count it a privilege to pray with you. Share what is on your heart and our
-              pastors and elders will lift your request before the Lord.
+              We count it a privilege to pray for you. Below is a form you can fill out to
+              submit prayer requests.
             </p>
           </div>
         </div>
