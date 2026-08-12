@@ -16,6 +16,7 @@ const navItems = [
   { href: '/admin/missions', label: 'Missions' },
   { href: '/admin/benevolence', label: 'Benevolence' },
   { href: '/admin/books', label: 'Bookstore' },
+  { href: '/admin/prayer', label: 'Prayer Requests' },
   { href: '/admin/conference', label: 'Conference' },
 ];
 

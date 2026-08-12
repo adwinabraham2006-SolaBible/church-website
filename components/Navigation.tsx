@@ -52,6 +52,10 @@ const menuItems: MenuItem[] = [
     href: '/events',
   },
   {
+    name: 'Prayer',
+    href: '/prayer',
+  },
+  {
     name: 'Resources',
     href: '/resources',
     submenu: [

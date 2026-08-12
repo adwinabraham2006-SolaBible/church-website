@@ -127,6 +127,9 @@ export default function Footer() {
               <Link href="/give" className="block hover:text-primary-400 transition-colors">
                 Give Online
               </Link>
+              <Link href="/prayer" className="block hover:text-primary-400 transition-colors">
+                Prayer Requests
+              </Link>
               <Link href="/contact" className="block hover:text-primary-400 transition-colors">
                 Contact Us
               </Link>
