@@ -3,20 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { supabaseAdmin } from '@/lib/supabase';
 
-// In-memory rate limit: max 3 submissions per IP per 15 minutes
-const rateLimitMap = new Map<string, number[]>();
-const WINDOW_MS = 15 * 60 * 1000;
-const MAX_REQUESTS = 3;
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const hits = (rateLimitMap.get(ip) || []).filter(t => now - t < WINDOW_MS);
-  if (hits.length >= MAX_REQUESTS) return true;
-  hits.push(now);
-  rateLimitMap.set(ip, hits);
-  return false;
-}
-
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 function buildEmailHtml(fields: {
@@ -64,14 +50,6 @@ function buildEmailHtml(fields: {
 }
 
 export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: 'Too many requests. Please wait a few minutes and try again.' },
-      { status: 429 }
-    );
-  }
-
   let body: Record<string, unknown>;
   try {
     body = await request.json();
