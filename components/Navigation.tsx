@@ -82,9 +82,9 @@ export default function Navigation() {
             <Image
               src="/logo.png"
               alt="Sola Bible Church Logo"
-              width={48}
-              height={48}
-              className="w-12 h-12"
+              width={72}
+              height={72}
+              className="w-16 h-16"
             />
             <div className="hidden sm:block">
               <div className="text-xl font-bold text-neutral-900">Sola Bible Church</div>
