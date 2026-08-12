@@ -9,6 +9,7 @@ const MINISTRIES = [
   { title: 'Legacy Fellowship', href: '/ministries/seniors' },
   { title: "Women's Ministry", href: '/ministries/women' },
   { title: "Men's Ministry", href: '/ministries/men' },
+  { title: 'Benevolence Ministry', href: '/ministries/benevolence' },
 ];
 
 export default function MinistriesPage() {
