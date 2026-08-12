@@ -67,9 +67,10 @@ export default async function BenevolencePage() {
 
           {/* Description */}
           {description && (
-            <div className="prose prose-lg max-w-none text-neutral-700 whitespace-pre-line">
-              {description}
-            </div>
+            <div
+              className="prose prose-lg max-w-none text-neutral-700"
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
           )}
 
           {/* Announcements */}

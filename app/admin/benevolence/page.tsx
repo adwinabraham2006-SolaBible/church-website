@@ -1,6 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Trash2, Upload, Plus, Pencil, X, Check } from 'lucide-react';
+
+const TipTapEditor = dynamic(() => import('../components/TipTapEditor'), { ssr: false });
 
 interface BenevolenceFile {
   id: string;
@@ -186,13 +189,7 @@ export default function BenevolenceAdminPage() {
       {/* Description */}
       <div className="bg-white rounded-lg shadow p-6 space-y-4">
         <h2 className="text-lg font-semibold text-gray-900">Ministry Description</h2>
-        <textarea
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-          rows={8}
-          placeholder="Describe the Benevolence Ministry..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-        />
+        <TipTapEditor content={description} onChange={setDescription} />
         <button
           onClick={saveDescription}
           disabled={saving}
