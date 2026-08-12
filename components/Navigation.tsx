@@ -36,6 +36,7 @@ const menuItems: MenuItem[] = [
       { name: 'Legacy Fellowship', href: '/ministries/seniors' },
       { name: "Women's Ministry", href: '/ministries/women' },
       { name: "Men's Ministry", href: '/ministries/men' },
+      { name: 'Benevolence Ministry', href: '/ministries/benevolence' },
     ],
   },
   {
