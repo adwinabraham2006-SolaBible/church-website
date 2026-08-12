@@ -14,9 +14,9 @@ export default function Footer() {
               <Image
                 src="/logo.png"
                 alt="Sola Bible Church Logo"
-                width={40}
-                height={40}
-                className="w-10 h-10"
+                width={72}
+                height={72}
+                className="w-16 h-16"
               />
               <div className="text-white font-bold text-lg">
                 Sola Bible Church
