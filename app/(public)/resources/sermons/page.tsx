@@ -104,7 +104,7 @@ export default async function SermonsPage() {
               <p className="text-neutral-500 text-center py-12">No sermons available yet. Check back soon.</p>
             ) : (
               <div className="space-y-3">
-                {(series.length > 0 ? unassigned : sermonList).map(sermon => (
+                {sermonList.map(sermon => (
                   <div
                     key={sermon.id}
                     className="bg-white rounded-xl border border-neutral-200 px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:border-primary-300 hover:shadow-sm transition-all"
