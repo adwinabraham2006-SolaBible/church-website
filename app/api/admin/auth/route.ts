@@ -11,6 +11,14 @@ function makeToken() {
   return Buffer.from(`${Date.now()}-${Math.random().toString(36).substring(2)}`).toString('base64');
 }
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax' as const,
+  maxAge: SESSION_DURATION,
+  path: '/',
+};
+
 export async function POST(request: NextRequest) {
   try {
     const { password } = await request.json();
@@ -19,28 +27,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Admin password not configured' }, { status: 500 });
     }
 
-    const cookieOptions = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax' as const,
-      maxAge: SESSION_DURATION,
-      path: '/',
-    };
-
-    const cookieStore = await cookies();
-
-    // Elder password grants both admin and elder access
+    // Elder password — grants both admin and elder access
     if (ELDER_PASSWORD && password === ELDER_PASSWORD) {
-      cookieStore.set(COOKIE_NAME, makeToken(), cookieOptions);
-      cookieStore.set(ELDER_COOKIE, makeToken(), cookieOptions);
-      return NextResponse.json({ success: true, role: 'elder' });
+      const res = NextResponse.json({ success: true, role: 'elder' });
+      res.cookies.set(COOKIE_NAME, makeToken(), cookieOptions);
+      res.cookies.set(ELDER_COOKIE, makeToken(), cookieOptions);
+      return res;
     }
 
     // Regular admin password
     if (password === ADMIN_PASSWORD) {
-      cookieStore.set(COOKIE_NAME, makeToken(), cookieOptions);
-      cookieStore.delete(ELDER_COOKIE); // clear any stale elder session
-      return NextResponse.json({ success: true, role: 'admin' });
+      const res = NextResponse.json({ success: true, role: 'admin' });
+      res.cookies.set(COOKIE_NAME, makeToken(), cookieOptions);
+      res.cookies.delete(ELDER_COOKIE);
+      return res;
     }
 
     return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
@@ -50,8 +50,8 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE() {
-  const cookieStore = await cookies();
-  cookieStore.delete(COOKIE_NAME);
-  cookieStore.delete(ELDER_COOKIE);
-  return NextResponse.json({ success: true });
+  const res = NextResponse.json({ success: true });
+  res.cookies.delete(COOKIE_NAME);
+  res.cookies.delete(ELDER_COOKIE);
+  return res;
 }
