@@ -18,6 +18,8 @@ const KNOWN_PAGES = [
   { slug: 'volunteer', title: 'Volunteer', category: 'Serve', publicUrl: '/serve/volunteer' },
   { slug: 'missions', title: 'Missions', category: 'Serve', publicUrl: '/serve/missions' },
   { slug: 'contact', title: 'Contact', category: 'Contact', publicUrl: '/contact' },
+  { slug: 'privacy', title: 'Privacy Policy', category: 'Legal', publicUrl: '/privacy' },
+  { slug: 'terms', title: 'Terms of Use', category: 'Legal', publicUrl: '/terms' },
 ];
 
 export default function PagesListPage() {
