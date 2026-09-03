@@ -99,9 +99,15 @@ export async function POST(request: NextRequest) {
 
   // Send email notification
   if (resend) {
-    const elderList = (process.env.PRAYER_NOTIFY_CONFIDENTIAL || '').split(',').map(e => e.trim()).filter(Boolean);
-    const leadershipList = (process.env.PRAYER_NOTIFY_ELDERS || '').split(',').map(e => e.trim()).filter(Boolean);
-    const recipients = confidential ? elderList : leadershipList;
+    const elders = [
+      'adwinabraham2006@gmail.com',
+      'brad@ridgewoodwealth.com',
+      'diosesbueno.1294@gmail.com',
+      'leewatson1165@gmail.com',
+      'jj197588@gmail.com',
+    ];
+    // All elders receive both regular and confidential requests
+    const recipients = elders;
 
     if (recipients.length > 0) {
       const flags = [
