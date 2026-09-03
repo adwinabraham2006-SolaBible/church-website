@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Elder password — grants both admin and elder access
-    if (ELDER_PASSWORD && password === ELDER_PASSWORD) {
+    if (ELDER_PASSWORD && password.trim() === ELDER_PASSWORD.trim()) {
       const res = NextResponse.json({ success: true, role: 'elder' });
       res.cookies.set(COOKIE_NAME, makeToken(), cookieOptions);
       res.cookies.set(ELDER_COOKIE, makeToken(), cookieOptions);
