@@ -35,13 +35,6 @@ interface ScheduleItem {
   display_order: number;
 }
 
-interface FaqItem {
-  id: string;
-  question: string;
-  answer: string;
-  display_order: number;
-}
-
 // ── Defaults (shown before admin has populated the DB) ─────────────────────
 
 const DEFAULT_DETAILS: ConferenceDetails = {
@@ -98,32 +91,21 @@ const DEFAULT_SCHEDULE: ScheduleItem[] = [
   { id: '10', time: '3:30 PM', label: 'Dismissal', note: '', display_order: 9 },
 ];
 
-const DEFAULT_FAQ: FaqItem[] = [
-  { id: '1', question: 'What should I bring?', answer: 'Your Bible, a notebook and pen, and an open heart. Bring a friend — this event is free and open to all women.', display_order: 0 },
-  { id: '2', question: 'Is there a cost to attend?', answer: "No. This conference is completely free of charge. We want nothing to stand between you and a day in God's Word.", display_order: 1 },
-  { id: '3', question: 'Is childcare available?', answer: 'Childcare details are coming soon. Check back closer to the event date or contact the church for more information.', display_order: 2 },
-  { id: '4', question: 'Where do I park?', answer: 'Free parking is available on-site at Sola Bible Church, 219 King Circle, Temple, TX 76501.', display_order: 3 },
-  { id: '5', question: 'Will lunch be provided?', answer: 'Yes — lunch is included at no cost. Dietary accommodation details will be shared closer to the event.', display_order: 4 },
-  { id: '6', question: 'Who is this conference for?', answer: "Every woman is welcome — whether you've walked with Christ for decades or are still exploring faith. Come as you are.", display_order: 5 },
-];
-
 // ── Data fetch ─────────────────────────────────────────────────────────────
 
 async function getConferenceData() {
   noStore();
   if (!supabaseAdmin) return null;
   try {
-    const [detailsRes, speakersRes, scheduleRes, faqRes] = await Promise.all([
+    const [detailsRes, speakersRes, scheduleRes] = await Promise.all([
       supabaseAdmin.from('conference_details').select('*').limit(1).maybeSingle(),
       supabaseAdmin.from('conference_speakers').select('*').order('display_order'),
       supabaseAdmin.from('conference_schedule').select('*').order('display_order'),
-      supabaseAdmin.from('conference_faq').select('*').order('display_order'),
     ]);
     return {
       details: detailsRes.data as ConferenceDetails | null,
       speakers: (speakersRes.data as Speaker[]) || [],
       schedule: (scheduleRes.data as ScheduleItem[]) || [],
-      faq: (faqRes.data as FaqItem[]) || [],
     };
   } catch {
     return null;
@@ -148,7 +130,6 @@ export default async function LadiesConferencePage() {
     : DEFAULT_DETAILS;
   const speakers: Speaker[] = db?.speakers.length ? db.speakers : DEFAULT_SPEAKERS;
   const schedule: ScheduleItem[] = db?.schedule.length ? db.schedule : DEFAULT_SCHEDULE;
-  const faq: FaqItem[] = db?.faq.length ? db.faq : DEFAULT_FAQ;
 
   const registerUrl = details.register_url || '#register';
 
@@ -274,13 +255,6 @@ export default async function LadiesConferencePage() {
           letter-spacing: 0.04em;
           padding-top: 2px;
         }
-        .conf-faq-item {
-          border-bottom: 1px solid #d8ddc8;
-          padding: 1.5rem 0;
-        }
-        .conf-faq-item:first-child {
-          border-top: 1px solid #d8ddc8;
-        }
         .scripture-quote {
           font-family: var(--font-merriweather), Georgia, serif;
           font-weight: 300;
@@ -390,27 +364,9 @@ export default async function LadiesConferencePage() {
           </div>
         </section>
 
-        {/* ── FAQ ── */}
-        <section id="details" className="py-20 md:py-28 px-6" style={{ background: '#ffffff' }}>
+        {/* ── LOCATION ── */}
+        <section className="py-20 md:py-28 px-6" style={{ background: '#ffffff' }}>
           <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-14">
-              <p className="conf-eyebrow mb-4">Details &amp; FAQ</p>
-              <div className="conf-gold-rule"></div>
-            </div>
-
-            <div>
-              {faq.map((item) => (
-                <div key={item.id} className="conf-faq-item">
-                  <h3 className="font-serif font-bold text-base mb-2" style={{ color: '#1E2710' }}>
-                    {item.question}
-                  </h3>
-                  <p className="font-sans text-sm leading-relaxed" style={{ color: '#5C5A4A' }}>
-                    {item.answer}
-                  </p>
-                </div>
-              ))}
-            </div>
-
             <div className="mt-12 p-8 text-center" style={{ background: '#EEF1E3', borderLeft: '4px solid #7A5018' }}>
               <p className="font-sans text-sm" style={{ color: '#4A4A38' }}>
                 <strong>Location</strong><br />
