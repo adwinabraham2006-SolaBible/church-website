@@ -28,13 +28,16 @@ export async function PUT(request: NextRequest) {
 
     let result;
     if (existing) {
+      const { id: _id, ...updateFields } = body;
+      console.log('[conference PUT] updating id:', existing.id, 'fields:', JSON.stringify(updateFields));
       result = await supabaseAdmin
         .from('conference_details')
-        .update({ ...body, updated_at: new Date().toISOString() })
+        .update({ ...updateFields, updated_at: new Date().toISOString() })
         .eq('id', existing.id)
         .select()
         .single();
     } else {
+      console.log('[conference PUT] inserting new row');
       result = await supabaseAdmin
         .from('conference_details')
         .insert({ ...body, updated_at: new Date().toISOString() })
@@ -42,6 +45,7 @@ export async function PUT(request: NextRequest) {
         .single();
     }
 
+    console.log('[conference PUT] result error:', result.error, 'data name:', result.data?.name);
     if (result.error) {
       return NextResponse.json({ error: result.error.message }, { status: 400 });
     }
