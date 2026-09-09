@@ -137,7 +137,10 @@ export default async function LadiesConferencePage() {
     <>
       <style>{`
         .conf-hero {
-          background-color: #1E2710;
+          background-image: url('/images/conference-bg.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
           position: relative;
           overflow: hidden;
         }
