@@ -98,7 +98,7 @@ async function getConferenceData() {
   if (!supabaseAdmin) return null;
   try {
     const [detailsRes, speakersRes, scheduleRes] = await Promise.all([
-      supabaseAdmin.from('conference_details').select('*').limit(1).maybeSingle(),
+      supabaseAdmin.from('conference_details').select('*').order('updated_at', { ascending: false }).limit(1).maybeSingle(),
       supabaseAdmin.from('conference_speakers').select('*').order('display_order'),
       supabaseAdmin.from('conference_schedule').select('*').order('display_order'),
     ]);

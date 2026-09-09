@@ -9,6 +9,7 @@ export async function GET() {
   const { data } = await supabaseAdmin
     .from('conference_details')
     .select('*')
+    .order('updated_at', { ascending: false })
     .limit(1)
     .maybeSingle();
   return NextResponse.json(data || {});
@@ -20,16 +21,20 @@ export async function PUT(request: NextRequest) {
   }
   try {
     const body = await request.json();
+    const { id: _id, ...updateFields } = body;
+
     const { data: existing } = await supabaseAdmin
       .from('conference_details')
       .select('id')
+      .order('updated_at', { ascending: false })
       .limit(1)
       .maybeSingle();
 
     let result;
     if (existing) {
-      const { id: _id, ...updateFields } = body;
-      console.log('[conference PUT] updating id:', existing.id, 'fields:', JSON.stringify(updateFields));
+      // Delete any extra rows so GET and PUT always agree on which row is canonical
+      await supabaseAdmin.from('conference_details').delete().neq('id', existing.id);
+
       result = await supabaseAdmin
         .from('conference_details')
         .update({ ...updateFields, updated_at: new Date().toISOString() })
@@ -37,15 +42,13 @@ export async function PUT(request: NextRequest) {
         .select()
         .single();
     } else {
-      console.log('[conference PUT] inserting new row');
       result = await supabaseAdmin
         .from('conference_details')
-        .insert({ ...body, updated_at: new Date().toISOString() })
+        .insert({ ...updateFields, updated_at: new Date().toISOString() })
         .select()
         .single();
     }
 
-    console.log('[conference PUT] result error:', result.error, 'data name:', result.data?.name);
     if (result.error) {
       return NextResponse.json({ error: result.error.message }, { status: 400 });
     }
