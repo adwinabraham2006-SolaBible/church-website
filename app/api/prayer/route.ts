@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic';
+                                                                                                                                                                                                                                                                                                                                                                                                export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { supabaseAdmin } from '@/lib/supabase';
@@ -71,6 +71,20 @@ export async function POST(request: NextRequest) {
 
   if (!name) return NextResponse.json({ error: 'Name is required.' }, { status: 400 });
   if (!prayerRequest) return NextResponse.json({ error: 'Prayer request is required.' }, { status: 400 });
+
+  // Spam filters — silently accept so bots don't know they were blocked
+  const urlPattern = /https?:\/\/|www\./i;
+  const spamKeywords = /\b(casino|viagra|crypto|bitcoin|forex|seo|loan offer|click here|buy now|free money|make money|investment opportunity)\b/i;
+  const isSpam =
+    urlPattern.test(prayerRequest) ||
+    urlPattern.test(name) ||
+    spamKeywords.test(prayerRequest) ||
+    name.length > 100 ||
+    prayerRequest.length < 10;
+  if (isSpam) {
+    return NextResponse.json({ success: true });
+  }
+
   if (followup && !email && !phone) {
     return NextResponse.json(
       { error: 'Please provide an email or phone number so we can follow up with you.' },

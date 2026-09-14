@@ -39,3 +39,15 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   if (error) return NextResponse.json({ error: 'Failed to update' }, { status: 500 });
   return NextResponse.json(data);
 }
+
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+  if (!supabaseAdmin) return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+
+  const { error } = await supabaseAdmin
+    .from('prayer_requests')
+    .delete()
+    .eq('id', params.id);
+
+  if (error) return NextResponse.json({ error: 'Failed to delete' }, { status: 500 });
+  return NextResponse.json({ success: true });
+}

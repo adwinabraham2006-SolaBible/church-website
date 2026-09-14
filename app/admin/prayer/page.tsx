@@ -36,6 +36,7 @@ export default function PrayerAdminPage() {
   const [savingId, setSavingId] = useState<string | null>(null);
   const [editNotes, setEditNotes] = useState<Record<string, string>>({});
   const [editHandledBy, setEditHandledBy] = useState<Record<string, string>>({});
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/admin/prayer')
@@ -62,6 +63,19 @@ export default function PrayerAdminPage() {
       setError('Failed to save. Please try again.');
     }
     setSavingId(null);
+  };
+
+  const deleteRequest = async (id: string) => {
+    if (!confirm('Delete this prayer request? This cannot be undone.')) return;
+    setDeletingId(id);
+    const res = await fetch(`/api/admin/prayer/${id}`, { method: 'DELETE' });
+    if (res.ok) {
+      setRequests(prev => prev.filter(r => r.id !== id));
+      if (expandedId === id) setExpandedId(null);
+    } else {
+      setError('Failed to delete. Please try again.');
+    }
+    setDeletingId(null);
   };
 
   const saveNotes = (req: PrayerRequest) => {
@@ -235,13 +249,22 @@ export default function PrayerAdminPage() {
                       />
                     </div>
 
-                    <button
-                      onClick={() => saveNotes(req)}
-                      disabled={savingId === req.id}
-                      className="bg-blue-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium"
-                    >
-                      {savingId === req.id ? 'Saving…' : 'Save Notes'}
-                    </button>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => saveNotes(req)}
+                        disabled={savingId === req.id}
+                        className="bg-blue-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium"
+                      >
+                        {savingId === req.id ? 'Saving…' : 'Save Notes'}
+                      </button>
+                      <button
+                        onClick={() => deleteRequest(req.id)}
+                        disabled={deletingId === req.id}
+                        className="text-red-600 border border-red-200 text-sm px-4 py-2 rounded-lg hover:bg-red-50 disabled:opacity-50 font-medium"
+                      >
+                        {deletingId === req.id ? 'Deleting…' : 'Delete'}
+                      </button>
+                    </div>
                   </div>
                 )}
               </li>
