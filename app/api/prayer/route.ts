@@ -24,7 +24,7 @@ function buildEmailHtml(fields: {
 <!DOCTYPE html>
 <html>
 <body style="font-family:Georgia,serif;color:#1c1917;max-width:600px;margin:0 auto;padding:24px;">
-  <h2 style="color:#2a4572;border-bottom:2px solid #f4c430;padding-bottom:8px;">
+  <h2 style="color:#162242;border-bottom:2px solid #C9A535;padding-bottom:8px;">
     New Prayer Request — Sola Bible Church
   </h2>
   ${badges ? `<p style="margin-bottom:16px;">${badges}</p>` : ''}
@@ -36,14 +36,14 @@ function buildEmailHtml(fields: {
     <tr><td style="padding:8px 0;font-weight:700;vertical-align:top;">Confidential?</td><td style="padding:8px 0;">${confidential ? 'Yes' : 'No'}</td></tr>
     <tr>
       <td style="padding:12px 0;font-weight:700;vertical-align:top;">Prayer Request</td>
-      <td style="padding:12px 0;"><div style="background:#f5f5f4;border-left:4px solid #2a4572;padding:12px 16px;white-space:pre-wrap;border-radius:0 4px 4px 0;">${request.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div></td>
+      <td style="padding:12px 0;"><div style="background:#f5f5f4;border-left:4px solid #162242;padding:12px 16px;white-space:pre-wrap;border-radius:0 4px 4px 0;">${request.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div></td>
     </tr>
   </table>
   <p style="font-size:12px;color:#78716c;margin-top:24px;border-top:1px solid #e7e5e4;padding-top:12px;">
     Submitted ${submittedAt}${email ? ' · Reply to this email to respond directly to the submitter.' : ''}
   </p>
   <p style="font-size:12px;color:#78716c;">
-    Manage this request in the <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://yoursite.com'}/admin/prayer" style="color:#2a4572;">admin dashboard</a>.
+    Manage this request in the <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://yoursite.com'}/admin/prayer" style="color:#162242;">admin dashboard</a>.
   </p>
 </body>
 </html>`;

@@ -43,14 +43,11 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   if (!supabaseAdmin) return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
 
-  console.log('[prayer DELETE] attempting id:', params.id);
-  const { error, count } = await supabaseAdmin
+  const { error } = await supabaseAdmin
     .from('prayer_requests')
     .delete()
-    .eq('id', params.id)
-    .select();
+    .eq('id', params.id);
 
-  console.log('[prayer DELETE] error:', error, 'count:', count);
   if (error) return NextResponse.json({ error: 'Failed to delete' }, { status: 500 });
   return NextResponse.json({ success: true });
 }
