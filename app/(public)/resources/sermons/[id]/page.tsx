@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { unstable_noStore as noStore } from 'next/cache';
 import { supabaseAdmin, supabase } from '@/lib/supabase';
 import type { Sermon, SermonSeries } from '@/lib/types';
-import { Play, Video, FileText, BookOpen, User, Calendar, ArrowLeft } from 'lucide-react';
+import { Play, FileText, BookOpen, User, Calendar, ArrowLeft } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,6 +13,37 @@ interface SermonWithSeries extends Sermon {
 
 interface Props {
   params: { id: string };
+}
+
+function extractYouTubeId(url: string): string | null {
+  const match = url.match(
+    /(?:youtube\.com\/watch\?(?:.*&)?v=|youtu\.be\/|youtube\.com\/embed\/)([A-Za-z0-9_-]{11})/
+  );
+  return match ? match[1] : null;
+}
+
+async function fetchTranscript(videoId: string): Promise<string[]> {
+  try {
+    const { YoutubeTranscript } = await import('youtube-transcript');
+    const items = await YoutubeTranscript.fetchTranscript(videoId);
+    // Group segments into ~30-second paragraphs for readability
+    const paragraphs: string[] = [];
+    let current = '';
+    let elapsed = 0;
+    for (const item of items) {
+      current += (current ? ' ' : '') + item.text.replace(/\[.*?\]/g, '').trim();
+      elapsed += item.duration;
+      if (elapsed >= 30000) {
+        if (current.trim()) paragraphs.push(current.trim());
+        current = '';
+        elapsed = 0;
+      }
+    }
+    if (current.trim()) paragraphs.push(current.trim());
+    return paragraphs;
+  } catch {
+    return [];
+  }
 }
 
 export default async function SermonDetailPage({ params }: Props) {
@@ -31,6 +62,8 @@ export default async function SermonDetailPage({ params }: Props) {
   }
 
   const sermonData = sermon as SermonWithSeries;
+  const youtubeId = sermonData.video_url ? extractYouTubeId(sermonData.video_url) : null;
+  const transcript = youtubeId ? await fetchTranscript(youtubeId) : [];
 
   return (
     <main>
@@ -56,7 +89,6 @@ export default async function SermonDetailPage({ params }: Props) {
               {sermonData.title}
             </h1>
 
-            {/* Meta Information */}
             <div className="flex flex-wrap gap-6 text-primary-100">
               <div className="flex items-center">
                 <User className="w-5 h-5 mr-2" />
@@ -84,50 +116,59 @@ export default async function SermonDetailPage({ params }: Props) {
       {/* Content Section */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            {/* Media Section */}
-            <div className="bg-neutral-50 rounded-xl p-6 md:p-8 mb-8">
-              <h2 className="text-xl font-bold text-neutral-900 mb-4">Listen or Watch</h2>
+          <div className="max-w-4xl mx-auto space-y-8">
 
-              <div className="flex flex-wrap gap-4">
-                {sermonData.audio_url ? (
-                  <div className="flex-1 min-w-[280px]">
-                    <p className="text-sm text-neutral-600 mb-2">Audio</p>
-                    <audio
-                      controls
-                      className="w-full"
-                      src={sermonData.audio_url}
-                    >
-                      Your browser does not support the audio element.
-                    </audio>
-                  </div>
-                ) : (
-                  <p className="text-neutral-500">No audio available for this sermon.</p>
-                )}
-              </div>
-
-              {sermonData.video_url && (
-                <div className="mt-4">
-                  <a
-                    href={sermonData.video_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-neutral-800 hover:bg-neutral-900 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-                  >
-                    <Video className="w-5 h-5" />
-                    Watch Video
-                  </a>
+            {/* Video embed */}
+            {youtubeId && (
+              <div>
+                <div className="relative w-full rounded-xl overflow-hidden shadow-lg" style={{ paddingBottom: '56.25%' }}>
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${youtubeId}`}
+                    title={sermonData.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
                 </div>
-              )}
-            </div>
+              </div>
+            )}
+
+            {/* Audio player (shown when there's no video, or as a supplement) */}
+            {sermonData.audio_url && !youtubeId && (
+              <div className="bg-neutral-50 rounded-xl p-6 md:p-8">
+                <h2 className="text-xl font-bold text-neutral-900 mb-4 flex items-center gap-2">
+                  <Play className="w-5 h-5" />
+                  Listen
+                </h2>
+                <audio controls className="w-full" src={sermonData.audio_url}>
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+            )}
+
+            {/* Audio supplement when video also exists */}
+            {sermonData.audio_url && youtubeId && (
+              <details className="bg-neutral-50 rounded-xl p-5">
+                <summary className="cursor-pointer text-sm font-semibold text-neutral-700 select-none">
+                  Audio only version
+                </summary>
+                <div className="mt-4">
+                  <audio controls className="w-full" src={sermonData.audio_url}>
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
+              </details>
+            )}
 
             {/* Description */}
-            <div className="mb-8">
-              <h2 className="text-xl font-bold text-neutral-900 mb-4">About This Message</h2>
-              <div className="prose prose-lg max-w-none text-neutral-700">
-                <p>{sermonData.description}</p>
+            {sermonData.description && (
+              <div>
+                <h2 className="text-xl font-bold text-neutral-900 mb-3">About This Message</h2>
+                <div className="prose prose-lg max-w-none text-neutral-700">
+                  <p>{sermonData.description}</p>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Downloads */}
             {(sermonData.slides_url || sermonData.notes_url) && (
@@ -162,13 +203,39 @@ export default async function SermonDetailPage({ params }: Props) {
 
             {/* Series Info */}
             {sermonData.sermon_series && sermonData.sermon_series.description && (
-              <div className="mt-8 bg-secondary-50 rounded-xl p-6 md:p-8">
+              <div className="bg-secondary-50 rounded-xl p-6 md:p-8">
                 <h2 className="text-xl font-bold text-neutral-900 mb-2">
                   Part of: {sermonData.sermon_series.name}
                 </h2>
                 <p className="text-neutral-600">{sermonData.sermon_series.description}</p>
               </div>
             )}
+
+            {/* Transcript */}
+            {transcript.length > 0 && (
+              <div className="border border-neutral-200 rounded-xl overflow-hidden">
+                <details>
+                  <summary className="flex items-center justify-between px-6 py-4 cursor-pointer bg-neutral-50 hover:bg-neutral-100 transition-colors select-none">
+                    <div className="flex items-center gap-2 font-semibold text-neutral-900">
+                      <FileText className="w-5 h-5 text-primary-600" />
+                      Sermon Transcript
+                    </div>
+                    <span className="text-xs text-neutral-500 font-normal">Auto-generated · click to expand</span>
+                  </summary>
+                  <div className="px-6 py-6 space-y-4 max-h-[600px] overflow-y-auto">
+                    <p className="text-xs text-neutral-400 italic mb-2">
+                      This transcript was automatically generated from the video and may contain minor errors.
+                    </p>
+                    {transcript.map((para, i) => (
+                      <p key={i} className="text-neutral-700 leading-relaxed text-sm">
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+                </details>
+              </div>
+            )}
+
           </div>
         </div>
       </section>
