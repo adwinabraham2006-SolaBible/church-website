@@ -26,15 +26,15 @@ export default function DistinctivesPage() {
             </p>
             <div className="grid md:grid-cols-2 gap-8">
               {/* High View of God */}
-              <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl p-8 shadow-lg">
-                <h2 className="text-3xl font-bold text-neutral-900 mb-4 font-serif">
+              <div className="bg-primary-700 rounded-lg p-8">
+                <h2 className="text-3xl font-bold text-white mb-4 font-serif">
                   1) A High View of God
                 </h2>
               </div>
 
               {/* High View of Scripture */}
-              <div className="bg-gradient-to-br from-secondary-50 to-secondary-100 rounded-xl p-8 shadow-lg">
-                <h2 className="text-3xl font-bold text-neutral-900 mb-4 font-serif">
+              <div className="bg-secondary-500 rounded-lg p-8">
+                <h2 className="text-3xl font-bold text-white mb-4 font-serif">
                   2) A High View of Scripture
                 </h2>
               </div>
@@ -44,7 +44,7 @@ export default function DistinctivesPage() {
       </section>
 
       {/* A High View of God */}
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding bg-primary-50">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 font-serif mb-8">
@@ -110,7 +110,7 @@ export default function DistinctivesPage() {
             </h2>
 
             {/* Summary */}
-            <div className="bg-neutral-50 rounded-xl shadow-md p-6 md:p-8 mb-8">
+            <div className="bg-white rounded-lg shadow-sm p-6 md:p-8 mb-8">
               <h3 className="text-2xl font-bold text-neutral-900 mb-4">A Summary</h3>
               <div className="space-y-4 text-neutral-700 leading-relaxed">
                 <p>
@@ -124,28 +124,28 @@ export default function DistinctivesPage() {
 
             {/* Attributes */}
             <div className="space-y-6 mb-8">
-              <div className="bg-neutral-50 rounded-xl shadow-md p-6 md:p-8">
+              <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
                 <h4 className="text-xl font-bold text-neutral-900 mb-3">Inspiration</h4>
                 <p className="text-neutral-700 leading-relaxed">
                   In 2 Tim. 3:16, Paul asserts that &quot;all Scripture is inspired by God,&quot; or is of divine origin. Scripture—all of it, down to the very words—is the product of the breath of God.
                 </p>
               </div>
 
-              <div className="bg-neutral-50 rounded-xl shadow-md p-6 md:p-8">
+              <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
                 <h4 className="text-xl font-bold text-neutral-900 mb-3">Relevancy</h4>
                 <p className="text-neutral-700 leading-relaxed">
                   In 2 Tim. 3:16, Paul also insists that all Scripture is profitable, useful, or beneficial. We don&apos;t make the Bible relevant—it simply <em>is</em> relevant! If God has breathed out His words to us, how could anything be <em>more</em> relevant?
                 </p>
               </div>
 
-              <div className="bg-neutral-50 rounded-xl shadow-md p-6 md:p-8">
+              <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
                 <h4 className="text-xl font-bold text-neutral-900 mb-3">Sufficiency</h4>
                 <p className="text-neutral-700 leading-relaxed">
                   In 2 Tim. 3:15, Paul describes Scripture as &quot;able to lead you to salvation.&quot; In verse 17, he adds that the Scripture is sufficient to make us adequate, which means &quot;capable, proficient, able to meet all demands.&quot; And Scripture fully <em>equips us for every good work</em>—it completely outfits us for spiritual service. It is a sufficient resource for the Spirit to use for both our salvation and sanctification.
                 </p>
               </div>
 
-              <div className="bg-neutral-50 rounded-xl shadow-md p-6 md:p-8">
+              <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
                 <h4 className="text-xl font-bold text-neutral-900 mb-3">Authority</h4>
                 <p className="text-neutral-700 leading-relaxed">
                   In 2 Tim. 4:1-2, Paul demands that pastors and elders &quot;<em>preach</em> the Word.&quot; He uses the primary New Testament word for preaching that means &quot;to proclaim after the manner of a king&apos;s herald.&quot; It carries the connotation of formality, dignity, and gravity. And it explicitly means to speak with authority. Biblical preaching is not a conversation but a proclamation from God Himself that must be heard and obeyed.
@@ -158,14 +158,14 @@ export default function DistinctivesPage() {
               <h3 className="text-2xl font-bold text-neutral-900 mb-6">The Chief Implications</h3>
 
               <div className="space-y-6">
-                <div className="bg-neutral-50 rounded-xl shadow-md p-6 md:p-8">
+                <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
                   <h4 className="text-xl font-bold text-neutral-900 mb-3">Scripture is central in the services of our church.</h4>
                   <p className="text-neutral-700 leading-relaxed">
                     In 1 Tim. 4:13-16, Paul instructs Timothy and all church leaders that their chief assignment when the church gathers is to <strong>1)</strong> read the Scripture, <strong>2)</strong> explain the Scripture, and <strong>3)</strong> apply the Scripture. Every other element of corporate worship originates with us and is addressed to God. But when we read and hear the Word of God taught, we are hearing and witnessing a divine work. <em>God</em> speaks to us through His Word. That is why the reformers taught that &quot;the greatest and principal purpose of every church service is to preach and teach God&apos;s Word&quot; and why the central focus in our corporate worship is on preaching the Bible.
                   </p>
                 </div>
 
-                <div className="bg-neutral-50 rounded-xl shadow-md p-6 md:p-8">
+                <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
                   <h4 className="text-xl font-bold text-neutral-900 mb-3">Scripture alone directs and informs the elements of our worship.</h4>
                   <div className="space-y-4 text-neutral-700 leading-relaxed">
                     <p>
@@ -177,14 +177,14 @@ export default function DistinctivesPage() {
                   </div>
                 </div>
 
-                <div className="bg-neutral-50 rounded-xl shadow-md p-6 md:p-8">
+                <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
                   <h4 className="text-xl font-bold text-neutral-900 mb-3">Consecutive expository preaching is our normal and consistent approach to teaching the Scripture.</h4>
                   <p className="text-neutral-700 leading-relaxed">
                     In Old Testament corporate worship, there was a consistent pattern of the consecutive reading of the law and the prophets, followed by an exposition or explanation of its meaning. When you examine the ministry of Jesus, you find that a central focus of His ministry was participation in corporate worship in the weekly synagogue services, which centered on the consecutive reading and exposition of the Word of God. Timothy&apos;s chief assignment when the church gathered publicly was to <strong>1)</strong> read the Scripture, <strong>2)</strong> teach or explain the Scripture, and <strong>3)</strong> apply the Scripture. This was true not only of the Old Testament, but of Paul&apos;s letters as well. <em>Ordinarily</em>, following the Old Testament and synagogue pattern, the reading would have been consecutive with accompanying exposition. The Word has always been central and the key element of worship. And the ministry of the Word has <em>normally</em> been the systematic, consecutive reading and explaining of God&apos;s Word.
                   </p>
                 </div>
 
-                <div className="bg-neutral-50 rounded-xl shadow-md p-6 md:p-8">
+                <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
                   <h4 className="text-xl font-bold text-neutral-900 mb-3">We interpret Scripture using a literal, grammatical, historical hermeneutic.</h4>
                   <p className="text-neutral-700 leading-relaxed">
                     Every biblical text has only one unchangeable meaning determined solely by the intent of the human author and ultimately the Holy Spirit. That meaning is expressed in letters, words, and grammar. However, Scripture&apos;s meaning can be difficult at times to understand and therefore misunderstood, so it requires careful exegesis. We seek to determine the meaning of every passage in Scripture by interpreting it literally, which simply means we follow the normal rules of interpreting any literature. We examine the language, grammar, words, culture, geography, and history in a process called the grammatical-historical method. There are figures of speech, allegories, symbols, and word pictures in the Bible just as exist in other literature. But as with other literature, we interpret the Bible in its simplest, most literal sense, unless there is authorial and contextual evidence not to do so.
@@ -197,7 +197,7 @@ export default function DistinctivesPage() {
       </section>
 
       {/* Contemporary Applications */}
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding bg-primary-50">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 font-serif mb-6">

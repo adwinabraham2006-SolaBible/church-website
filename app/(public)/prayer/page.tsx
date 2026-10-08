@@ -73,24 +73,24 @@ export default function PrayerPage() {
           </div>
         </section>
 
-        <section className="section-padding bg-white">
+        <section className="section-padding bg-primary-50">
           <div className="container-custom max-w-2xl mx-auto text-center">
-            <div className="bg-primary-50 border border-primary-200 rounded-2xl p-10">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-primary-700 rounded-xl p-10 text-white">
+              <div className="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-secondary-500">
+                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold font-serif text-primary-900 mb-3">
+              <h2 className="text-2xl font-bold font-serif text-white mb-3">
                 Your request has been received.
               </h2>
-              <p className="text-neutral-600 leading-relaxed">
+              <p className="text-primary-100 leading-relaxed">
                 We are grateful you reached out. Our pastors and elders will be praying for you.
                 {followup && (email || phone) && (
                   <> You should expect a follow-up from us soon.</>
                 )}
               </p>
-              <p className="text-sm text-neutral-500 mt-4 italic">
+              <p className="text-sm text-primary-200 mt-4 italic">
                 &ldquo;Do not be anxious about anything, but in everything by prayer and supplication
                 with thanksgiving let your requests be made known to God.&rdquo; — Philippians 4:6
               </p>
@@ -100,7 +100,7 @@ export default function PrayerPage() {
                   setConfidential(false); setFollowup(false);
                   setFormState('idle');
                 }}
-                className="mt-8 btn-outline px-6 py-2 rounded-lg text-sm font-medium"
+                className="mt-8 bg-white text-primary-700 hover:bg-primary-50 px-6 py-2 rounded-lg text-sm font-semibold transition-colors"
               >
                 Submit another request
               </button>
@@ -125,9 +125,9 @@ export default function PrayerPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding bg-primary-50">
         <div className="container-custom max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-md p-8 md:p-10">
+          <div className="bg-white rounded-xl shadow-sm p-8 md:p-10">
 
             {/* Error banner */}
             {(formState === 'error' || errorMsg) && (

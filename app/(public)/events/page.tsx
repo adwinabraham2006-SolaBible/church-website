@@ -43,7 +43,7 @@ export default async function EventsPage() {
               {announcements.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-neutral-100"
+                  className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-primary-100"
                 >
                   {item.image_url && (
                     <div className="h-48 overflow-hidden">

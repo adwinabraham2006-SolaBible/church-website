@@ -62,7 +62,7 @@ export default async function SermonsPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding bg-primary-50">
         <div className="container-custom max-w-6xl mx-auto space-y-16">
 
           {/* Sermon Series */}
@@ -138,7 +138,7 @@ export default async function SermonsPage() {
                           href={sermon.video_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 bg-neutral-800 hover:bg-neutral-900 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
+                          className="flex items-center gap-1.5 bg-primary-700 hover:bg-primary-800 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
                         >
                           <Video className="w-3.5 h-3.5" />
                           Watch

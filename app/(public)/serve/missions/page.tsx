@@ -78,7 +78,7 @@ export default async function MissionsPage() {
                       href={pdf.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-4 border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors group"
+                      className="flex items-center gap-3 p-4 border border-primary-100 rounded-lg hover:bg-primary-50 transition-colors group"
                     >
                       <FileText className="w-5 h-5 text-primary-600 flex-shrink-0" />
                       <span className="text-neutral-800 group-hover:text-primary-600 font-medium">

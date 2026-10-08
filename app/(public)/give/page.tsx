@@ -32,20 +32,20 @@ export default function GivePage() {
       </section>
 
       {/* Other Ways to Give */}
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding bg-primary-50">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-neutral-900 mb-12 font-serif">
               Other Ways to Give
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-xl p-6 border border-neutral-200">
+              <div className="bg-white rounded-lg p-6 border border-primary-100">
                 <h3 className="text-xl font-bold text-neutral-900 mb-3">In-Person</h3>
                 <p className="text-neutral-600">
                   Offering boxes are available during our Sunday worship service.
                 </p>
               </div>
-              <div className="bg-white rounded-xl p-6 border border-neutral-200">
+              <div className="bg-white rounded-lg p-6 border border-primary-100">
                 <h3 className="text-xl font-bold text-neutral-900 mb-3">Mail a Check</h3>
                 <p className="text-neutral-600 mb-3">
                   Make checks payable to <strong>Sola Bible Church</strong> and mail to:

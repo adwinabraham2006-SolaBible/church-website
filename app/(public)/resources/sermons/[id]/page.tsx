@@ -135,7 +135,7 @@ export default async function SermonDetailPage({ params }: Props) {
 
             {/* Audio player (shown when there's no video, or as a supplement) */}
             {sermonData.audio_url && !youtubeId && (
-              <div className="bg-neutral-50 rounded-xl p-6 md:p-8">
+              <div className="bg-primary-50 rounded-lg p-6 md:p-8">
                 <h2 className="text-xl font-bold text-neutral-900 mb-4 flex items-center gap-2">
                   <Play className="w-5 h-5" />
                   Listen

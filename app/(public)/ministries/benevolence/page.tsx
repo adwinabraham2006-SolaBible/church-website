@@ -79,7 +79,7 @@ export default async function BenevolencePage() {
               <h2 className="text-2xl font-bold text-neutral-900 font-serif">Announcements</h2>
               <ul className="space-y-5">
                 {announcements.map(ann => (
-                  <li key={ann.id} className="border border-neutral-200 rounded-xl p-6">
+                  <li key={ann.id} className="border border-primary-100 rounded-lg p-6">
                     <h3 className="text-lg font-semibold text-neutral-900 mb-1">{ann.title}</h3>
                     {ann.date && (
                       <p className="text-sm text-neutral-500 mb-2">
@@ -119,7 +119,7 @@ export default async function BenevolencePage() {
                       href={pdf.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-4 border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors group"
+                      className="flex items-center gap-3 p-4 border border-primary-100 rounded-lg hover:bg-primary-50 transition-colors group"
                     >
                       <FileText className="w-5 h-5 text-primary-600 flex-shrink-0" />
                       <span className="text-neutral-800 group-hover:text-primary-600 font-medium">

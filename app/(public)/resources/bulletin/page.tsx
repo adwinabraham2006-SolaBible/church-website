@@ -41,14 +41,14 @@ export default async function BulletinPage() {
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
             {latestBulletin ? (
-              <div className="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl p-8 md:p-12 text-center border-2 border-primary-200">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-primary-600 rounded-full mb-6">
+              <div className="bg-primary-700 rounded-xl p-8 md:p-12 text-center">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-primary-600 rounded-full mb-6 border-2 border-secondary-500">
                   <FileText className="w-10 h-10 text-white" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
                   Current Bulletin
                 </h2>
-                <div className="flex items-center justify-center gap-2 text-neutral-600 mb-6">
+                <div className="flex items-center justify-center gap-2 text-primary-200 mb-6">
                   <Calendar className="w-5 h-5" />
                   <span className="text-lg">
                     Week of {new Date(latestBulletin.week_of).toLocaleDateString('en-US', {
@@ -84,11 +84,11 @@ export default async function BulletinPage() {
 
       {/* Bulletin Archive */}
       {archiveBulletins.length > 0 && (
-        <section className="section-padding bg-neutral-50">
+        <section className="section-padding bg-primary-50">
           <div className="container-custom">
             <div className="max-w-3xl mx-auto">
               <div className="flex items-center gap-3 mb-8">
-                <Archive className="w-6 h-6 text-neutral-600" />
+                <Archive className="w-6 h-6 text-primary-600" />
                 <h2 className="text-2xl font-bold text-neutral-900">Bulletin Archive</h2>
               </div>
 
@@ -96,11 +96,11 @@ export default async function BulletinPage() {
                 {(archiveBulletins as Bulletin[]).map((bulletin) => (
                   <div
                     key={bulletin.id}
-                    className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between"
+                    className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center">
-                        <FileText className="w-6 h-6 text-neutral-600" />
+                      <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                        <FileText className="w-6 h-6 text-primary-600" />
                       </div>
                       <div>
                         <p className="font-semibold text-neutral-900">
