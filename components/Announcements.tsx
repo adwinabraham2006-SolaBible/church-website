@@ -16,25 +16,23 @@ export default async function Announcements() {
     .limit(3);
 
   return (
-    <section className="section-padding bg-secondary-50">
+    <section className="section-padding bg-primary-800">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary-100 rounded-full mb-4">
-            <Megaphone className="w-8 h-8 text-secondary-600" />
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4 font-serif">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 font-serif">
             Announcements
           </h2>
+          <div className="w-12 h-0.5 bg-secondary-500 mx-auto mt-4"></div>
         </div>
 
         {!announcements || announcements.length === 0 ? (
-          <p className="text-center text-neutral-500 py-8">No announcements at this time.</p>
+          <p className="text-center text-primary-200 py-8">No announcements at this time.</p>
         ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {(announcements as Announcement[]).map((announcement) => (
             <div
               key={announcement.id}
-              className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+              className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-300 overflow-hidden"
             >
               {announcement.image_url && (
                 <div className="h-40 overflow-hidden">

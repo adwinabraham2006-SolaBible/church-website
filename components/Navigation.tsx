@@ -74,7 +74,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-primary-700 sticky top-0 z-50">
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo and Church Name */}
@@ -87,8 +87,8 @@ export default function Navigation() {
               className="w-16 h-16"
             />
             <div className="hidden sm:block">
-              <div className="text-xl font-bold text-neutral-900">Sola Bible Church</div>
-              <div className="text-xs text-neutral-600">Committed to the Scripture. Devoted to Christ. Equipping the Saints. For the Glory of God</div>
+              <div className="text-xl font-bold text-white">Sola Bible Church</div>
+              <div className="text-xs text-primary-200">Committed to the Scripture. Devoted to Christ. Equipping the Saints. For the Glory of God</div>
             </div>
           </Link>
 
@@ -99,7 +99,7 @@ export default function Navigation() {
                 {item.submenu ? (
                   <>
                     <button
-                      className="flex items-center space-x-1 px-4 py-2 text-neutral-700 hover:text-primary-600 font-medium transition-colors"
+                      className="flex items-center space-x-1 px-4 py-2 text-primary-100 hover:text-white font-medium transition-colors"
                       onMouseEnter={() => setActiveDropdown(item.name)}
                     >
                       <span>{item.name}</span>
@@ -113,7 +113,7 @@ export default function Navigation() {
                         <Link
                           key={subItem.name}
                           href={subItem.href}
-                          className="block px-4 py-2 text-sm text-neutral-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                          className="block px-4 py-2 text-sm text-neutral-700 hover:bg-primary-50 hover:text-primary-700 transition-colors"
                         >
                           {subItem.name}
                         </Link>
@@ -123,7 +123,7 @@ export default function Navigation() {
                 ) : (
                   <Link
                     href={item.href}
-                    className="flex items-center px-4 py-2 text-neutral-700 hover:text-primary-600 font-medium transition-colors"
+                    className="flex items-center px-4 py-2 text-primary-100 hover:text-white font-medium transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -132,7 +132,7 @@ export default function Navigation() {
             ))}
             <Link
               href="/give"
-              className="ml-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors"
+              className="ml-4 bg-secondary-500 hover:bg-secondary-600 text-white font-semibold px-6 py-2 rounded-lg transition-colors"
             >
               Give
             </Link>
@@ -141,7 +141,7 @@ export default function Navigation() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-neutral-700 hover:text-primary-600"
+            className="lg:hidden p-2 text-primary-100 hover:text-white"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -151,7 +151,7 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-neutral-200 bg-white">
+        <div className="lg:hidden border-t border-primary-600 bg-primary-800">
           <div className="container-custom py-4 space-y-2">
             {menuItems.map((item) => (
               <div key={item.name}>
@@ -159,7 +159,7 @@ export default function Navigation() {
                   <>
                     <button
                       onClick={() => toggleDropdown(item.name)}
-                      className="flex items-center justify-between w-full px-4 py-3 text-neutral-700 hover:bg-primary-50 rounded-lg font-medium transition-colors"
+                      className="flex items-center justify-between w-full px-4 py-3 text-primary-100 hover:bg-primary-700 rounded-lg font-medium transition-colors"
                     >
                       <span>{item.name}</span>
                       <ChevronDown
@@ -174,7 +174,7 @@ export default function Navigation() {
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            className="block px-4 py-2 text-sm text-neutral-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors"
+                            className="block px-4 py-2 text-sm text-primary-200 hover:bg-primary-700 hover:text-white rounded-lg transition-colors"
                             onClick={() => setMobileMenuOpen(false)}
                           >
                             {subItem.name}
@@ -186,7 +186,7 @@ export default function Navigation() {
                 ) : (
                   <Link
                     href={item.href}
-                    className="block px-4 py-3 text-neutral-700 hover:bg-primary-50 rounded-lg font-medium transition-colors"
+                    className="block px-4 py-3 text-primary-100 hover:bg-primary-700 rounded-lg font-medium transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
@@ -196,7 +196,7 @@ export default function Navigation() {
             ))}
             <Link
               href="/give"
-              className="block text-center bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors mt-4"
+              className="block text-center bg-secondary-500 hover:bg-secondary-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors mt-4"
               onClick={() => setMobileMenuOpen(false)}
             >
               Give

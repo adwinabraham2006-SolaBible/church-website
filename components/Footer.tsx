@@ -4,7 +4,7 @@ import { MapPin, Mail, Clock, Facebook, Instagram, Youtube } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-900 text-neutral-300">
+    <footer className="bg-primary-900 text-primary-200">
       {/* Main Footer Content */}
       <div className="container-custom py-12 md:py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -18,7 +18,7 @@ export default function Footer() {
                 height={72}
                 className="w-16 h-16"
               />
-              <div className="text-white font-bold text-lg">
+              <div className="text-secondary-400 font-bold text-lg">
                 Sola Bible Church
               </div>
             </div>
@@ -31,7 +31,7 @@ export default function Footer() {
                 href="https://www.facebook.com/profile.php?id=100090717940786"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-neutral-800 hover:bg-primary-600 p-2 rounded-full transition-colors"
+                className="bg-primary-800 hover:bg-secondary-600 p-2 rounded-full transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
@@ -40,7 +40,7 @@ export default function Footer() {
                 href="https://www.instagram.com/solabiblechurch/?hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-neutral-800 hover:bg-primary-600 p-2 rounded-full transition-colors"
+                className="bg-primary-800 hover:bg-secondary-600 p-2 rounded-full transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
@@ -49,7 +49,7 @@ export default function Footer() {
                 href="https://www.youtube.com/channel/UCqSrWEB-GDyQQzW8ed7lVlw"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-neutral-800 hover:bg-primary-600 p-2 rounded-full transition-colors"
+                className="bg-primary-800 hover:bg-secondary-600 p-2 rounded-full transition-colors"
                 aria-label="YouTube"
               >
                 <Youtube className="w-5 h-5" />
@@ -59,13 +59,13 @@ export default function Footer() {
 
           {/* Service Times */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4 flex items-center">
-              <Clock className="w-5 h-5 mr-2 text-primary-600" />
+            <h3 className="text-secondary-400 font-bold text-lg mb-4 flex items-center">
+              <Clock className="w-5 h-5 mr-2 text-secondary-500" />
               Service Times
             </h3>
             <div className="space-y-3 text-sm">
               <div>
-                <div className="text-white font-semibold">Sunday Morning</div>
+                <div className="text-primary-100 font-semibold">Sunday Morning</div>
                 <div>9:00 AM - Old Testament Survey</div>
                 <div>10:30 AM - Morning Service</div>
               </div>
@@ -74,31 +74,31 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Contact Us</h3>
+            <h3 className="text-secondary-400 font-bold text-lg mb-4">Contact Us</h3>
             <div className="space-y-3 text-sm">
               <div className="flex items-start">
-                <MapPin className="w-5 h-5 mr-2 text-primary-600 flex-shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 mr-2 text-secondary-500 flex-shrink-0 mt-0.5" />
                 <Link
                   href="https://maps.google.com/?q=219+King+Circle,+Temple,+TX+76501"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-primary-400 transition-colors"
+                  className="hover:text-secondary-400 transition-colors"
                 >
                   219 King Circle<br />
                   Temple, TX 76501
                 </Link>
               </div>
               <div className="flex items-center">
-                <Mail className="w-5 h-5 mr-2 text-primary-600 flex-shrink-0" />
-                <a href="mailto:solabiblechurch@gmail.com" className="hover:text-primary-400 transition-colors">
+                <Mail className="w-5 h-5 mr-2 text-secondary-500 flex-shrink-0" />
+                <a href="mailto:solabiblechurch@gmail.com" className="hover:text-secondary-400 transition-colors">
                   solabiblechurch@gmail.com
                 </a>
               </div>
             </div>
 
             {/* Office Hours */}
-            <div className="mt-4 pt-4 border-t border-neutral-800">
-              <div className="text-white font-semibold text-sm mb-2">Office Hours</div>
+            <div className="mt-4 pt-4 border-t border-primary-800">
+              <div className="text-primary-100 font-semibold text-sm mb-2">Office Hours</div>
               <div className="text-sm space-y-1">
                 <div>Tuesday - Friday: 9:00 AM - 5:00 PM</div>
               </div>
@@ -107,30 +107,30 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Quick Links</h3>
+            <h3 className="text-secondary-400 font-bold text-lg mb-4">Quick Links</h3>
             <nav className="space-y-2 text-sm">
-              <Link href="/about/visit" className="block hover:text-primary-400 transition-colors">
+              <Link href="/about/visit" className="block hover:text-secondary-400 transition-colors">
                 Distinctives
               </Link>
-              <Link href="/about/beliefs" className="block hover:text-primary-400 transition-colors">
+              <Link href="/about/beliefs" className="block hover:text-secondary-400 transition-colors">
                 What We Believe
               </Link>
-              <Link href="/ministries" className="block hover:text-primary-400 transition-colors">
+              <Link href="/ministries" className="block hover:text-secondary-400 transition-colors">
                 Ministries
               </Link>
-              <Link href="/resources/sermons" className="block hover:text-primary-400 transition-colors">
+              <Link href="/resources/sermons" className="block hover:text-secondary-400 transition-colors">
                 Sermons
               </Link>
-              <Link href="/events" className="block hover:text-primary-400 transition-colors">
+              <Link href="/events" className="block hover:text-secondary-400 transition-colors">
                 Events & Calendar
               </Link>
-              <Link href="/give" className="block hover:text-primary-400 transition-colors">
+              <Link href="/give" className="block hover:text-secondary-400 transition-colors">
                 Give Online
               </Link>
-              <Link href="/prayer" className="block hover:text-primary-400 transition-colors">
+              <Link href="/prayer" className="block hover:text-secondary-400 transition-colors">
                 Prayer Requests
               </Link>
-              <Link href="/contact" className="block hover:text-primary-400 transition-colors">
+              <Link href="/contact" className="block hover:text-secondary-400 transition-colors">
                 Contact Us
               </Link>
             </nav>
@@ -139,17 +139,17 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-neutral-800">
+      <div className="border-t border-primary-800">
         <div className="container-custom py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-neutral-400">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-primary-400">
             <div className="mb-4 md:mb-0">
               &copy; {new Date().getFullYear()} Sola Bible Church. All rights reserved.
             </div>
             <div className="flex space-x-6">
-              <Link href="/privacy" className="hover:text-primary-400 transition-colors">
+              <Link href="/privacy" className="hover:text-secondary-400 transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="hover:text-primary-400 transition-colors">
+              <Link href="/terms" className="hover:text-secondary-400 transition-colors">
                 Terms of Use
               </Link>
             </div>

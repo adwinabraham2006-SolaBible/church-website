@@ -5,7 +5,7 @@ import { MapPin, Clock } from 'lucide-react';
 
 export default function ServiceTimes() {
   return (
-    <section className="section-padding bg-neutral-100">
+    <section className="section-padding bg-white">
       <div className="container-custom">
         {/* Service Times */}
         <div className="bg-white/95 backdrop-blur-sm text-neutral-900 rounded-2xl shadow-2xl max-w-4xl mx-auto p-6 md:p-8">

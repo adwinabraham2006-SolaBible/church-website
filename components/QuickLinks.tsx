@@ -38,7 +38,7 @@ const quickLinks = [
 
 export default function QuickLinks() {
   return (
-    <section className="section-padding bg-neutral-100">
+    <section className="section-padding bg-primary-700">
       <div className="container-custom">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {quickLinks.map((link) => {
@@ -47,22 +47,22 @@ export default function QuickLinks() {
               <Link
                 key={link.title}
                 href={link.href}
-                className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+                className="group bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300 overflow-hidden"
               >
                 <div className="p-6">
                   <div
-                    className={`${link.color} ${link.hoverColor} w-14 h-14 rounded-lg flex items-center justify-center mb-4 transition-colors group-hover:scale-110 transform duration-300`}
+                    className={`${link.color} ${link.hoverColor} w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-colors`}
                   >
-                    <Icon className="w-7 h-7 text-white" />
+                    <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors">
+                  <h3 className="text-lg font-bold text-neutral-900 mb-1 group-hover:text-primary-700 transition-colors">
                     {link.title}
                   </h3>
                   <p className="text-neutral-600 text-sm leading-relaxed">
                     {link.description}
                   </p>
                 </div>
-                <div className="h-1 bg-gradient-to-r from-primary-600 to-primary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                <div className="h-1 bg-secondary-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
               </Link>
             );
           })}
