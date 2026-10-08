@@ -12,7 +12,7 @@ export default function Hero() {
           backgroundImage: "url('/hero-bg.jpg')",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-900/90 via-primary-800/80 to-primary-700/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/80 via-neutral-900/70 to-neutral-900/60"></div>
       </div>
 
       {/* Content */}
