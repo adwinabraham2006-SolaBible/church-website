@@ -37,7 +37,7 @@ export default async function BulletinPage() {
       </section>
 
       {/* Latest Bulletin */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
             {latestBulletin ? (
@@ -74,8 +74,8 @@ export default async function BulletinPage() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <FileText className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
-                <p className="text-xl text-neutral-600">No bulletins available yet. Check back soon!</p>
+                <FileText className="w-16 h-16 text-primary-500 mx-auto mb-4" />
+                <p className="text-xl text-primary-200">No bulletins available yet. Check back soon!</p>
               </div>
             )}
           </div>
@@ -84,12 +84,12 @@ export default async function BulletinPage() {
 
       {/* Bulletin Archive */}
       {archiveBulletins.length > 0 && (
-        <section className="section-padding bg-primary-50">
+        <section className="section-padding bg-primary-700">
           <div className="container-custom">
             <div className="max-w-3xl mx-auto">
               <div className="flex items-center gap-3 mb-8">
-                <Archive className="w-6 h-6 text-primary-600" />
-                <h2 className="text-2xl font-bold text-neutral-900">Bulletin Archive</h2>
+                <Archive className="w-6 h-6 text-secondary-400" />
+                <h2 className="text-2xl font-bold text-white">Bulletin Archive</h2>
               </div>
 
               <div className="space-y-4">
@@ -134,18 +134,18 @@ export default async function BulletinPage() {
       )}
 
       {/* Info Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
               Stay Connected
             </h2>
-            <p className="text-lg text-neutral-600 mb-6">
+            <p className="text-lg text-primary-100 mb-6">
               The weekly bulletin contains announcements, prayer requests, and important updates about our church family. New bulletins are typically available each Sunday.
             </p>
             <a
               href="/contact"
-              className="text-primary-600 hover:text-primary-700 font-semibold"
+              className="text-secondary-400 hover:text-secondary-300 font-semibold"
             >
               Have questions? Contact us →
             </a>

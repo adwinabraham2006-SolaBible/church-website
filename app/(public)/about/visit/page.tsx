@@ -18,10 +18,10 @@ export default function DistinctivesPage() {
       </section>
 
       {/* Introduction */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <p className="text-xl text-neutral-700 leading-relaxed text-center mb-12">
+            <p className="text-xl text-primary-100 leading-relaxed text-center mb-12">
               At Sola Bible Church there are two non-negotiable distinctives that support and shape all we do:
             </p>
             <div className="grid md:grid-cols-2 gap-8">
@@ -44,10 +44,10 @@ export default function DistinctivesPage() {
       </section>
 
       {/* A High View of God */}
-      <section className="section-padding bg-primary-50">
+      <section className="section-padding bg-primary-700">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 font-serif mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-white font-serif mb-8">
               A High View of God
             </h2>
 
@@ -69,8 +69,8 @@ export default function DistinctivesPage() {
 
             {/* Chief Implications */}
             <div className="mb-8">
-              <h3 className="text-2xl font-bold text-neutral-900 mb-6">The Chief Implications</h3>
-              <p className="text-neutral-700 leading-relaxed mb-6">
+              <h3 className="text-2xl font-bold text-white mb-6">The Chief Implications</h3>
+              <p className="text-primary-100 leading-relaxed mb-6">
                 A high view of God compels us to emphasize several necessary implications.
               </p>
 
@@ -102,10 +102,10 @@ export default function DistinctivesPage() {
       </section>
 
       {/* A High View of Scripture */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 font-serif mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-white font-serif mb-8">
               A High View of Scripture
             </h2>
 
@@ -155,7 +155,7 @@ export default function DistinctivesPage() {
 
             {/* Chief Implications */}
             <div>
-              <h3 className="text-2xl font-bold text-neutral-900 mb-6">The Chief Implications</h3>
+              <h3 className="text-2xl font-bold text-white mb-6">The Chief Implications</h3>
 
               <div className="space-y-6">
                 <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
@@ -197,13 +197,13 @@ export default function DistinctivesPage() {
       </section>
 
       {/* Contemporary Applications */}
-      <section className="section-padding bg-primary-50">
+      <section className="section-padding bg-primary-700">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 font-serif mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-white font-serif mb-6">
               Contemporary Applications
             </h2>
-            <p className="text-lg text-neutral-700 leading-relaxed mb-8">
+            <p className="text-lg text-primary-100 leading-relaxed mb-8">
               A high view of Scripture compels us to believe and teach the straightforward statements of Scripture about controversial contemporary issues—even when a literal reading of Scripture disagrees with prevailing views, whether secular or Christian. The following is not a complete catalog of such issues but rather merely representative of how a high view of Scripture must inform our thinking.
             </p>
 

@@ -46,18 +46,18 @@ export default async function SeriesPage({ params }: { params: { id: string } })
         </div>
       </section>
 
-      <section className="section-padding bg-primary-50">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom max-w-4xl mx-auto">
           <Link
             href="/resources/sermons"
-            className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-primary-600 mb-8 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-primary-200 hover:text-white mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             All Sermons
           </Link>
 
           {sermonList.length === 0 ? (
-            <p className="text-neutral-500 text-center py-12">No sermons in this series yet.</p>
+            <p className="text-primary-300 text-center py-12">No sermons in this series yet.</p>
           ) : (
             <ol className="space-y-4">
               {sermonList.map((sermon, idx) => (

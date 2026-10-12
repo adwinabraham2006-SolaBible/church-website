@@ -57,20 +57,20 @@ export default async function CMSPage({
       </section>
 
       {/* Content Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             {content ? (
               <div
-                className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-primary-500 prose-blockquote:bg-primary-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-img:rounded-xl prose-img:shadow-lg"
+                className="prose prose-invert prose-lg max-w-none prose-headings:font-serif prose-a:text-secondary-400 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-secondary-500 prose-blockquote:bg-primary-700 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-img:rounded-xl prose-img:shadow-lg"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
             ) : fallbackContent ? (
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-invert prose-lg max-w-none">
                 {fallbackContent}
               </div>
             ) : (
-              <div className="text-center py-12 text-neutral-500">
+              <div className="text-center py-12 text-primary-300">
                 <p>Content coming soon.</p>
               </div>
             )}

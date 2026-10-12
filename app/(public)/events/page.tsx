@@ -31,11 +31,11 @@ export default async function EventsPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom">
           {announcements.length === 0 ? (
-            <div className="text-center py-16 text-neutral-500">
-              <Megaphone className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
+            <div className="text-center py-16 text-primary-300">
+              <Megaphone className="w-12 h-12 mx-auto mb-4 text-primary-500" />
               <p className="text-lg">No announcements at this time. Check back soon.</p>
             </div>
           ) : (

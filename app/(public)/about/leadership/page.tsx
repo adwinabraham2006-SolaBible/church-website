@@ -39,10 +39,10 @@ export default async function LeadershipPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom max-w-5xl mx-auto">
           {staff.length === 0 ? (
-            <p className="text-neutral-500 text-center py-12">Leadership information coming soon.</p>
+            <p className="text-primary-300 text-center py-12">Leadership information coming soon.</p>
           ) : (
             <StaffGrid staff={staff} />
           )}

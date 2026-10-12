@@ -73,7 +73,7 @@ export default function PrayerPage() {
           </div>
         </section>
 
-        <section className="section-padding bg-primary-50">
+        <section className="section-padding bg-primary-800">
           <div className="container-custom max-w-2xl mx-auto text-center">
             <div className="bg-primary-700 rounded-xl p-10 text-white">
               <div className="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-secondary-500">
@@ -125,7 +125,7 @@ export default function PrayerPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-primary-50">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom max-w-2xl mx-auto">
           <div className="bg-white rounded-xl shadow-sm p-8 md:p-10">
 

@@ -62,13 +62,13 @@ export default async function SermonsPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-primary-50">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom max-w-6xl mx-auto space-y-16">
 
           {/* Sermon Series */}
           {series.length > 0 && (
             <div>
-              <h2 className="text-2xl font-bold font-serif text-neutral-900 mb-6">Sermon Series</h2>
+              <h2 className="text-2xl font-bold font-serif text-white mb-6">Sermon Series</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {series.map(s => (
                   <Link
@@ -97,11 +97,11 @@ export default async function SermonsPage() {
 
           {/* All Sermons (unassigned or all if no series exist) */}
           <div>
-            <h2 className="text-2xl font-bold font-serif text-neutral-900 mb-6">
+            <h2 className="text-2xl font-bold font-serif text-white mb-6">
               {series.length > 0 ? 'All Sermons' : 'Sermons'}
             </h2>
             {sermonList.length === 0 ? (
-              <p className="text-neutral-500 text-center py-12">No sermons available yet. Check back soon.</p>
+              <p className="text-primary-300 text-center py-12">No sermons available yet. Check back soon.</p>
             ) : (
               <div className="space-y-3">
                 {sermonList.map(sermon => (

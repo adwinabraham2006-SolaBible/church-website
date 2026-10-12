@@ -20,10 +20,10 @@ export default function GivePage() {
       </section>
 
       {/* PushPay Embed */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-neutral-900 mb-10 font-serif">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-10 font-serif">
               Give Online
             </h2>
             <PushPayEmbed />
@@ -32,10 +32,10 @@ export default function GivePage() {
       </section>
 
       {/* Other Ways to Give */}
-      <section className="section-padding bg-primary-50">
+      <section className="section-padding bg-primary-700">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-neutral-900 mb-12 font-serif">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12 font-serif">
               Other Ways to Give
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
@@ -62,16 +62,16 @@ export default function GivePage() {
       </section>
 
       {/* Security note */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
-            <Shield className="w-10 h-10 text-primary-600 mx-auto mb-4" />
-            <p className="text-neutral-600 leading-relaxed">
+            <Shield className="w-10 h-10 text-secondary-400 mx-auto mb-4" />
+            <p className="text-primary-100 leading-relaxed">
               Online giving is processed securely through PushPay. Sola Bible Church is a registered
               501(c)(3) non-profit — all donations are tax-deductible to the full extent allowed by law.
             </p>
             <div className="mt-6">
-              <a href="/contact" className="text-primary-600 hover:text-primary-700 font-semibold">
+              <a href="/contact" className="text-secondary-400 hover:text-secondary-300 font-semibold">
                 Questions about giving? Contact us →
               </a>
             </div>

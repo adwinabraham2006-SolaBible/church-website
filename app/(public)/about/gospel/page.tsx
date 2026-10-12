@@ -16,19 +16,19 @@ export default function GospelPage() {
       </section>
 
       {/* Main Content */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
       <article className="container-custom max-w-4xl mx-auto">
         <div className="prose prose-lg max-w-none">
-          <p className="text-xl leading-relaxed text-neutral-700 mb-12">
+          <p className="text-xl leading-relaxed text-primary-100 mb-12">
             Being a Christian is not about merely identifying with a religion or subscribing to a set of moral values. Being a Christian means you have embraced what the Bible says about God, mankind, and salvation. There are at least six biblical truths that every Christian believes and has responded to:
           </p>
 
           {/* God Is Sovereign Creator */}
           <section className="mb-12">
-            <h2 className="text-3xl font-bold text-primary-900 mb-6 pb-3 border-b-4 border-secondary-500">
+            <h2 className="text-3xl font-bold text-white mb-6 pb-3 border-b-4 border-secondary-500">
               God Is Sovereign Creator
             </h2>
-            <div className="space-y-4 text-lg leading-relaxed text-neutral-800">
+            <div className="space-y-4 text-lg leading-relaxed text-primary-100">
               <p>
                 Contemporary thinking says man is the product of evolution. But the Bible says we were created by a personal God to love, serve, and enjoy endless fellowship with Him. The creation was a creation by design and not by chance. The Bible also tells us that the original creation was good in every respect. God is the supreme ruler of all. Jesus Christ was the agent of the creation. In Him alone all things hold together. He is worthy of our absolute allegiance, obedience, and worship.
               </p>
@@ -37,10 +37,10 @@ export default function GospelPage() {
 
           {/* God Is Holy */}
           <section className="mb-12">
-            <h2 className="text-3xl font-bold text-primary-900 mb-6 pb-3 border-b-4 border-secondary-500">
+            <h2 className="text-3xl font-bold text-white mb-6 pb-3 border-b-4 border-secondary-500">
               God Is Holy
             </h2>
-            <div className="space-y-4 text-lg leading-relaxed text-neutral-800">
+            <div className="space-y-4 text-lg leading-relaxed text-primary-100">
               <p>
                 God is absolutely and perfectly holy. He cannot approve of any sin. He cannot tolerate the presence of any sin. By His very nature He condemns all sin.
               </p>
@@ -52,10 +52,10 @@ export default function GospelPage() {
 
           {/* Mankind Is Sinful */}
           <section className="mb-12">
-            <h2 className="text-3xl font-bold text-primary-900 mb-6 pb-3 border-b-4 border-secondary-500">
+            <h2 className="text-3xl font-bold text-white mb-6 pb-3 border-b-4 border-secondary-500">
               Mankind Is Sinful
             </h2>
-            <div className="space-y-4 text-lg leading-relaxed text-neutral-800">
+            <div className="space-y-4 text-lg leading-relaxed text-primary-100">
               <p>
                 According to Scripture, everyone is guilty of sin: &quot;There is no man who does not sin&quot; (1 Kings 8:46). We are all fallen from the righteousness which God demands. We are utterly incapable of understanding, loving, or pleasing God on our own. We cannot earn salvation or win God&apos;s favor. We are all sinners, both by nature and by choice.
               </p>
@@ -64,10 +64,10 @@ export default function GospelPage() {
 
           {/* Sin Demands a Penalty */}
           <section className="mb-12">
-            <h2 className="text-3xl font-bold text-primary-900 mb-6 pb-3 border-b-4 border-secondary-500">
+            <h2 className="text-3xl font-bold text-white mb-6 pb-3 border-b-4 border-secondary-500">
               Sin Demands a Penalty
             </h2>
-            <div className="space-y-4 text-lg leading-relaxed text-neutral-800">
+            <div className="space-y-4 text-lg leading-relaxed text-primary-100">
               <p>
                 Because God is holy, He cannot simply overlook or ignore sin. His justice demands a penalty: &quot;The wages of sin is death&quot; (Romans 6:23). The &quot;death&quot; spoken of here is not merely physical death, but spiritual death&mdash;eternal separation from God in conscious punishment. This is the destiny of every person apart from divine intervention.
               </p>
@@ -79,10 +79,10 @@ export default function GospelPage() {
 
           {/* Jesus Is Lord and Savior */}
           <section className="mb-12">
-            <h2 className="text-3xl font-bold text-primary-900 mb-6 pb-3 border-b-4 border-secondary-500">
+            <h2 className="text-3xl font-bold text-white mb-6 pb-3 border-b-4 border-secondary-500">
               Jesus Is Lord and Savior
             </h2>
-            <div className="space-y-4 text-lg leading-relaxed text-neutral-800">
+            <div className="space-y-4 text-lg leading-relaxed text-primary-100">
               <p>
                 The New Testament teaches that Jesus Christ is both God and Man. He is the eternal Son of God who took on human flesh. Jesus lived a perfect life, satisfying the holiness required by God&apos;s law. Then He died on the cross as a substitute for sinners. His death paid the penalty that God&apos;s justice required for sin. Three days later, Jesus rose bodily from the grave.
               </p>
@@ -94,10 +94,10 @@ export default function GospelPage() {
 
           {/* Repentance: the Character of Saving Faith */}
           <section className="mb-12">
-            <h2 className="text-3xl font-bold text-primary-900 mb-6 pb-3 border-b-4 border-secondary-500">
+            <h2 className="text-3xl font-bold text-white mb-6 pb-3 border-b-4 border-secondary-500">
               Repentance: the Character of Saving Faith
             </h2>
-            <div className="space-y-4 text-lg leading-relaxed text-neutral-800">
+            <div className="space-y-4 text-lg leading-relaxed text-primary-100">
               <p>
                 Believing in Jesus means more than mere intellectual agreement. True Christian faith includes repentance. Repentance is agreeing with God that you are sinful, confessing your sins to Him, and making a conscious choice to turn from sin and pursue Christ and obedience to Him.
               </p>

@@ -45,12 +45,12 @@ export default async function VolunteerPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom max-w-4xl mx-auto space-y-14">
 
           {/* Description */}
           {description && (
-            <div className="prose prose-lg max-w-none text-neutral-700 whitespace-pre-line">
+            <div className="prose prose-invert prose-lg max-w-none whitespace-pre-line">
               {description}
             </div>
           )}
@@ -75,7 +75,7 @@ export default async function VolunteerPage() {
           {/* PDFs */}
           {pdfs.length > 0 && (
             <div>
-              <h2 className="text-xl font-bold text-neutral-900 mb-4 font-serif">Downloads</h2>
+              <h2 className="text-xl font-bold text-white mb-4 font-serif">Downloads</h2>
               <ul className="space-y-3">
                 {pdfs.map(pdf => (
                   <li key={pdf.id}>
@@ -83,10 +83,10 @@ export default async function VolunteerPage() {
                       href={pdf.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-4 border border-primary-100 rounded-lg hover:bg-primary-50 transition-colors group"
+                      className="flex items-center gap-3 p-4 border border-primary-600 rounded-lg hover:bg-primary-700 transition-colors group"
                     >
-                      <FileText className="w-5 h-5 text-primary-600 flex-shrink-0" />
-                      <span className="text-neutral-800 group-hover:text-primary-600 font-medium">
+                      <FileText className="w-5 h-5 text-secondary-400 flex-shrink-0" />
+                      <span className="text-primary-100 group-hover:text-white font-medium">
                         {pdf.name}
                       </span>
                     </a>
@@ -97,7 +97,7 @@ export default async function VolunteerPage() {
           )}
 
           {!description && photos.length === 0 && pdfs.length === 0 && (
-            <p className="text-neutral-500 text-center py-12">
+            <p className="text-primary-300 text-center py-12">
               Volunteer information coming soon.
             </p>
           )}

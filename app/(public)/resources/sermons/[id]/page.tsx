@@ -114,7 +114,7 @@ export default async function SermonDetailPage({ params }: Props) {
       </section>
 
       {/* Content Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto space-y-8">
 
@@ -135,8 +135,8 @@ export default async function SermonDetailPage({ params }: Props) {
 
             {/* Audio player (shown when there's no video, or as a supplement) */}
             {sermonData.audio_url && !youtubeId && (
-              <div className="bg-primary-50 rounded-lg p-6 md:p-8">
-                <h2 className="text-xl font-bold text-neutral-900 mb-4 flex items-center gap-2">
+              <div className="bg-primary-700 rounded-lg p-6 md:p-8">
+                <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                   <Play className="w-5 h-5" />
                   Listen
                 </h2>
@@ -148,8 +148,8 @@ export default async function SermonDetailPage({ params }: Props) {
 
             {/* Audio supplement when video also exists */}
             {sermonData.audio_url && youtubeId && (
-              <details className="bg-neutral-50 rounded-xl p-5">
-                <summary className="cursor-pointer text-sm font-semibold text-neutral-700 select-none">
+              <details className="bg-primary-700 rounded-xl p-5">
+                <summary className="cursor-pointer text-sm font-semibold text-primary-100 select-none">
                   Audio only version
                 </summary>
                 <div className="mt-4">
@@ -163,8 +163,8 @@ export default async function SermonDetailPage({ params }: Props) {
             {/* Description */}
             {sermonData.description && (
               <div>
-                <h2 className="text-xl font-bold text-neutral-900 mb-3">About This Message</h2>
-                <div className="prose prose-lg max-w-none text-neutral-700">
+                <h2 className="text-xl font-bold text-white mb-3">About This Message</h2>
+                <div className="prose prose-invert prose-lg max-w-none">
                   <p>{sermonData.description}</p>
                 </div>
               </div>
@@ -172,8 +172,8 @@ export default async function SermonDetailPage({ params }: Props) {
 
             {/* Downloads */}
             {(sermonData.slides_url || sermonData.notes_url) && (
-              <div className="bg-neutral-50 rounded-xl p-6 md:p-8">
-                <h2 className="text-xl font-bold text-neutral-900 mb-4">Downloads</h2>
+              <div className="bg-primary-700 rounded-xl p-6 md:p-8">
+                <h2 className="text-xl font-bold text-white mb-4">Downloads</h2>
                 <div className="flex flex-wrap gap-4">
                   {sermonData.slides_url && (
                     <a
@@ -191,7 +191,7 @@ export default async function SermonDetailPage({ params }: Props) {
                       href={sermonData.notes_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 border-2 border-primary-600 text-primary-600 hover:bg-primary-50 px-6 py-3 rounded-lg font-medium transition-colors"
+                      className="inline-flex items-center gap-2 border-2 border-secondary-400 text-secondary-400 hover:bg-primary-600 px-6 py-3 rounded-lg font-medium transition-colors"
                     >
                       <FileText className="w-5 h-5" />
                       Download Notes (PDF)
@@ -203,31 +203,31 @@ export default async function SermonDetailPage({ params }: Props) {
 
             {/* Series Info */}
             {sermonData.sermon_series && sermonData.sermon_series.description && (
-              <div className="bg-secondary-50 rounded-xl p-6 md:p-8">
-                <h2 className="text-xl font-bold text-neutral-900 mb-2">
+              <div className="bg-primary-700 rounded-xl p-6 md:p-8">
+                <h2 className="text-xl font-bold text-white mb-2">
                   Part of: {sermonData.sermon_series.name}
                 </h2>
-                <p className="text-neutral-600">{sermonData.sermon_series.description}</p>
+                <p className="text-primary-100">{sermonData.sermon_series.description}</p>
               </div>
             )}
 
             {/* Transcript */}
             {transcript.length > 0 && (
-              <div className="border border-neutral-200 rounded-xl overflow-hidden">
+              <div className="border border-primary-600 rounded-xl overflow-hidden">
                 <details>
-                  <summary className="flex items-center justify-between px-6 py-4 cursor-pointer bg-neutral-50 hover:bg-neutral-100 transition-colors select-none">
-                    <div className="flex items-center gap-2 font-semibold text-neutral-900">
-                      <FileText className="w-5 h-5 text-primary-600" />
+                  <summary className="flex items-center justify-between px-6 py-4 cursor-pointer bg-primary-700 hover:bg-primary-600 transition-colors select-none">
+                    <div className="flex items-center gap-2 font-semibold text-white">
+                      <FileText className="w-5 h-5 text-secondary-400" />
                       Sermon Transcript
                     </div>
-                    <span className="text-xs text-neutral-500 font-normal">Auto-generated · click to expand</span>
+                    <span className="text-xs text-primary-200 font-normal">Auto-generated · click to expand</span>
                   </summary>
-                  <div className="px-6 py-6 space-y-4 max-h-[600px] overflow-y-auto">
-                    <p className="text-xs text-neutral-400 italic mb-2">
+                  <div className="px-6 py-6 space-y-4 max-h-[600px] overflow-y-auto bg-primary-800">
+                    <p className="text-xs text-primary-300 italic mb-2">
                       This transcript was automatically generated from the video and may contain minor errors.
                     </p>
                     {transcript.map((para, i) => (
-                      <p key={i} className="text-neutral-700 leading-relaxed text-sm">
+                      <p key={i} className="text-primary-100 leading-relaxed text-sm">
                         {para}
                       </p>
                     ))}

@@ -21,14 +21,14 @@ export default async function LatestSermons() {
 
   if (!sermons || sermons.length === 0) {
     return (
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-primary-800">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4 font-serif">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-serif">
               Latest Sermons
             </h2>
           </div>
-          <div className="text-center text-neutral-600 py-12">
+          <div className="text-center text-primary-200 py-12">
             <p>No sermons available yet. Check back soon!</p>
           </div>
         </div>
@@ -37,11 +37,11 @@ export default async function LatestSermons() {
   }
 
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-primary-800">
       <div className="container-custom">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4 font-serif">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-serif">
             Latest Sermons
           </h2>
         </div>
