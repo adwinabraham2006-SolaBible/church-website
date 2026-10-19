@@ -93,19 +93,32 @@ const DEFAULT_SCHEDULE: ScheduleItem[] = [
 
 // ── Data fetch ─────────────────────────────────────────────────────────────
 
+interface ConferenceMessage {
+  id: string;
+  title: string;
+  speaker: string;
+  date: string;
+  description: string;
+  audio_url: string;
+  video_url: string;
+  display_order: number;
+}
+
 async function getConferenceData() {
   noStore();
   if (!supabaseAdmin) return null;
   try {
-    const [detailsRes, speakersRes, scheduleRes] = await Promise.all([
+    const [detailsRes, speakersRes, scheduleRes, messagesRes] = await Promise.all([
       supabaseAdmin.from('conference_details').select('*').order('updated_at', { ascending: false }).limit(1).maybeSingle(),
       supabaseAdmin.from('conference_speakers').select('*').order('display_order'),
       supabaseAdmin.from('conference_schedule').select('*').order('display_order'),
+      supabaseAdmin.from('conference_messages').select('*').order('display_order'),
     ]);
     return {
       details: detailsRes.data as ConferenceDetails | null,
       speakers: (speakersRes.data as Speaker[]) || [],
       schedule: (scheduleRes.data as ScheduleItem[]) || [],
+      messages: (messagesRes.data as ConferenceMessage[]) || [],
     };
   } catch {
     return null;
@@ -130,6 +143,7 @@ export default async function LadiesConferencePage() {
     : DEFAULT_DETAILS;
   const speakers: Speaker[] = db?.speakers.length ? db.speakers : DEFAULT_SPEAKERS;
   const schedule: ScheduleItem[] = db?.schedule.length ? db.schedule : DEFAULT_SCHEDULE;
+  const messages: ConferenceMessage[] = db?.messages ?? [];
 
   const registerUrl = details.register_url || '#register';
 
@@ -265,6 +279,43 @@ export default async function LadiesConferencePage() {
           line-height: 1.75;
           color: #4A4A38;
         }
+        .conf-message-card {
+          border: 1px solid #d8ddc8;
+          background: #ffffff;
+          padding: 1.75rem 1.75rem;
+        }
+        .conf-message-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          background: #7A5018;
+          color: #ffffff;
+          font-family: var(--font-inter), system-ui, sans-serif;
+          font-weight: 600;
+          font-size: 0.8rem;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          padding: 0.55rem 1.2rem;
+          text-decoration: none;
+          transition: background 0.2s;
+        }
+        .conf-message-btn:hover { background: #5C3C10; }
+        .conf-message-btn-outline {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          border: 1.5px solid #7A5018;
+          color: #7A5018;
+          font-family: var(--font-inter), system-ui, sans-serif;
+          font-weight: 600;
+          font-size: 0.8rem;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          padding: 0.55rem 1.2rem;
+          text-decoration: none;
+          transition: background 0.2s, color 0.2s;
+        }
+        .conf-message-btn-outline:hover { background: #7A5018; color: #ffffff; }
 
       `}</style>
 
@@ -386,6 +437,51 @@ export default async function LadiesConferencePage() {
           </div>
         </section>
 
+
+        {/* ── RESOURCES ── */}
+        {messages.length > 0 && (
+          <section id="resources" className="py-20 md:py-28 px-6" style={{ background: '#ffffff' }}>
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-14">
+                <p className="conf-eyebrow mb-4">Resources</p>
+                <h2 className="conf-section-heading text-3xl md:text-4xl mb-3">View Messages</h2>
+                <div className="conf-gold-rule mt-6"></div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {messages.map((msg) => (
+                  <div key={msg.id} className="conf-message-card">
+                    <p className="font-sans text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#7A5018' }}>
+                      {msg.speaker}{msg.speaker && msg.date ? ' · ' : ''}{msg.date}
+                    </p>
+                    <h3 className="font-serif font-bold text-xl mb-2" style={{ color: '#1E2710' }}>
+                      {msg.title}
+                    </h3>
+                    {msg.description && (
+                      <p className="font-sans text-sm leading-relaxed mb-4" style={{ color: '#5C5A4A' }}>
+                        {msg.description}
+                      </p>
+                    )}
+                    <div className="flex flex-wrap gap-3 mt-4">
+                      {msg.video_url && (
+                        <a href={msg.video_url} target="_blank" rel="noopener noreferrer" className="conf-message-btn">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                          Watch
+                        </a>
+                      )}
+                      {msg.audio_url && (
+                        <a href={msg.audio_url} target="_blank" rel="noopener noreferrer" className="conf-message-btn-outline">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                          Listen
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
       </main>
     </>

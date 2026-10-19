@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
-type Tab = 'details' | 'speakers' | 'schedule' | 'faq';
+type Tab = 'details' | 'speakers' | 'schedule' | 'faq' | 'messages';
 
 interface ConferenceDetails {
   id?: string;
@@ -42,6 +42,17 @@ interface FaqItem {
   display_order: number;
 }
 
+interface MessageItem {
+  id: string;
+  title: string;
+  speaker: string;
+  date: string;
+  description: string;
+  audio_url: string;
+  video_url: string;
+  display_order: number;
+}
+
 const INPUT =
   'w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500';
 const TEXTAREA = INPUT;
@@ -63,6 +74,7 @@ const DEFAULT_DETAILS: ConferenceDetails = {
 const BLANK_SPEAKER = { name: '', title: '', bio: '', photo_url: '', display_order: 0 };
 const BLANK_SCHEDULE = { time: '', label: '', note: '', display_order: 0 };
 const BLANK_FAQ = { question: '', answer: '', display_order: 0 };
+const BLANK_MESSAGE = { title: '', speaker: '', date: '', description: '', audio_url: '', video_url: '', display_order: 0 };
 
 // ── Sub-form components ────────────────────────────────────────────────────
 
@@ -279,19 +291,28 @@ export default function ConferenceAdminPage() {
   const [newFaq, setNewFaq] = useState<typeof BLANK_FAQ>({ ...BLANK_FAQ });
   const [faqMsg, setFaqMsg] = useState('');
 
+  // Messages
+  const [messages, setMessages] = useState<MessageItem[]>([]);
+  const [editingMessage, setEditingMessage] = useState<MessageItem | null>(null);
+  const [showAddMessage, setShowAddMessage] = useState(false);
+  const [newMessage, setNewMessage] = useState<typeof BLANK_MESSAGE>({ ...BLANK_MESSAGE });
+  const [messageMsg, setMessageMsg] = useState('');
+
   useEffect(() => {
     (async () => {
       try {
-        const [d, s, sc, f] = await Promise.all([
+        const [d, s, sc, f, m] = await Promise.all([
           fetch('/api/admin/conference').then((r) => r.json()),
           fetch('/api/admin/conference/speakers').then((r) => r.json()),
           fetch('/api/admin/conference/schedule').then((r) => r.json()),
           fetch('/api/admin/conference/faq').then((r) => r.json()),
+          fetch('/api/admin/conference/messages').then((r) => r.json()),
         ]);
         if (d && d.name) setDetails(d);
         if (Array.isArray(s)) setSpeakers(s);
         if (Array.isArray(sc)) setSchedule(sc);
         if (Array.isArray(f)) setFaq(f);
+        if (Array.isArray(m)) setMessages(m);
       } catch {
         setPageError('Failed to load conference data. Check your connection and try refreshing.');
       } finally {
@@ -478,6 +499,51 @@ export default function ConferenceAdminPage() {
     if (res.ok) setFaq(faq.filter((f) => f.id !== id));
   }
 
+  // ── Messages ──
+
+  async function addMessage(e: React.FormEvent) {
+    e.preventDefault();
+    setMessageMsg('');
+    const res = await fetch('/api/admin/conference/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...newMessage, display_order: messages.length }),
+    });
+    if (res.ok) {
+      setMessages([...messages, await res.json()]);
+      setNewMessage({ ...BLANK_MESSAGE });
+      setShowAddMessage(false);
+    } else {
+      const d = await res.json().catch(() => ({}));
+      setMessageMsg(d.error || 'Failed to add message');
+    }
+  }
+
+  async function saveMessage(e: React.FormEvent) {
+    e.preventDefault();
+    if (!editingMessage) return;
+    setMessageMsg('');
+    const res = await fetch(`/api/admin/conference/messages/${editingMessage.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editingMessage),
+    });
+    if (res.ok) {
+      const updated: MessageItem = await res.json();
+      setMessages(messages.map((m) => (m.id === updated.id ? updated : m)));
+      setEditingMessage(null);
+    } else {
+      const d = await res.json().catch(() => ({}));
+      setMessageMsg(d.error || 'Failed to save');
+    }
+  }
+
+  async function deleteMessage(id: string) {
+    if (!confirm('Delete this message?')) return;
+    const res = await fetch(`/api/admin/conference/messages/${id}`, { method: 'DELETE' });
+    if (res.ok) setMessages(messages.filter((m) => m.id !== id));
+  }
+
   // ── Render ──
 
   if (loading) {
@@ -503,6 +569,7 @@ export default function ConferenceAdminPage() {
     { id: 'speakers', label: `Speakers (${speakers.length})` },
     { id: 'schedule', label: `Schedule (${schedule.length})` },
     { id: 'faq', label: `FAQ (${faq.length})` },
+    { id: 'messages', label: `Messages (${messages.length})` },
   ];
 
   return (
@@ -980,6 +1047,168 @@ export default function ConferenceAdminPage() {
               ))}
             </div>
           )}
+        </div>
+      )}
+      {/* ── MESSAGES ── */}
+      {tab === 'messages' && (
+        <div className="space-y-4 max-w-3xl">
+          <div className="flex justify-between items-center">
+            <div>
+              <h2 className="font-semibold text-gray-800">Conference Messages</h2>
+              <p className="text-xs text-gray-500 mt-0.5">These appear under Resources → View Messages on the conference page.</p>
+            </div>
+            <button
+              onClick={() => {
+                setShowAddMessage(!showAddMessage);
+                setEditingMessage(null);
+              }}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm"
+            >
+              {showAddMessage ? 'Cancel' : '+ Add Message'}
+            </button>
+          </div>
+
+          {messageMsg && <p className="text-red-600 text-sm">{messageMsg}</p>}
+
+          {showAddMessage && (
+            <form onSubmit={addMessage} className="bg-white rounded-lg shadow p-5 space-y-3 border-2 border-blue-200">
+              <h3 className="font-semibold text-gray-700 text-sm">New Message</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+                  <input required type="text" value={newMessage.title}
+                    onChange={(e) => setNewMessage((p) => ({ ...p, title: e.target.value }))}
+                    className={INPUT} placeholder="e.g. Walking in the Light" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Speaker</label>
+                  <input type="text" value={newMessage.speaker}
+                    onChange={(e) => setNewMessage((p) => ({ ...p, speaker: e.target.value }))}
+                    className={INPUT} placeholder="e.g. Susan Heck" />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                  <input type="text" value={newMessage.date}
+                    onChange={(e) => setNewMessage((p) => ({ ...p, date: e.target.value }))}
+                    className={INPUT} placeholder="e.g. December 5, 2026" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+                  <input type="number" value={newMessage.display_order}
+                    onChange={(e) => setNewMessage((p) => ({ ...p, display_order: parseInt(e.target.value) || 0 }))}
+                    className="w-24 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Audio URL</label>
+                <input type="url" value={newMessage.audio_url}
+                  onChange={(e) => setNewMessage((p) => ({ ...p, audio_url: e.target.value }))}
+                  className={INPUT} placeholder="https://... (direct link to audio file)" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Video URL (YouTube)</label>
+                <input type="url" value={newMessage.video_url}
+                  onChange={(e) => setNewMessage((p) => ({ ...p, video_url: e.target.value }))}
+                  className={INPUT} placeholder="https://youtube.com/watch?v=..." />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Description (optional)</label>
+                <textarea rows={2} value={newMessage.description}
+                  onChange={(e) => setNewMessage((p) => ({ ...p, description: e.target.value }))}
+                  className={TEXTAREA} />
+              </div>
+              <div className="flex gap-3 pt-2">
+                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">Add Message</button>
+                <button type="button" onClick={() => { setShowAddMessage(false); setNewMessage({ ...BLANK_MESSAGE }); }}
+                  className="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">Cancel</button>
+              </div>
+            </form>
+          )}
+
+          {messages.length === 0 && !showAddMessage && (
+            <p className="text-gray-500 text-sm">No messages added yet.</p>
+          )}
+
+          {messages.map((msg) => (
+            <div key={msg.id} className="bg-white rounded-lg shadow p-5">
+              {editingMessage?.id === msg.id ? (
+                <form onSubmit={saveMessage} className="space-y-3">
+                  <h3 className="font-semibold text-gray-700 text-sm">Editing: {msg.title}</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+                      <input required type="text" value={editingMessage.title}
+                        onChange={(e) => setEditingMessage((p) => p ? { ...p, title: e.target.value } : p)}
+                        className={INPUT} />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Speaker</label>
+                      <input type="text" value={editingMessage.speaker}
+                        onChange={(e) => setEditingMessage((p) => p ? { ...p, speaker: e.target.value } : p)}
+                        className={INPUT} />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                      <input type="text" value={editingMessage.date}
+                        onChange={(e) => setEditingMessage((p) => p ? { ...p, date: e.target.value } : p)}
+                        className={INPUT} />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+                      <input type="number" value={editingMessage.display_order}
+                        onChange={(e) => setEditingMessage((p) => p ? { ...p, display_order: parseInt(e.target.value) || 0 } : p)}
+                        className="w-24 px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Audio URL</label>
+                    <input type="url" value={editingMessage.audio_url}
+                      onChange={(e) => setEditingMessage((p) => p ? { ...p, audio_url: e.target.value } : p)}
+                      className={INPUT} />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Video URL (YouTube)</label>
+                    <input type="url" value={editingMessage.video_url}
+                      onChange={(e) => setEditingMessage((p) => p ? { ...p, video_url: e.target.value } : p)}
+                      className={INPUT} />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea rows={2} value={editingMessage.description}
+                      onChange={(e) => setEditingMessage((p) => p ? { ...p, description: e.target.value } : p)}
+                      className={TEXTAREA} />
+                  </div>
+                  <div className="flex gap-3 pt-2">
+                    <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">Save</button>
+                    <button type="button" onClick={() => setEditingMessage(null)}
+                      className="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">Cancel</button>
+                  </div>
+                </form>
+              ) : (
+                <div className="flex gap-4 items-start">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-gray-900 text-sm">{msg.title}</p>
+                    {msg.speaker && <p className="text-xs text-gray-500 mt-0.5">{msg.speaker}{msg.date ? ` · ${msg.date}` : ''}</p>}
+                    {msg.description && <p className="text-sm text-gray-600 mt-1 line-clamp-2">{msg.description}</p>}
+                    <div className="flex gap-3 mt-1.5 text-xs text-gray-400">
+                      {msg.audio_url && <span>🎵 Audio</span>}
+                      {msg.video_url && <span>🎬 Video</span>}
+                    </div>
+                  </div>
+                  <div className="flex gap-3 flex-shrink-0">
+                    <button onClick={() => { setEditingMessage({ ...msg }); setShowAddMessage(false); }}
+                      className="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+                    <button onClick={() => deleteMessage(msg.id)}
+                      className="text-red-600 hover:text-red-800 text-sm font-medium">Delete</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       )}
     </div>
