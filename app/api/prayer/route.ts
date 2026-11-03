@@ -5,6 +5,23 @@ import { supabaseAdmin } from '@/lib/supabase';
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
+// Simple in-memory rate limiter: max 5 submissions per IP per 10 minutes
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return false;
+  }
+  if (entry.count >= RATE_LIMIT) return true;
+  entry.count++;
+  return false;
+}
+
 function buildEmailHtml(fields: {
   name: string;
   email: string | null;
@@ -50,6 +67,11 @@ function buildEmailHtml(fields: {
 }
 
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown';
+  if (isRateLimited(ip)) {
+    return NextResponse.json({ error: 'Too many submissions. Please try again later.' }, { status: 429 });
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await request.json();
@@ -113,15 +135,10 @@ export async function POST(request: NextRequest) {
 
   // Send email notification
   if (resend) {
-    const elders = [
-      'adwinabraham2006@gmail.com',
-      'brad@ridgewoodwealth.com',
-      'diosesbueno.1294@gmail.com',
-      'leewatson1165@gmail.com',
-      'jj197588@gmail.com',
-    ];
-    // All elders receive both regular and confidential requests
-    const recipients = elders;
+    const recipients = (process.env.PRAYER_ELDER_EMAILS ?? '')
+      .split(',')
+      .map(e => e.trim())
+      .filter(Boolean);
 
     if (recipients.length > 0) {
       const flags = [

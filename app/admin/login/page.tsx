@@ -9,7 +9,8 @@ function LoginForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect') || '/admin';
+  const raw = searchParams.get('redirect') || '/admin';
+  const redirect = raw.startsWith('/') && !raw.startsWith('//') && !raw.includes('://') ? raw : '/admin';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
