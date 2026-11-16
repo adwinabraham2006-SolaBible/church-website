@@ -1,5 +1,48 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? '';
+
+function TurnstileWidget({ onVerify }: { onVerify: (token: string) => void }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
+  const cbRef = useRef(onVerify);
+  cbRef.current = onVerify;
+
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY) return;
+    if (!document.getElementById('cf-ts')) {
+      const s = document.createElement('script');
+      s.id = 'cf-ts';
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.defer = true;
+      document.head.appendChild(s);
+    }
+    const tryRender = () => {
+      if (!containerRef.current || widgetIdRef.current !== null) return;
+      const t = (window as any).turnstile;
+      if (!t) return;
+      widgetIdRef.current = t.render(containerRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: (token: string) => cbRef.current(token),
+        'expired-callback': () => cbRef.current(''),
+        'error-callback': () => cbRef.current(''),
+      });
+    };
+    tryRender();
+    const iv = setInterval(tryRender, 200);
+    return () => {
+      clearInterval(iv);
+      if (widgetIdRef.current !== null && (window as any).turnstile) {
+        (window as any).turnstile.remove(widgetIdRef.current);
+        widgetIdRef.current = null;
+      }
+    };
+  }, []);
+
+  if (!TURNSTILE_SITE_KEY) return null;
+  return <div ref={containerRef} className="mb-4" />;
+}
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -11,6 +54,7 @@ export default function PrayerPage() {
   const [confidential, setConfidential] = useState(false);
   const [followup, setFollowup] = useState(false);
   const [honeypot, setHoneypot] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [formState, setFormState] = useState<FormState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -31,6 +75,11 @@ export default function PrayerPage() {
       return;
     }
 
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setErrorMsg('Please complete the security check.');
+      return;
+    }
+
     setFormState('submitting');
     setErrorMsg('');
 
@@ -46,6 +95,7 @@ export default function PrayerPage() {
           confidential,
           followup,
           website: honeypot, // honeypot
+          turnstileToken: turnstileToken || undefined,
         }),
       });
 
@@ -98,6 +148,7 @@ export default function PrayerPage() {
                 onClick={() => {
                   setName(''); setEmail(''); setPhone(''); setRequest('');
                   setConfidential(false); setFollowup(false);
+                  setTurnstileToken('');
                   setFormState('idle');
                 }}
                 className="mt-8 bg-white text-primary-700 hover:bg-primary-50 px-6 py-2 rounded-lg text-sm font-semibold transition-colors"
@@ -262,6 +313,8 @@ export default function PrayerPage() {
                   </div>
                 </div>
               </fieldset>
+
+              <TurnstileWidget onVerify={setTurnstileToken} />
 
               <button
                 type="submit"

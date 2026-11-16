@@ -10,6 +10,22 @@ const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 5;
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 
+async function verifyTurnstile(token: string): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return true; // skip if not configured
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v1/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ secret, response: token }),
+    });
+    const data = await res.json();
+    return data.success === true;
+  } catch {
+    return false;
+  }
+}
+
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
   const entry = rateLimitMap.get(ip);
@@ -84,6 +100,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true });
   }
 
+  // Turnstile verification (skipped if secret key not configured)
+  const turnstileToken = (body.turnstileToken as string | undefined) ?? '';
+  if (process.env.TURNSTILE_SECRET_KEY) {
+    const valid = await verifyTurnstile(turnstileToken);
+    if (!valid) {
+      return NextResponse.json({ error: 'Security check failed. Please try again.' }, { status: 403 });
+    }
+  }
+
   const name = (body.name as string | undefined)?.trim() ?? '';
   const email = (body.email as string | undefined)?.trim() || null;
   const phone = (body.phone as string | undefined)?.trim() || null;
@@ -96,11 +121,14 @@ export async function POST(request: NextRequest) {
 
   // Spam filters — silently accept so bots don't know they were blocked
   const urlPattern = /https?:\/\/|www\./i;
-  const spamKeywords = /\b(casino|viagra|crypto|bitcoin|forex|seo|loan offer|click here|buy now|free money|make money|investment opportunity)\b/i;
+  const spamKeywords = /\b(casino|poker|gambling|blackjack|slot machine|jackpot|viagra|cialis|levitra|erectile|prescription drugs?|crypto|bitcoin|ethereum|nft|blockchain|forex|day trading|stock tips?|investment opportunity|passive income|seo|backlinks|website traffic|google ranking|payday loan|personal loan|debt relief|credit repair|click here|buy now|order now|limited.{0,5}offer|act now|free money|free gift|cash prize|work from home|make money fast|mlm|network marketing|weight loss|diet pill|fat burner|dating site|adult content|onlyfans)\b/i;
+  const hasLetters = /[a-zA-Z]/.test(name);
   const isSpam =
+    !hasLetters ||
     urlPattern.test(prayerRequest) ||
     urlPattern.test(name) ||
     spamKeywords.test(prayerRequest) ||
+    spamKeywords.test(name) ||
     name.length > 100 ||
     prayerRequest.length < 10;
   if (isSpam) {
@@ -141,18 +169,34 @@ export async function POST(request: NextRequest) {
       .filter(Boolean);
 
     if (recipients.length > 0) {
-      const flags = [
-        confidential && '[CONFIDENTIAL]',
-        followup && '[FOLLOW-UP NEEDED]',
-      ].filter(Boolean).join(' ');
-      const subject = `${flags ? flags + ' ' : ''}Prayer Request from ${name}`;
-      const fromEmail = process.env.PRAYER_FROM_EMAIL || 'noreply@solabiblechurch.org';
+      const flagList = [
+        confidential ? 'Confidential' : '',
+        followup ? 'Follow-up Requested' : '',
+      ].filter(Boolean);
+      const flagNote = flagList.length ? ` (${flagList.join(', ')})` : '';
+      const subject = `Prayer Request from ${name}${flagNote}`;
+      const fromEmail = process.env.PRAYER_FROM_EMAIL || 'prayer@solabiblechurch.org';
+
+      const submittedAt = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }) + ' CT';
+      const textBody = [
+        `Prayer Request from ${name}${flagNote}`,
+        '',
+        prayerRequest,
+        '',
+        '---',
+        email ? `Email: ${email}` : '',
+        phone ? `Phone: ${phone}` : '',
+        `Follow-up: ${followup ? 'Yes' : 'No'}`,
+        `Confidential: ${confidential ? 'Yes' : 'No'}`,
+        `Submitted: ${submittedAt}`,
+      ].filter(l => l !== undefined).join('\n');
 
       await resend.emails.send({
         from: `Sola Bible Church <${fromEmail}>`,
         to: recipients,
         replyTo: email ?? undefined,
         subject,
+        text: textBody,
         html: buildEmailHtml({
           name,
           email,
@@ -160,7 +204,7 @@ export async function POST(request: NextRequest) {
           request: prayerRequest,
           confidential,
           followup,
-          submittedAt: new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }) + ' CT',
+          submittedAt,
         }),
       }).catch(err => {
         // Log but don't fail the request — prayer is saved even if email fails
